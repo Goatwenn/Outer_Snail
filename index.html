@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Outer Snail</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <script type="text/javascript" src="load.js"></script>
     <script type="text/javascript" src="zoneTest.js"></script>
     <style type="text/css">
         body {
@@ -30,7 +31,7 @@
             } 
         },
         input: {gamepad : true},
-        scene: [zoneTest],
+        scene: [load,zoneTest],
      
         };
     
@@ -38,7 +39,8 @@
     
     
     function create(){
-        this.scene.start("zoneTest");
+        console.log('index');
+        this.scene.start("load");
     }
     
 </script>
