@@ -16,15 +16,19 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         this.droit = false;
         this.gauche = false;
+        this.haut = false;
+        this.bas = false;
         
         this.lastdirection = 2;
+        this.animes = 0;
         
         this.Deplacement = 300;
+        this.Jump = 300
         this.gravite = 0;
         
-        this.debug = true;
         this.debugCouleur = '#FFF';
         this.debugSize = 22;
+        this.manette = false;
     
     //--- Cursors    
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -67,7 +71,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     
     // Player
-        this.player = this.physics.add.sprite(100,1800, 'snail');
+        this.player = this.physics.add.sprite(100,1836, 'snail');
+        this.player.setSize(54,54);
         
     //--- Cameras  
         this.cameras.main.setSize(1920, 1080);
@@ -87,31 +92,21 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
           
           
      //--- Animations 
+       
         this.anims.create({
-            key: 'SL0',
+            key: 'SL',
             frames: this.anims.generateFrameNumbers('snail', { start: 1, end: 4 }),
             duration: 300,
         });
         
         this.anims.create({
-            key: 'SR0',
+            key: 'SR',
             frames: this.anims.generateFrameNumbers('snail', { start: 5, end: 8 }),
             duration: 300,
         });
         
-        this.anims.create({
-            key: 'SL1',
-            frames: this.anims.generateFrameNumbers('snail', { start: 19, end: 22 }),
-            duration: 300,
-        });
-        
-        this.anims.create({
-            key: 'SR1',
-            frames: this.anims.generateFrameNumbers('snail', { start: 23, end: 26 }),
-            duration: 300,
-        });
-        
-    
+       
+   
             
         
     //--- Debug Update
@@ -121,6 +116,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         this.droitT = this.add.text(30,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         this.gaucheT = this.add.text(30,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.hautT = this.add.text(260,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.basT = this.add.text(260,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        
         this.lastdirectionT = this.add.text(30,1000,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         this.aniamtionT = this.add.text(30,1030,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
        
@@ -143,8 +141,11 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             
             this.droitT.setText('Droit = ' + this.droit);
             this.gaucheT.setText('Gauche = ' + this.gauche);
+            this.hautT.setText('Haut = ' + this.haut);
+            this.basT.setText('Bas = ' + this.bas);
+            
             this.lastdirectionT.setText('last direction = ' + this.lastdirection);
-            this.aniamtionT.setText('animation = ' + this.snailAnimation);
+            this.aniamtionT.setText('animation = ' + this.animes);
             
            
         }
@@ -152,22 +153,38 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
        
         
     //--- Controles
+       
         
         let pad = Phaser.Input.Gamepad.Gamepad;
 
-        if(this.input.gamepad.total === 0){
-            return;
+        if (this.manette){
+            if(this.input.gamepad.total == 0){
+                return;
+            }
+            
+            this.pad = this.input.gamepad.getPad(0)
+            this.xAxis = this.pad ? this.pad.axes[0].getValue() : 0;
+            this.yAxis = this.pad ? this.pad.axes[1].getValue() : 0;
+     
+            this.droit = this.cursors.right.isDown || this.xAxis > 0;
+            this.gauche = this.cursors.left.isDown || this.xAxis < 0;
+            this.haut = this.cursors.up.isDown || this.yAxis < 0;
+            this.bas = this.cursors.down.isDown || this.yAxis > 0;
+            
+            this.space = this.cursors.space.isDown || this.pad.A;
+            
         }
-        
-        this.pad = this.input.gamepad.getPad(0)
-        this.xAxis = this.pad ? this.pad.axes[0].getValue() : 0;
-        this.yAxis = this.pad ? this.pad.axes[1].getValue() : 0;
-        
-        
-        this.droit = this.cursors.right.isDown || this.xAxis > 0;
-        this.gauche = this.cursors.left.isDown || this.xAxis < 0;
-        
-        this.space = this.cursors.space.isDown || this.pad.A;
+        else { 
+            this.droit = this.cursors.right.isDown
+            this.gauche = this.cursors.left.isDown
+            this.haut = this.cursors.up.isDown
+            this.bas = this.cursors.down.isDown
+            
+            this.space = this.cursors.space.isDown
+        }
+  
+
+
         
     //--- Deplacement
         
@@ -178,71 +195,91 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         if (this.gravite == 1){
             this.player.setGravityY(0)
             this.player.setGravityX(300)
+            this.player.setAngle(-90);
+            this.player.setFlipX(false);
             
             
-        if(this.gauche){this.player.setVelocityY(this.Deplacement)}
-        if(this.droit){this.player.setVelocityY(-this.Deplacement)}
-        if(!this.droit && !this.gauche){this.player.setVelocityY(0)}
+            
+        if(this.bas){this.player.setVelocityY(this.Deplacement)}
+        if(this.haut){this.player.setVelocityY(-this.Deplacement)}
+        if(!this.haut && !this.bas){this.player.setVelocityY(0)}
         
-        if(this.space){this.player.setVelocityX(-200)}
+        if(this.space){this.player.setVelocityX(-this.Jump)}
             
         }
         else if (this.gravite == 2){
             this.player.setGravityY(-300)
             this.player.setGravityX(0)
+            this.player.setAngle(-180);
+            this.player.setFlipX(true);
             
             
-        if(this.gauche){this.player.setVelocityX(this.Deplacement)}
-        if(this.droit){this.player.setVelocityX(-this.Deplacement)}
-        if(!this.droit && !this.gauche){this.player.setVelocityX(0)}
+            
+        if(this.droit){this.player.setVelocityX(this.Deplacement)}
+        if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
+        if(!this.gauche && !this.droit){this.player.setVelocityX(0)}
         
-        if(this.space){this.player.setVelocityY(200)}
+        if(this.space){this.player.setVelocityY(this.Jump)}
             
         }
         else if (this.gravite == 3){
             this.player.setGravityY(0)
             this.player.setGravityX(-300)
+            this.player.setAngle(90);
+            this.player.setFlipX(true);
+            
                  
             
-        if(this.gauche){this.player.setVelocityY(-this.Deplacement)}
-        if(this.droit){this.player.setVelocityY(this.Deplacement)}
-        if(!this.droit && !this.gauche){this.player.setVelocityY(0)}
+        if(this.haut){this.player.setVelocityY(-this.Deplacement)}
+        if(this.bas){this.player.setVelocityY(this.Deplacement)}
+        if(!this.bas && !this.haut){this.player.setVelocityY(0)}
         
-        if(this.space){this.player.setVelocityX(200)}
+        if(this.space){this.player.setVelocityX(this.Jump)}
             
         }
         else{
             this.player.setGravityY(300)
             this.player.setGravityX(0)
+            this.player.setAngle(0);
+            this.player.setFlipX(false);
+            
             
             
         if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
         if(this.droit){this.player.setVelocityX(this.Deplacement)}
         if(!this.droit && !this.gauche){this.player.setVelocityX(0)}
         
-        if(this.space){this.player.setVelocityY(-200)}
+        if(this.space){this.player.setVelocityY(-this.Jump)}
         }
         
         
         //--- Animations
         
-       // this.player.anims.play(this.snailAnimation);
         
         
-        this.snailAnimation ='S'+this.animDirection + this.gravite
         
-        
-        if (this.droit && this.lastdirection == 1){
-            this.animDirection = 'R'
-            this.lastdirection = 2
+   
+        if (this.gravite == 0 || this.gravite == 2){
+            if (this.droit && this.lastdirection == 1){
+                this.player.anims.play("SR");
+                this.lastdirection = 2
+            }
+            if (this.gauche && this.lastdirection == 2){
+                this.player.anims.play("SL");
+                this.lastdirection = 1
+            } 
         }
         
-        if (this.gauche && this.lastdirection == 2){
-            this.animDirection = 'L'
-            this.lastdirection = 1
-        } 
-        
-        
+       if (this.gravite == 1 || this.gravite == 3){
+            if (this.haut && this.lastdirection == 1){
+                this.player.anims.play("SR");
+                this.lastdirection = 2
+            }
+            if (this.bas && this.lastdirection == 2){
+                this.player.anims.play("SL");
+                this.lastdirection = 1
+            } 
+        }
         
         
          

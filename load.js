@@ -6,7 +6,7 @@ class load extends Phaser.Scene {  // Copier Coller a modifier
     
     preload (){
 
-        this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:108});
+        this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:54});
     }
     
     create (){
