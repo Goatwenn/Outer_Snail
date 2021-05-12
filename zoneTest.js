@@ -26,6 +26,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.Jump = 300
         this.gravite = 0;
         
+        this.debug = true;
         this.debugCouleur = '#FFF';
         this.debugSize = 22;
         this.manette = false;
@@ -38,40 +39,36 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.tiles = this.map.addTilesetImage('Tiles_Test');
         
             // Layer 
-        this.gravLayer = this.map.createStaticLayer('gravLayer', this.tiles, 0, 0);
-        this.botLayer = this.map.createStaticLayer('botLayer', this.tiles, 0, 0);
-        this.redLayer = this.map.createStaticLayer('redLayer', this.tiles, 0, 0);
-        this.blueLayer = this.map.createStaticLayer('blueLayer', this.tiles, 0, 0);
-        this.greenLayer = this.map.createStaticLayer('greenLayer', this.tiles, 0, 0);
-        this.midLayer = this.map.createStaticLayer('midLayer', this.tiles, 0, 0);
+        this.backgroundLayer = this.map.createStaticLayer('backgroundLayer', this.tiles, 0, 0);
+        this.antiGraviteLayer = this.map.createStaticLayer('antiGraviteLayer', this.tiles, 0, 0);
+        this.graviteLayer = this.map.createStaticLayer('graviteLayer', this.tiles, 0, 0);
+        this.collideLayer = this.map.createStaticLayer('collideLayer', this.tiles, 0, 0);
+        this.decoLayer = this.map.createStaticLayer('decoLayer', this.tiles, 0, 0);
         
         
         
             //Collider
-        this.midLayer.setCollisionByExclusion(-1, true);
+        this.collideLayer.setCollisionByExclusion(-1, true);
         
             //Overlap
         
-        this.gravLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> {
+        this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> {
             this.gravite = 0
         });
-        
-        this.greenLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> {
+        this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> {
             this.gravite = 1
         });
-        
-        this.blueLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> {
+        this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> {
             this.gravite = 2
         });
-        
-        this.redLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> {
+        this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> {
             this.gravite = 3
         });
         
         
     
     // Player
-        this.player = this.physics.add.sprite(100,1836, 'snail');
+        this.player = this.physics.add.sprite(300,1593, 'snail');
         this.player.setSize(54,54);
         
     //--- Cameras  
@@ -81,12 +78,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Collider & Overlap
-        this.physics.add.collider(this.player, this.midLayer);
-        
-        this.physics.add.overlap(this.player, this.greenLayer);
-        this.physics.add.overlap(this.player, this.redLayer);
-        this.physics.add.overlap(this.player, this.blueLayer);
-        this.physics.add.overlap(this.player, this.gravLayer);
+        this.physics.add.collider(this.player, this.collideLayer);
+        this.physics.add.overlap(this.player, this.graviteLayer);
+        this.physics.add.overlap(this.player, this.antiGraviteLayer);
         
         //this.physics.add.overlap(this.player, this.botLayer, this.AnimeJoueur, null, this);
           
