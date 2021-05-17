@@ -14,25 +14,42 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
     create (){
     //--- Variables
         
+        
+        this.A = 0;
+        
+        
+        
         this.droit = false;
         this.gauche = false;
         this.haut = false;
         this.bas = false;
         
+        this.sol = false;
+        this.dsaut = false;
+        this.mur = false;
+        
         this.lastdirection = 2;
-        this.animes = 0;
         
         this.Deplacement = 300;
         this.Jump = 300
         this.gravite = 0;
         
         this.debug = true;
-        this.debugCouleur = '#FFF';
+        this.debugCouleur = '#000';
         this.debugSize = 22;
         this.manette = false;
     
+        
+    //--- Paralaxe
+        this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
+        this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
+        
+        
+        
     //--- Cursors    
         this.cursors = this.input.keyboard.createCursorKeys();
+        
+        this.esc = this.input.keyboard.addKey('esc');
         
     //--- Map Tiled
         this.map = this.add.tilemap('map');
@@ -66,6 +83,11 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         });
         
         
+        
+    //-- PhysiqueGroupe 
+        this.PhyGroup = this.physics.add.staticGroup();
+        this.PhyGroup.create(-960,-540, 'menu').setScrollFactor(0,0);
+     
     
     // Player
         this.player = this.physics.add.sprite(300,1593, 'snail');
@@ -78,7 +100,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Collider & Overlap
-        this.physics.add.collider(this.player, this.collideLayer);
+        this.physics.add.collider(this.player, this.collideLayer, this.AuSol, null, this);
         this.physics.add.overlap(this.player, this.graviteLayer);
         this.physics.add.overlap(this.player, this.antiGraviteLayer);
         
@@ -113,6 +135,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.hautT = this.add.text(260,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         this.basT = this.add.text(260,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         
+        this.solT = this.add.text(480,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.dsautT = this.add.text(480,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        
         this.lastdirectionT = this.add.text(30,1000,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         this.aniamtionT = this.add.text(30,1030,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
        
@@ -138,8 +163,11 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.hautT.setText('Haut = ' + this.haut);
             this.basT.setText('Bas = ' + this.bas);
             
+            this.solT.setText('au sol = ' + this.sol +' '+ this.mur);
+            this.dsautT.setText('D-saut = ' + this.dsaut);
+            
             this.lastdirectionT.setText('last direction = ' + this.lastdirection);
-            this.aniamtionT.setText('animation = ' + this.animes);
+            this.aniamtionT.setText('Gravité = ' + this.angleCamera);
             
            
         }
@@ -175,83 +203,106 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.bas = this.cursors.down.isDown
             
             this.space = this.cursors.space.isDown
+            this.echap = this.esc.isDown
         }
   
 
-
-        
-    //--- Deplacement
         
         
-        
-        
-        
+//--- Deplacement
+    //Vert
         if (this.gravite == 1){
             this.player.setGravityY(0)
             this.player.setGravityX(300)
             this.player.setAngle(-90);
+            //this.cameras.main.rotation = 1.57
             this.player.setFlipX(false);
+    
+            this.saut = (-this.Jump)
+            this.sautAxis = false
             
-            
-            
-        if(this.bas){this.player.setVelocityY(this.Deplacement)}
-        if(this.haut){this.player.setVelocityY(-this.Deplacement)}
-        if(!this.haut && !this.bas){this.player.setVelocityY(0)}
-        
-        if(this.space){this.player.setVelocityX(-this.Jump)}
+            if(this.bas){this.player.setVelocityY(this.Deplacement)}
+            if(this.haut){this.player.setVelocityY(-this.Deplacement)}
+            if(!this.haut && !this.bas){this.player.setVelocityY(0)}
+         
             
         }
+    //Bleu
         else if (this.gravite == 2){
             this.player.setGravityY(-300)
             this.player.setGravityX(0)
             this.player.setAngle(-180);
+            //this.cameras.main.rotation = 3.14
             this.player.setFlipX(true);
             
+            this.saut = (this.Jump)
+            this.sautAxis = true
             
-            
-        if(this.droit){this.player.setVelocityX(this.Deplacement)}
-        if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
-        if(!this.gauche && !this.droit){this.player.setVelocityX(0)}
-        
-        if(this.space){this.player.setVelocityY(this.Jump)}
-            
+            if(this.droit){this.player.setVelocityX(this.Deplacement)}
+            if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
+            if(!this.gauche && !this.droit){this.player.setVelocityX(0)}
+          
         }
+    // Rouge
         else if (this.gravite == 3){
             this.player.setGravityY(0)
             this.player.setGravityX(-300)
             this.player.setAngle(90);
+            //this.cameras.main.rotation = -1.57
             this.player.setFlipX(true);
             
-                 
+            this.saut = (this.Jump)
+            this.sautAxis = false
             
-        if(this.haut){this.player.setVelocityY(-this.Deplacement)}
-        if(this.bas){this.player.setVelocityY(this.Deplacement)}
-        if(!this.bas && !this.haut){this.player.setVelocityY(0)}
-        
-        if(this.space){this.player.setVelocityX(this.Jump)}
-            
+            if(this.haut){this.player.setVelocityY(-this.Deplacement)}
+            if(this.bas){this.player.setVelocityY(this.Deplacement)}
+            if(!this.bas && !this.haut){this.player.setVelocityY(0)}
+           
         }
+    // Normale
         else{
             this.player.setGravityY(300)
             this.player.setGravityX(0)
             this.player.setAngle(0);
+            //this.cameras.main.rotation = 0
             this.player.setFlipX(false);
             
+            this.saut = (-this.Jump)
+            this.sautAxis = true
             
-            
-        if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
-        if(this.droit){this.player.setVelocityX(this.Deplacement)}
-        if(!this.droit && !this.gauche){this.player.setVelocityX(0)}
+            if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
+            if(this.droit){this.player.setVelocityX(this.Deplacement)}
+            if(!this.droit && !this.gauche){this.player.setVelocityX(0)}
         
-        if(this.space){this.player.setVelocityY(-this.Jump)}
         }
         
+
+        if (this.space && this.sol){
+            this.sol = false
+            if (this.sautAxis == true){
+                this.player.setVelocityY(this.saut)
+            }
+            else{
+                this.player.setVelocityX(this.saut)
+            }
+        }
         
-        //--- Animations
+        if (!this.space && !this.sol && this.sdsaut){
+            this.dsaut = true
+        }
         
+        if (this.space && !this.sol && this.dsaut){
+            this.dsaut = false
+            this.sdsaut = false
+            if (this.sautAxis == true){
+                this.player.setVelocityY(this.saut)
+            }
+            else{
+                this.player.setVelocityX(this.saut)
+            }
+        }
         
-        
-        
+    //--- Animations
    
         if (this.gravite == 0 || this.gravite == 2){
             if (this.droit && this.lastdirection == 1){
@@ -273,12 +324,89 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
                 this.player.anims.play("SL");
                 this.lastdirection = 1
             } 
+        } 
+        
+    //--- Pause
+        if(this.echap){
+            this.pause = true
+        }
+        
+        if (this.pause){
+            this.PhyGroup.x = 960
         }
         
         
-         
-    }
+        
+        
+        
+        
+    }// fin de Update
 
-    
+    AuSol (player, collideLayer){
+        
+        if (this.gravite == 0){
+            if(this.player.body.blocked.left){
+                return
+            }
+            else if (this.player.body.blocked.right){
+                return
+            }
+            else if (this.player.body.blocked.up){
+                return
+            }
+            else{
+                this.sol = true
+                this.sdsaut = true 
+            }
+        }
+        
+        if (this.gravite == 1){
+            if(this.player.body.blocked.down){
+                return
+            }
+            else if (this.player.body.blocked.left){
+                return
+            }
+            else if (this.player.body.blocked.up){
+                return
+            }
+            else{
+                this.sol = true
+                this.sdsaut = true 
+            }
+        }
+        
+        if (this.gravite == 2){
+            if(this.player.body.blocked.down){
+                return
+            }
+            else if (this.player.body.blocked.right){
+                return
+            }
+            else if (this.player.body.blocked.left){
+                return
+            }
+            else{
+                this.sol = true
+                this.sdsaut = true 
+            }
+        }
+        
+        if (this.gravite == 3){
+            if(this.player.body.blocked.down){
+                return
+            }
+            else if (this.player.body.blocked.up){
+                return
+            }
+            else if (this.player.body.blocked.right){
+                return
+            }
+            else{
+                this.sol = true
+                this.sdsaut = true 
+            }
+        }
+    }
    
-}
+}// fin de Class
