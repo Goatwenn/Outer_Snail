@@ -12,13 +12,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     create (){
+        
     //--- Variables
         
-        
-        this.A = 0;
-        
-        
-        
+      // Initialiser
         this.droit = false;
         this.gauche = false;
         this.haut = false;
@@ -28,75 +25,114 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.dsaut = false;
         this.mur = false;
         
+        this.gravite = 0;
         this.lastdirection = 2;
+        this.invincible = false;
+        this.invincibleTimer = 0;
+        this.invFruit = 0;
+        this.invSpell = 0
+    
+        
+      // Modulable
+        this.playerHP = 3;
         
         this.Deplacement = 300;
-        this.Jump = 300
-        this.gravite = 0;
+        this.Jump = 350
+        this.gravitePuissence = 400;
+        this.manette = true;
         
+      // Debug
         this.debug = true;
         this.debugCouleur = '#000';
         this.debugSize = 22;
-        this.manette = false;
+        this.Rn = 0;
+        this.RnTimer = 0;
+        
     
         
     //--- Paralaxe
-        this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
-        this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
+        if (this.debug == false){
+            this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
+            this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
+        }
         
         
         
     //--- Cursors    
         this.cursors = this.input.keyboard.createCursorKeys();
-        
+    
         this.esc = this.input.keyboard.addKey('esc');
+        
         
     //--- Map Tiled
         this.map = this.add.tilemap('map');
         this.tiles = this.map.addTilesetImage('Tiles_Test');
-        
-            // Layer 
-        this.backgroundLayer = this.map.createStaticLayer('backgroundLayer', this.tiles, 0, 0);
+         
+      // Layer 
+        this.backgroundLayer = this.map.createStaticLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
         this.antiGraviteLayer = this.map.createStaticLayer('antiGraviteLayer', this.tiles, 0, 0);
         this.graviteLayer = this.map.createStaticLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createStaticLayer('collideLayer', this.tiles, 0, 0);
         this.decoLayer = this.map.createStaticLayer('decoLayer', this.tiles, 0, 0);
-        
-        
-        
-            //Collider
+   
+      // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);
         
-            //Overlap
-        
-        this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> {
-            this.gravite = 0
-        });
-        this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> {
-            this.gravite = 1
-        });
-        this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> {
-            this.gravite = 2
-        });
-        this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> {
-            this.gravite = 3
-        });
+      // Overlap
+        this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.gravite = 0 });
+        this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> { this.gravite = 1 });
+        this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> { this.gravite = 2 });
+        this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> { this.gravite = 3 });
         
         
         
-    //-- PhysiqueGroupe 
+    //--- PhysiqueGroupe 
         this.PhyGroup = this.physics.add.staticGroup();
         this.PhyGroup.create(-960,-540, 'menu').setScrollFactor(0,0);
      
     
-    // Player
-        this.player = this.physics.add.sprite(300,1593, 'snail');
+    //--- Player
+        this.player = this.physics.add.sprite(140,1550, 'snail');
         this.player.setSize(54,54);
         
-    //--- Cameras  
+      // HitBox        
+        this.playerHitBox = this.physics.add.sprite(this.player.x,this.player.y, 'hitbox');
+        this.playerHitBox.setSize(108,54);
+        
+      // Cameras  
         this.cameras.main.setSize(1920, 1080);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
+        
+
+    //--- Ennemit   
+        this.ennemi = this.physics.add.sprite(500,1593, 'ennemi');
+        this.ennemi.setGravityY(this.gravitePuissence)
+        
+    
+    //--- Barre de Vie    
+        this.barreDeVie = this.physics.add.sprite(1720,1000, 'vie').setScrollFactor(0,0);      
+        
+        
+    //--- Inventaire    
+        this.inventaire = this.physics.add.sprite(80,1000, 'inventaire').setScrollFactor(0,0);
+        
+        
+    //--- Compteur de Fruit    
+        this.CDF = this.physics.add.sprite(256,1000, 'CDF').setScrollFactor(0,0);  
+        
+      
+        this.fruit = this.physics.add.group ()
+        
+        this.fruit.create(500,1593, 'fruit');
+        this.fruit.create(560,1593, 'fruit');
+        this.fruit.create(620,1593, 'fruit');
+   
+        
+    //--- Debug BackGround
+        if (this.debug == true){
+            this.add.image(960,540, 'debug_BG').setScrollFactor(0,0);  
+        }
         
         
     //--- Collider & Overlap
@@ -104,11 +140,15 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.physics.add.overlap(this.player, this.graviteLayer);
         this.physics.add.overlap(this.player, this.antiGraviteLayer);
         
-        //this.physics.add.overlap(this.player, this.botLayer, this.AnimeJoueur, null, this);
-          
-          
-     //--- Animations 
-       
+        this.physics.add.overlap(this.fruit, this.player, this.Getfruit);
+        
+        this.physics.add.collider(this.ennemi, this.collideLayer);
+        this.physics.add.overlap(this.ennemi, this.playerHitBox, this.Dommage, null, this);
+        
+
+    //--- Animations 
+        
+      // Player
         this.anims.create({
             key: 'SL',
             frames: this.anims.generateFrameNumbers('snail', { start: 1, end: 4 }),
@@ -121,25 +161,90 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             duration: 300,
         });
         
+        
+      // Barre de Vie
+        this.anims.create({
+            key: 'vie3',
+            frames: [ { key: 'vie', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'vie2',
+            frames: [ { key: 'vie', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'vie1',
+            frames: this.anims.generateFrameNumbers('vie', { start: 2, end: 3 }),
+            frameRate: 4,
+            repeat: 10000,
+        });
+        
+        this.anims.create({
+            key: 'vie_0',
+            frames: [ { key: 'vie', frame: 4. } ],
+        });
+        
+      // Compteur de Fruit
+        this.anims.create({
+            key: 'fruit0',
+            frames: [ { key: 'CDF', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit1',
+            frames: [ { key: 'CDF', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit2',
+            frames: [ { key: 'CDF', frame: 2. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit3',
+            frames: [ { key: 'CDF', frame: 3. } ],
+        });
+        
+        
+      // Inventaire
+        this.anims.create({
+            key: 'inv0',
+            frames: [ { key: 'inventaire', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'inv1',
+            frames: [ { key: 'inventaire', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'inv2',
+            frames: [ { key: 'inventaire', frame: 2. } ],
+        });
+        
        
    
             
         
     //--- Debug Update
-        this.pXT = this.add.text(30,830,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.pYT = this.add.text(30,860,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.gravT = this.add.text(30,890,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.playerCoordonéeT = this.add.text(330,20,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.playerHPT = this.add.text(330,50,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         
-        this.droitT = this.add.text(30,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.gaucheT = this.add.text(30,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.hautT = this.add.text(260,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.basT = this.add.text(260,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.invincibleT = this.add.text(330,110,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.invincibleTimerT = this.add.text(330,140,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         
-        this.solT = this.add.text(480,940,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.dsautT = this.add.text(480,970,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.droitT = this.add.text(30,20,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.gaucheT = this.add.text(30,50,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.hautT = this.add.text(30,80,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.basT = this.add.text(30,110,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
         
-        this.lastdirectionT = this.add.text(30,1000,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
-        this.aniamtionT = this.add.text(30,1030,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.solT = this.add.text(30,140,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.dsautT = this.add.text(30,170,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        
+        this.lastdirectionT = this.add.text(30,200,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+        this.gravT = this.add.text(30,230,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
+       
        
        
         
@@ -154,25 +259,39 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             
     //--- Debug Update
         if (this.debug == true){
-            this.pXT.setText('X = ' + this.player.x);
-            this.pYT.setText('Y = ' + this.player.y);
-            this.gravT.setText('Grav = ' + this.gravite);
+            this.playerCoordonéeT.setText('X/Y= ' + this.player.x +','+ this.player.y);
+            this.playerHPT.setText('Hp = ' + this.playerHP);
+            
+            this.invincibleT.setText('Inv = ' + this.invincible);
+            this.invincibleTimerT.setText('Temps = ' + this.invincibleTimer);
             
             this.droitT.setText('Droit = ' + this.droit);
             this.gaucheT.setText('Gauche = ' + this.gauche);
             this.hautT.setText('Haut = ' + this.haut);
             this.basT.setText('Bas = ' + this.bas);
             
-            this.solT.setText('au sol = ' + this.sol +' '+ this.mur);
+            this.solT.setText('au sol = ' + this.sol);
             this.dsautT.setText('D-saut = ' + this.dsaut);
             
             this.lastdirectionT.setText('last direction = ' + this.lastdirection);
-            this.aniamtionT.setText('Gravité = ' + this.angleCamera);
-            
-           
+            this.gravT.setText('Grav = ' + this.invFruit);
         }
         
-       
+        
+   
+    //--- Import  
+         this.RnTimer = this.RnTimer + 1
+        
+        if (this.RnTimer >= 50){
+            this.Rn = Phaser.Math.Between(0, 3)
+            this.RnTimer = 0
+        }
+        
+        this.commende = new mfe(this.player, this.playerHP, this.ennemi, this.Rn);
+        
+        
+        this.commende.iA_ennemi();
+        
         
     //--- Controles
        
@@ -210,10 +329,15 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         
 //--- Deplacement
-    //Vert
+        
+    //--- Hitbox
+        this.playerHitBox.x = this.player.x
+        this.playerHitBox.y = this.player.y
+        
+    //--- Vert
         if (this.gravite == 1){
             this.player.setGravityY(0)
-            this.player.setGravityX(300)
+            this.player.setGravityX(this.gravitePuissence)
             this.player.setAngle(-90);
             //this.cameras.main.rotation = 1.57
             this.player.setFlipX(false);
@@ -227,9 +351,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
          
             
         }
-    //Bleu
+    //--- Bleu
         else if (this.gravite == 2){
-            this.player.setGravityY(-300)
+            this.player.setGravityY(-this.gravitePuissence)
             this.player.setGravityX(0)
             this.player.setAngle(-180);
             //this.cameras.main.rotation = 3.14
@@ -243,10 +367,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             if(!this.gauche && !this.droit){this.player.setVelocityX(0)}
           
         }
-    // Rouge
+    //--- Rouge
         else if (this.gravite == 3){
             this.player.setGravityY(0)
-            this.player.setGravityX(-300)
+            this.player.setGravityX(-this.gravitePuissence)
             this.player.setAngle(90);
             //this.cameras.main.rotation = -1.57
             this.player.setFlipX(true);
@@ -259,9 +383,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             if(!this.bas && !this.haut){this.player.setVelocityY(0)}
            
         }
-    // Normale
+    //--- Normale
         else{
-            this.player.setGravityY(300)
+            this.player.setGravityY(this.gravitePuissence)
             this.player.setGravityX(0)
             this.player.setAngle(0);
             //this.cameras.main.rotation = 0
@@ -326,6 +450,38 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             } 
         } 
         
+    //--- Compteur de fruit 
+        this.CDF.anims.play("fruit" +this.invFruit, true)
+        
+        
+    //--- Inventaire
+        this.inventaire.anims.play("inv" +this.invSpell, true)
+        
+        
+    //--- Barre de Vie
+        if(this.player.y >= 2500 || this.player.y <= -250 || this.player.x >= 8000 || this.player.x <= -200){
+            this.playerHP = 0
+        }
+        
+        if (this.playerHP == 0){
+            this.commende.mort();
+            this.playerHP = 3
+        }
+        
+        
+        if (this.invincible == true){
+            this.invincibleTimer = this.invincibleTimer + 1
+            if(this.invincibleTimer == 50){
+                this.invincible = false
+                this.invincibleTimer = 0
+            }
+                
+        }
+    
+        this.barreDeVie.anims.play("vie"+ this.playerHP, true)
+        
+
+        
     //--- Pause
         if(this.echap){
             this.pause = true
@@ -356,7 +512,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             }
             else{
                 this.sol = true
-                this.sdsaut = true 
+                this.sdsaut = true
+                this.dsaut = false 
+                
             }
         }
         
@@ -373,6 +531,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             else{
                 this.sol = true
                 this.sdsaut = true 
+                this.dsaut = false
             }
         }
         
@@ -388,7 +547,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             }
             else{
                 this.sol = true
-                this.sdsaut = true 
+                this.sdsaut = true
+                this.dsaut = false
             }
         }
         
@@ -405,8 +565,26 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             else{
                 this.sol = true
                 this.sdsaut = true 
+                this.dsaut = false
             }
         }
     }
+    
+    Dommage (player, ennemi){
+        
+        if (this.invincible == false){
+            this.playerHP -= 1
+            this.invincible = true
+        }
+        
+        
+    }
+    
+    Getfruit (player, fruit){
+        fruit.destroy();
+        this.invFruit = this.invFruit + 1
+    }
+    
+    
    
 }// fin de Class

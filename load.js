@@ -5,16 +5,29 @@ class load extends Phaser.Scene {  // Copier Coller a modifier
     }
     
     preload (){
-
+        
+    // BackGround ---------------------------------
+        
         this.load.image('plan3', 'assets/plan3.png');
         this.load.image('plan4', 'assets/plan4.png');
         
+    // Object -------------------------------------
+        
+        this.load.image('ennemi', 'assets/ennemi.png');
+        this.load.image('hitbox', 'assets/hitbox.png');
+        this.load.image('fruit', 'assets/fruit.png');
         this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:54});
+        this.load.spritesheet("vie", 'assets/barreDeVie.png',{frameWidth:218, frameHeight:54});
+        this.load.spritesheet("inventaire", 'assets/inventaire.png',{frameWidth:100, frameHeight:100});
+        this.load.spritesheet("CDF", 'assets/compteurDeFruit.png',{frameWidth:192, frameHeight:78});
+        
+    // Particules ---------------------------------
         
         
-        // Menus --------------------------------------
+    // Menus --------------------------------------
         
-        this.load.image('menu', 'assets/pauseBG.png');
+        this.load.image('debug_BG', 'assets/menus/debug_BG.png');
+        this.load.image('menu', 'assets/menus/pauseBG.png');
         
     }
     
