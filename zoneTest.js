@@ -39,7 +39,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.Deplacement = 300;
         this.Jump = 350
         this.gravitePuissence = 400;
-        this.manette = true;
+        this.manette = false;
         
       // Debug
         this.debug = true;
@@ -287,11 +287,28 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.RnTimer = 0
         }
         
-        this.commende = new mfe(this.player, this.playerHP, this.ennemi, this.Rn);
+        this.commende = new mfe(
+            this.player,
+            this.playerHP,
+            this.ennemi,
+            this.Rn);
         
+        this.controles = new controle(
+            this.player,
+            this.droit,
+            this.gauche,
+            this.haut,
+            this.bas,
+            this.space,
+            this.gravite,
+            this.saut,
+            this.sautAxis,
+            this.Deplacement,
+            this.gravitePuissence,
+            this.Jump,
+            this.sol);
         
         this.commende.iA_ennemi();
-        
         
     //--- Controles
        
@@ -324,83 +341,16 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.space = this.cursors.space.isDown
             this.echap = this.esc.isDown
         }
-  
-
         
-        
-//--- Deplacement
+    //--- Deplacement   
+        this.controles.deplacement();
         
     //--- Hitbox
         this.playerHitBox.x = this.player.x
-        this.playerHitBox.y = this.player.y
-        
-    //--- Vert
-        if (this.gravite == 1){
-            this.player.setGravityY(0)
-            this.player.setGravityX(this.gravitePuissence)
-            this.player.setAngle(-90);
-            //this.cameras.main.rotation = 1.57
-            this.player.setFlipX(false);
-    
-            this.saut = (-this.Jump)
-            this.sautAxis = false
-            
-            if(this.bas){this.player.setVelocityY(this.Deplacement)}
-            if(this.haut){this.player.setVelocityY(-this.Deplacement)}
-            if(!this.haut && !this.bas){this.player.setVelocityY(0)}
-         
-            
-        }
-    //--- Bleu
-        else if (this.gravite == 2){
-            this.player.setGravityY(-this.gravitePuissence)
-            this.player.setGravityX(0)
-            this.player.setAngle(-180);
-            //this.cameras.main.rotation = 3.14
-            this.player.setFlipX(true);
-            
-            this.saut = (this.Jump)
-            this.sautAxis = true
-            
-            if(this.droit){this.player.setVelocityX(this.Deplacement)}
-            if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
-            if(!this.gauche && !this.droit){this.player.setVelocityX(0)}
-          
-        }
-    //--- Rouge
-        else if (this.gravite == 3){
-            this.player.setGravityY(0)
-            this.player.setGravityX(-this.gravitePuissence)
-            this.player.setAngle(90);
-            //this.cameras.main.rotation = -1.57
-            this.player.setFlipX(true);
-            
-            this.saut = (this.Jump)
-            this.sautAxis = false
-            
-            if(this.haut){this.player.setVelocityY(-this.Deplacement)}
-            if(this.bas){this.player.setVelocityY(this.Deplacement)}
-            if(!this.bas && !this.haut){this.player.setVelocityY(0)}
-           
-        }
-    //--- Normale
-        else{
-            this.player.setGravityY(this.gravitePuissence)
-            this.player.setGravityX(0)
-            this.player.setAngle(0);
-            //this.cameras.main.rotation = 0
-            this.player.setFlipX(false);
-            
-            this.saut = (-this.Jump)
-            this.sautAxis = true
-            
-            if(this.gauche){this.player.setVelocityX(-this.Deplacement)}
-            if(this.droit){this.player.setVelocityX(this.Deplacement)}
-            if(!this.droit && !this.gauche){this.player.setVelocityX(0)}
-        
-        }
-        
+        this.playerHitBox.y = this.player.y  
 
+    //--- Saut
+        /*
         if (this.space && this.sol){
             this.sol = false
             if (this.sautAxis == true){
@@ -425,7 +375,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
                 this.player.setVelocityX(this.saut)
             }
         }
-        
+        */
     //--- Animations
    
         if (this.gravite == 0 || this.gravite == 2){

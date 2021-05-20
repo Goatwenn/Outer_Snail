@@ -27,9 +27,7 @@ class mfe {  // Copier Coller a modifier
     }
  
     mort(){
-        console.log (this);
-        
-        
+
         this.player.x = 140
         this.player.y = 1550
         
