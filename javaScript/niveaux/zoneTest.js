@@ -25,7 +25,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.dsaut = false;
         this.mur = false;
         
-        this.gravite = 0;
+        
         this.lastdirection = 2;
         this.invincible = false;
         this.invincibleTimer = 0;
@@ -48,8 +48,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.Rn = 0;
         this.RnTimer = 0;
         
-    
-        
+
     //--- Paralaxe
         if (this.debug == false){
             this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
@@ -79,7 +78,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.gravite = 0 });
+    this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.gravite = 0 });
         this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> { this.gravite = 1 });
         this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> { this.gravite = 2 });
         this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> { this.gravite = 3 });
@@ -87,12 +86,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Player 
-        this.player = new Perso(this, 300, 1550, 'snail', 
-                                this.gravite,
-                                this.droit,
-                                this.gauche,
-                                this.haut,
-                                this.bas );
+        
+        this.player = new Perso(this, 300, 1550, 'snail', this.gravite);
+        
         
         this.cameras.main.setSize(1920, 1080);
         this.cameras.main.setBounds(0,0,7560,2160);
@@ -102,8 +98,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Collider & Overlap
         this.physics.add.collider(this.player, this.collideLayer);
-       
         
+        this.physics.add.overlap(this.player, this.graviteLayer);
 /*
     //--- Animations 
         
@@ -236,8 +232,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.gravT.setText('Grav = ' + this.gravite);
         }
         
-    
-        this.Grav = new Physique (this.gravite)
+      
+        
             
     //--- Controles
        
@@ -270,7 +266,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.space = this.cursors.space.isDown
             this.echap = this.esc.isDown
         }
- 
+        
+        
         
         
         if(this.droit){
@@ -284,8 +281,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         }
            
         
-        
-        
+        if (this.space){
+            this.player.Jump(this.player);
+        }
+        //
         
         
         
