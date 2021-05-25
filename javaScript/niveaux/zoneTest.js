@@ -86,66 +86,25 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
-    //--- PhysiqueGroupe 
-        this.PhyGroup = this.physics.add.staticGroup();
-        this.PhyGroup.create(-960,-540, 'menu').setScrollFactor(0,0);
-     
-    
-    //--- Player
-        this.player = this.physics.add.sprite(140,1550, 'snail');
-        this.player.setSize(54,54);
+    //--- Player 
+        this.player = new Perso(this, 300, 1550, 'snail', 
+                                this.gravite,
+                                this.droit,
+                                this.gauche,
+                                this.haut,
+                                this.bas );
         
-      // HitBox        
-        this.playerHitBox = this.physics.add.sprite(this.player.x,this.player.y, 'hitbox');
-        this.playerHitBox.setSize(108,54);
-        
-      // Cameras  
         this.cameras.main.setSize(1920, 1080);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
-        
-
-    //--- Ennemit   
-        this.ennemi = this.physics.add.sprite(500,1593, 'ennemi');
-        this.ennemi.setGravityY(this.gravitePuissence)
-        
     
-    //--- Barre de Vie    
-        this.barreDeVie = this.physics.add.sprite(1720,1000, 'vie').setScrollFactor(0,0);      
-        
-        
-    //--- Inventaire    
-        this.inventaire = this.physics.add.sprite(80,1000, 'inventaire').setScrollFactor(0,0);
-        
-        
-    //--- Compteur de Fruit    
-        this.CDF = this.physics.add.sprite(256,1000, 'CDF').setScrollFactor(0,0);  
-        
-      
-        this.fruit = this.physics.add.group ()
-        
-        this.fruit.create(500,1593, 'fruit');
-        this.fruit.create(560,1593, 'fruit');
-        this.fruit.create(620,1593, 'fruit');
-   
-        
-    //--- Debug BackGround
-        if (this.debug == true){
-            this.add.image(960,540, 'debug_BG').setScrollFactor(0,0);  
-        }
         
         
     //--- Collider & Overlap
-        this.physics.add.collider(this.player, this.collideLayer, this.AuSol, null, this);
-        this.physics.add.overlap(this.player, this.graviteLayer);
-        this.physics.add.overlap(this.player, this.antiGraviteLayer);
+        this.physics.add.collider(this.player, this.collideLayer);
+       
         
-        this.physics.add.overlap(this.fruit, this.player, this.Getfruit);
-        
-        this.physics.add.collider(this.ennemi, this.collideLayer);
-        this.physics.add.overlap(this.ennemi, this.playerHitBox, this.Dommage, null, this);
-        
-
+/*
     //--- Animations 
         
       // Player
@@ -225,7 +184,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
        
    
-            
+         */   
         
     //--- Debug Update
         this.playerCoordonéeT = this.add.text(330,20,(''), { fontSize: this.debugSize, fill: this.debugCouleur }).setScrollFactor(0);
@@ -256,11 +215,11 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     update (){
-            
+          
     //--- Debug Update
         if (this.debug == true){
-            this.playerCoordonéeT.setText('X/Y= ' + this.player.x +','+ this.player.y);
-            this.playerHPT.setText('Hp = ' + this.playerHP);
+            //this.playerCoordonéeT.setText('X/Y= ' + this.player.x +','+ this.player.y);
+            //this.playerHPT.setText('Hp = ' + this.playerHP);
             
             this.invincibleT.setText('Inv = ' + this.invincible);
             this.invincibleTimerT.setText('Temps = ' + this.invincibleTimer);
@@ -274,42 +233,12 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.dsautT.setText('D-saut = ' + this.dsaut);
             
             this.lastdirectionT.setText('last direction = ' + this.lastdirection);
-            this.gravT.setText('Grav = ' + this.invFruit);
+            this.gravT.setText('Grav = ' + this.gravite);
         }
         
-        
-   
-    //--- Import  
-         this.RnTimer = this.RnTimer + 1
-        
-        if (this.RnTimer >= 50){
-            this.Rn = Phaser.Math.Between(0, 3)
-            this.RnTimer = 0
-        }
-        
-        this.commende = new mfe(
-            this.player,
-            this.playerHP,
-            this.ennemi,
-            this.Rn);
-        
-        this.controles = new controle(
-            this.player,
-            this.droit,
-            this.gauche,
-            this.haut,
-            this.bas,
-            this.space,
-            this.gravite,
-            this.saut,
-            this.sautAxis,
-            this.Deplacement,
-            this.gravitePuissence,
-            this.Jump,
-            this.sol);
-        
-        this.commende.iA_ennemi();
-        
+    
+        this.Grav = new Physique (this.gravite)
+            
     //--- Controles
        
         
@@ -341,14 +270,26 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.space = this.cursors.space.isDown
             this.echap = this.esc.isDown
         }
+ 
         
-    //--- Deplacement   
-        this.controles.deplacement();
         
-    //--- Hitbox
-        this.playerHitBox.x = this.player.x
-        this.playerHitBox.y = this.player.y  
-
+        if(this.droit){
+             this.player.Droit(this.player);
+        }
+        else if (this.gauche){
+            this.player.Gauche(this.player);
+        }
+        else{
+            this.player.Stop(this.player);
+        }
+           
+        
+        
+        
+        
+        
+        
+        
     //--- Saut
         /*
         if (this.space && this.sol){
@@ -375,7 +316,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
                 this.player.setVelocityX(this.saut)
             }
         }
-        */
+        
+        
+        
     //--- Animations
    
         if (this.gravite == 0 || this.gravite == 2){
@@ -400,47 +343,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             } 
         } 
         
-    //--- Compteur de fruit 
-        this.CDF.anims.play("fruit" +this.invFruit, true)
-        
-        
-    //--- Inventaire
-        this.inventaire.anims.play("inv" +this.invSpell, true)
-        
-        
-    //--- Barre de Vie
-        if(this.player.y >= 2500 || this.player.y <= -250 || this.player.x >= 8000 || this.player.x <= -200){
-            this.playerHP = 0
-        }
-        
-        if (this.playerHP == 0){
-            this.commende.mort();
-            this.playerHP = 3
-        }
-        
-        
-        if (this.invincible == true){
-            this.invincibleTimer = this.invincibleTimer + 1
-            if(this.invincibleTimer == 50){
-                this.invincible = false
-                this.invincibleTimer = 0
-            }
-                
-        }
-    
-        this.barreDeVie.anims.play("vie"+ this.playerHP, true)
-        
-
-        
-    //--- Pause
-        if(this.echap){
-            this.pause = true
-        }
-        
-        if (this.pause){
-            this.PhyGroup.x = 960
-        }
-        
+   */
         
         
         
@@ -448,92 +351,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     }// fin de Update
 
-    AuSol (player, collideLayer){
-        
-        if (this.gravite == 0){
-            if(this.player.body.blocked.left){
-                return
-            }
-            else if (this.player.body.blocked.right){
-                return
-            }
-            else if (this.player.body.blocked.up){
-                return
-            }
-            else{
-                this.sol = true
-                this.sdsaut = true
-                this.dsaut = false 
-                
-            }
-        }
-        
-        if (this.gravite == 1){
-            if(this.player.body.blocked.down){
-                return
-            }
-            else if (this.player.body.blocked.left){
-                return
-            }
-            else if (this.player.body.blocked.up){
-                return
-            }
-            else{
-                this.sol = true
-                this.sdsaut = true 
-                this.dsaut = false
-            }
-        }
-        
-        if (this.gravite == 2){
-            if(this.player.body.blocked.down){
-                return
-            }
-            else if (this.player.body.blocked.right){
-                return
-            }
-            else if (this.player.body.blocked.left){
-                return
-            }
-            else{
-                this.sol = true
-                this.sdsaut = true
-                this.dsaut = false
-            }
-        }
-        
-        if (this.gravite == 3){
-            if(this.player.body.blocked.down){
-                return
-            }
-            else if (this.player.body.blocked.up){
-                return
-            }
-            else if (this.player.body.blocked.right){
-                return
-            }
-            else{
-                this.sol = true
-                this.sdsaut = true 
-                this.dsaut = false
-            }
-        }
-    }
     
-    Dommage (player, ennemi){
-        
-        if (this.invincible == false){
-            this.playerHP -= 1
-            this.invincible = true
-        }
-        
-        
-    }
-    
-    Getfruit (player, fruit){
-        fruit.destroy();
-        this.invFruit = this.invFruit + 1
-    }
     
     
    
