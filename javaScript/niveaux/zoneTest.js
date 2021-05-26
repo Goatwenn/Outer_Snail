@@ -25,7 +25,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.dsaut = false;
         this.mur = false;
         
-        
+        this.gravite = 0;
         this.lastdirection = 2;
         this.invincible = false;
         this.invincibleTimer = 0;
@@ -61,6 +61,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.cursors = this.input.keyboard.createCursorKeys();
     
         this.esc = this.input.keyboard.addKey('esc');
+        this.A = this.input.keyboard.addKey('A');
         
         
     //--- Map Tiled
@@ -78,7 +79,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-    this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.gravite = 0 });
+        this.graviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.gravite = 0 });
         this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> { this.gravite = 1 });
         this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> { this.gravite = 2 });
         this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> { this.gravite = 3 });
@@ -87,20 +88,21 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player 
         
-        this.player = new Perso(this, 300, 1550, 'snail', this.gravite);
+        this.player = new Perso(this, 300, 1550, 'snail');
         
         
-        this.cameras.main.setSize(1920, 1080);
+        
+        this.cameras.main.setSize(896, 448);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
-    
+        this.cameras.main.setZoom(896, 448);
         
         
     //--- Collider & Overlap
         this.physics.add.collider(this.player, this.collideLayer);
         
         this.physics.add.overlap(this.player, this.graviteLayer);
-/*
+
     //--- Animations 
         
       // Player
@@ -116,7 +118,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             duration: 300,
         });
         
-        
+    /*    
       // Barre de Vie
         this.anims.create({
             key: 'vie3',
@@ -211,6 +213,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     update (){
+        this.player.update(this.player);
           
     //--- Debug Update
         if (this.debug == true){
@@ -267,24 +270,75 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.echap = this.esc.isDown
         }
         
-        
-        
+
         
         if(this.droit){
-             this.player.Droit(this.player);
+            this.player.Droit(this.player);
         }
         else if (this.gauche){
             this.player.Gauche(this.player);
         }
-        else{
+        else if(!this.haut && !this.bas){
             this.player.Stop(this.player);
+        }    
+        
+  
+        
+      
+        if (this.haut){
+            this.player.Haut(this.player);
         }
-           
+        else if (this.bas){
+            this.player.Bas(this.player);
+        }
+        else if(!this.droit && !this.gauche){
+            this.player.Stop(this.player);
+        }   
+        
+
+
         
         if (this.space){
             this.player.Jump(this.player);
         }
         //
+        
+        
+        
+        if (this.gravite == 3){
+            
+            this.player.setFlipX(true);
+            this.player.setAngle(90);
+            
+            this.player.Gravite_Rouge(this.player);
+        }
+        else if (this.gravite == 2){
+            
+            this.player.setFlipX(true);
+            this.player.setAngle(180);
+            
+            this.player.Gravite_Bleu(this.player);
+        }
+        else if (this.gravite == 1){
+            
+            this.player.setFlipX(false);
+            this.player.setAngle(-90);
+        
+            this.player.Gravite_Vert(this.player);
+        }
+        else {
+            
+            this.player.setFlipX(false);
+            this.player.setAngle(0);
+            
+            this.player.Gravite_Blanc(this.player);
+        }
+        
+        
+        
+        if(this.A.isDown){
+            this.player.Dash(this.player);
+        }
         
         
         
@@ -317,7 +371,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         }
         
         
-        
+    */    
     //--- Animations
    
         if (this.gravite == 0 || this.gravite == 2){
@@ -342,7 +396,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             } 
         } 
         
-   */
+   
+   
         
         
         

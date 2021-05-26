@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <title>Outer Snail</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    
     <script type="text/javascript" src="javascript/Load.js"></script>
+    <script type="text/javascript" src="javascript/Menu.js"></script>
+    <script type="text/javascript" src="javascript/Map.js"></script>
+    
     <script type="text/javascript" src="javascript/Perso.js"></script>
-    <script type="text/javascript" src="javascript/Physique.js"></script>
-    <script type="text/javascript" src="javascript/niveaux/zoneTest.js"></script>
+
+    <script type="text/javascript" src="javascript/niveaux/zoneTest.js">
+    </script>
     <style type="text/css">
         body {
             margin: 0;
@@ -29,11 +34,11 @@
             arcade: {
                 gravity: { y:0, 
                            x:0 },
-                debug: true
+                debug: false
             } 
         },
         input: {gamepad : true},
-        scene: [load,zoneTest],
+        scene: [Load, Menu, Map, zoneTest],
      
         };
     
@@ -41,8 +46,8 @@
     
     
     function create(){
-        console.log('index');
-        this.scene.start("load");
+        console.log(this);
+        this.scene.start("Load");
     }
     
 </script>
