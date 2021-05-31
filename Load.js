@@ -1,31 +1,3 @@
-// Configuration de viewport: 
-    
-    var config = {
-        type: Phaser.AUTO,
-        width: 1920,        
-        height: 1080, 
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: { y:0, 
-                           x:0 },
-                debug: false
-            } 
-        },
-        input: {gamepad : true},
-        scene: [Load, Menu, Map, zoneTest],
-     
-        };
-    
-    var game = new Phaser.Game(config); 
-    
-    
-    function create(){
-        console.log(this);
-        this.scene.start("Load");
-    }
-
-
 class Load extends Phaser.Scene {
 
     constructor (){

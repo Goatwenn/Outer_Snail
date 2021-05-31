@@ -4,11 +4,6 @@
     <meta charset="UTF-8" />
     <title>Outer Snail</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
-    <script type="text/javascript" src="javascript/Menu.js"></script>
-    <script type="text/javascript" src="javascript/Map.js"></script>
-    <script type="text/javascript" src="javascript/Perso.js"></script>
-    <script type="text/javascript" src="javascript/niveaux/zoneTest.js"></script>
-    <script type="text/javascript" src="javascript/Load.js"></script>
     <style type="text/css">      
         body {
             margin: 0;
@@ -16,7 +11,43 @@
     </style>
 </head>
 <body>
+    
+    <script type="text/javascript" src="Load.js"></script>
+    <script type="text/javascript" src="Menu.js"></script>
+    <script type="text/javascript" src="Map.js"></script>
+    <script type="text/javascript" src="Perso.js"></script>
+    <script type="text/javascript" src="niveaux/zoneTest.js"></script>
 
+<script type="text/javascript">
+
+// Configuration de viewport: 
+    
+    var config = {
+        type: Phaser.AUTO,
+        width: 1920,        
+        height: 1080, 
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y:0, 
+                           x:0 },
+                debug: false
+            } 
+        },
+        input: {gamepad : true},
+        scene: [Load, Menu, Map, zoneTest],
+     
+        };
+    
+    var game = new Phaser.Game(config); 
+    
+    
+    function create(){
+        console.log(this);
+        this.scene.start("Load");
+    }
+    
+</script>
 
 </body>
 </html>   
