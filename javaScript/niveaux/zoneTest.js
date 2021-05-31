@@ -42,7 +42,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         this.manette = false;
         
       // Debug
-        this.debug = true;
+        this.debug = false;
         this.debugCouleur = '#000';
         this.debugSize = 22;
         this.Rn = 0;
@@ -92,10 +92,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
-        this.cameras.main.setSize(896, 448);
+        this.cameras.main.setSize(config.width, config.height);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
-        this.cameras.main.setZoom(896, 448);
+    
         
         
     //--- Collider & Overlap
@@ -282,9 +282,6 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             this.player.Stop(this.player);
         }    
         
-  
-        
-      
         if (this.haut){
             this.player.Haut(this.player);
         }

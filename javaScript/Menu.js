@@ -101,7 +101,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
             targets: this.follower5,
             t: 1,
             ease: 'Sine.easeInOut',
-            duration: 50000,
+            duration: 100000,
             yoyo: true,
             repeat: -1
         });
