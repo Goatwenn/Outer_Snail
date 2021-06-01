@@ -90,7 +90,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         this.player = new Perso(this, 300, 1550, 'snail');
         
-        
+        this.ennemi_1 = new Runner(this, 700, 1550, 'ennemi');
         
         this.cameras.main.setSize(config.width, config.height);
         this.cameras.main.setBounds(0,0,7560,2160);
@@ -100,6 +100,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Collider & Overlap
         this.physics.add.collider(this.player, this.collideLayer);
+        this.physics.add.collider(this.ennemi_1, this.collideLayer);
         
         this.physics.add.overlap(this.player, this.graviteLayer);
 
@@ -214,7 +215,8 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
     }
     update (){
         
-        this.player.update(this.player);
+        this.player.update();
+        this.ennemi_1.update(this.player.x, this.player.y);
           
     //--- Debug Update
         if (this.debug == true){
