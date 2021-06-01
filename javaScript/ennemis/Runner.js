@@ -8,6 +8,7 @@ class Runner extends Phaser.GameObjects.Sprite{
          
          console.log(this) 
          
+         this.body.setSize(54,54);
          
          
          this.puissanceDeGravite = 400;
@@ -15,7 +16,18 @@ class Runner extends Phaser.GameObjects.Sprite{
          this.chargeAcceleration = 500;
          
           
+         
+         
+        
+         
+         
     }
+    
+    
+    
+    
+    
+    
     
     
     update(x, y){ 
@@ -47,11 +59,16 @@ class Runner extends Phaser.GameObjects.Sprite{
         
         if (this.chargeDirection == "droit"){
             this.body.setAccelerationX(-this.chargeAcceleration)
-            this.body.rotation += 1 
+            
+            this.body.setAngularAcceleration(-this.chargeAcceleration)
+      
+            this.anims.play('boule', true);
+            
         }
         
         if (this.chargeDirection == "gauche"){
             this.body.setAccelerationX(this.chargeAcceleration)
+            this.body.setAngularAcceleration(this.chargeAcceleration)
         }
         
         

@@ -21,6 +21,12 @@ class Load extends Phaser.Scene {
         this.load.spritesheet("inventaire", 'assets/inventaire.png',{frameWidth:100, frameHeight:100});
         this.load.spritesheet("CDF", 'assets/compteurDeFruit.png',{frameWidth:192, frameHeight:78});
         
+        
+    // Ennemis -------------------------------------  
+        
+        this.load.spritesheet("runner", 'assets/ennemis/runner.png',{frameWidth:108, frameHeight:108});
+        
+        
     // Particules ---------------------------------
         
         this.load.image('particule_energie_1', 'assets/particules/particule_energie_1.png');
@@ -49,34 +55,15 @@ class Load extends Phaser.Scene {
     
     create (){
         
+        this.anims.create({
+            key: 'boule',
+            frames: [ { key: 'runner', frame: 8. } ],
+        });
+    
+        
+        
         console.log(this);
         this.scene.start("Menu");
     }
        
 }
-
-
-/*
-
-        
-        this.anims.create({
-            key: 'SnailG0',
-            frames: [ { key: 'snail', frame: 0. } ],
-        });
-        
-        this.anims.create({
-            key: 'SnailG1',
-            frames: [ { key: 'snail', frame: 1. } ],
-        });
-        
-         this.anims.create({
-            key: 'SnailG2',
-            frames: [ { key: 'snail', frame: 2. } ],
-        });
-        
-         this.anims.create({
-            key: 'SnailG3',
-            frames: [ { key: 'snail', frame: 3. } ],
-        });
-        
-        */

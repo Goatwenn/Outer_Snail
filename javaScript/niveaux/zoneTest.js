@@ -90,7 +90,9 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         this.player = new Perso(this, 300, 1550, 'snail');
         
-        this.ennemi_1 = new Runner(this, 700, 1550, 'ennemi');
+        this.ennemi_1 = new Runner(this, 1000, 1550, 'runner');
+        this.ennemi_2 = new Runner(this, 1100, 1550, 'runner');
+        this.ennemi_3 = new Runner(this, 900, 1550, 'runner');
         
         this.cameras.main.setSize(config.width, config.height);
         this.cameras.main.setBounds(0,0,7560,2160);
@@ -100,8 +102,11 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Collider & Overlap
         this.physics.add.collider(this.player, this.collideLayer);
-        this.physics.add.collider(this.ennemi_1, this.collideLayer);
         
+        this.physics.add.collider(this.ennemi_1,  this.collideLayer);
+        this.physics.add.collider(this.ennemi_2,  this.collideLayer);
+        this.physics.add.collider(this.ennemi_3,  this.collideLayer);
+ 
         this.physics.add.overlap(this.player, this.graviteLayer);
 
     //--- Animations 
@@ -118,6 +123,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
             frames: this.anims.generateFrameNumbers('snail', { start: 5, end: 8 }),
             duration: 300,
         });
+        
+        
+        
+        
         
     /*    
       // Barre de Vie
@@ -217,7 +226,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
         this.player.update();
         this.ennemi_1.update(this.player.x, this.player.y);
-          
+        this.ennemi_2.update(this.player.x, this.player.y);
+        this.ennemi_3.update(this.player.x, this.player.y);
+        
+
     //--- Debug Update
         if (this.debug == true){
             //this.playerCoordonéeT.setText('X/Y= ' + this.player.x +','+ this.player.y);
