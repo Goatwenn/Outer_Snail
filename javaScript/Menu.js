@@ -113,7 +113,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit = this.physics.add.sprite(960, 540, 'fruit');
         this.escargo = this.physics.add.sprite(960, 540, 'escargot').setDepth(2);
         
-        //this.destructeur = this.physics.add.sprite(960, 980, 'destructeur');
+        this.destructeur = this.physics.add.sprite(0, 1080, 'destructeur');
         
     }
     update(){
@@ -170,7 +170,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
      
         this.particule.setVelocityX(Phaser.Math.Between(-500, -400));
         this.particule.setVelocityY(Phaser.Math.Between(200, 300));
-        //this.physics.add.collider(this.particule, this.destructeur, this.deletParticules, null, this);
+        this.physics.add.overlap(this.particule, this.destructeur, this.deletParticules, null, this);
         
         
         
@@ -181,7 +181,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
         this.particule.setVelocityX(Phaser.Math.Between(-500, -400));
         this.particule.setVelocityY(Phaser.Math.Between(200, 300));
-        //this.physics.add.collider(this.particule, this.destructeur, this.deletParticules, null, this);
+        this.physics.add.overlap(this.particule, this.destructeur, this.deletParticules, null, this);
         
      
         
@@ -223,9 +223,9 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     
-    deletParticules (particule ,destructeur)
+    deletParticules (destructeur,particule)
     {
-        this.particule.destroy(true, true);
+        particule.destroy(true, true);
     }
     
     

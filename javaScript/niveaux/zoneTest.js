@@ -213,6 +213,7 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     update (){
+        
         this.player.update(this.player);
           
     //--- Debug Update
@@ -298,6 +299,10 @@ class zoneTest extends Phaser.Scene {  // Copier Coller a modifier
         if (this.space){
             this.player.Jump(this.player);
         }
+        else{
+            this.player.noJump(this.player);
+        }
+        
         //
         
         
