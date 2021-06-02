@@ -55,12 +55,105 @@ class Load extends Phaser.Scene {
     
     create (){
         
+    //--- Animations 
+        
+      // Player
         this.anims.create({
-            key: 'boule',
-            frames: [ { key: 'runner', frame: 8. } ],
+            key: 'SL',
+            frames: this.anims.generateFrameNumbers('snail', { start: 1, end: 4 }),
+            duration: 300,
+        });
+        
+        this.anims.create({
+            key: 'SR',
+            frames: this.anims.generateFrameNumbers('snail', { start: 5, end: 8 }),
+            duration: 300,
+        });
+        
+        
+    // Runner
+        this.anims.create({
+            key: 'runner_boule',
+            frames: [ { key: 'runner', frame: 7. } ],
+        });
+        
+        this.anims.create({
+            key: 'runner_surPate',
+            frames: [ { key: 'runner', frame: 0. } ],
         });
     
+        this.anims.create({
+            key: 'runner_marche',
+            frames: this.anims.generateFrameNumbers('runner', { start: 1, end: 6 }),
+            frameRate: 12,
+        });
         
+        
+        /*    
+      // Barre de Vie
+        this.anims.create({
+            key: 'vie3',
+            frames: [ { key: 'vie', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'vie2',
+            frames: [ { key: 'vie', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'vie1',
+            frames: this.anims.generateFrameNumbers('vie', { start: 2, end: 3 }),
+            frameRate: 4,
+            repeat: 10000,
+        });
+        
+        this.anims.create({
+            key: 'vie_0',
+            frames: [ { key: 'vie', frame: 4. } ],
+        });
+        
+      // Compteur de Fruit
+        this.anims.create({
+            key: 'fruit0',
+            frames: [ { key: 'CDF', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit1',
+            frames: [ { key: 'CDF', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit2',
+            frames: [ { key: 'CDF', frame: 2. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit3',
+            frames: [ { key: 'CDF', frame: 3. } ],
+        });
+        
+        
+      // Inventaire
+        this.anims.create({
+            key: 'inv0',
+            frames: [ { key: 'inventaire', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'inv1',
+            frames: [ { key: 'inventaire', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'inv2',
+            frames: [ { key: 'inventaire', frame: 2. } ],
+        });
+        
+       
+   
+         */  
         
         console.log(this);
         this.scene.start("Menu");

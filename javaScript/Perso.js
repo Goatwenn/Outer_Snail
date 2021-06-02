@@ -10,85 +10,123 @@ class Perso extends Phaser.GameObjects.Sprite{
          
          this.body.setSize(54,54);
 
+         
          this.dashOn = false
          this.sol = false
          this.dsaut = false
          this.sdsaut = false
          
          this.gravite = 0;
-         this.gravX = 0;
-         this.newgravX = 0;
-         
+        
          this.lastDirection = 'droit';
+         this.animeLastdirection = 2;
+         
+         this.hp = 3;
+         this.invu = false;
+         this.invuTimer = 50;
          
          this.vitesseDeDeplacement = 300;
          this.hauteurDeSaut = 350;
          this.puissanceDeGravite = 400;
          
-        this.dashTimer = 0
-         this.dureDeDash = 30
+         this.dashTimer = 0;
+         this.dureDeDash = 30;
          this.vitesseDeDash = 800;
           
     }
+    
     update(){
         
-       if (this.dashOn == true){
+        if (this.dashOn == true){
            
-           this.dashTimer = this.dashTimer + 1
-           
-           
-           if (this.lastDirection == "droit"){
-               this.body.setVelocityX(this.vitesseDeDash);
-           }
-           else if (this.lastDirection == "gauche"){
-               this.body.setVelocityX(-this.vitesseDeDash);
-           }
+            this.dashTimer = this.dashTimer + 1
            
            
+            if(this.gravite == 0 || this.gravite == 2){
+                if (this.lastDirection == "droit"){
+                    this.body.setVelocityX(this.vitesseDeDash);
+                }
+                else if (this.lastDirection == "gauche"){
+                this.body.setVelocityX(-this.vitesseDeDash);
+                }
+            }
            
            
-          
+            if (this.lastDirection == "haut"){
+                this.body.setVelocityY(-this.vitesseDeDash);
+            }
+            else if (this.lastDirection == "bas"){
+                this.body.setVelocityY(this.vitesseDeDash);
+            }
            
+    
            
-           
-           if (this.dashTimer >= this.dureDeDash){
-               this.dashOn = false
-               this.dashTimer = 0 
-           }
-       }
+            if (this.dashTimer >= this.dureDeDash){
+                this.dashOn = false
+                this.dashTimer = 0 
+            }
+        }
   
         
         
         
         
+        
+        if  (this.invu == true){
+            
+            this.invuTimer = this.invuTimer - 1
+            
+            if(this.invuTimer <= 0){
+                this.invu = false
+                this.invuTimer = 50
+            }
+        }
+        
+
+        if (this.body.y >= 2000 ){
+            console.log('dead')
+            this.Dead()
+            console.log(this)
+           
+        }
+        
+        
+        
         if (this.gravite == 0){
+            
+        
+            
             
             if (this.body.blocked.down){
                 this.sol = true
+                this.dsaut = false
                 this.sdsaut = true   
             
             }
         }
         else if (this.gravite == 1){
             
-            if (this.body.blocked.down){
+            if (this.body.blocked.right){
                 this.sol = true
+                this.dsaut = false
                 this.sdsaut = true   
             
             }
         }
         else if (this.gravite == 2){
    
-            if (this.body.blocked.down){
+            if (this.body.blocked.up){
                 this.sol = true
+                this.dsaut = false
                 this.sdsaut = true   
             
             }
         }
         else if (this.gravite == 3){
             
-            if (this.body.blocked.down){
+            if (this.body.blocked.left){
                 this.sol = true
+                this.dsaut = false
                 this.sdsaut = true   
             
             }
@@ -139,13 +177,24 @@ class Perso extends Phaser.GameObjects.Sprite{
             else if(this.gravite == 0){
                 this.body.setVelocityY(-this.hauteurDeSaut);
             }
-
         }
-        
-        
-        
     }
  
+    
+    Vie(){
+        
+        if (this.invu == false){
+            this.hp = this.hp - 1
+            this.invu = true
+            console.log('degat')
+
+            if(this.hp <= 0){
+                this.Dead()
+                console.log(this)
+            }  
+        } 
+    }
+    
     
     Stop (){
         
@@ -165,7 +214,10 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 0 || this.gravite == 2 ){
                 this.body.setVelocityX(this.vitesseDeDeplacement);
-                this.lastDirection = 'droit'
+                if (this.lastDirection == 'gauche'|| this.lastDirection == 'bas'){
+                    this.anims.play("SR");
+                    this.lastDirection = 'droit'
+                }
             } 
         }
     }
@@ -174,7 +226,10 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 0 || this.gravite == 2 ){
                 this.body.setVelocityX(-this.vitesseDeDeplacement);
-                this.lastDirection = 'gauche'
+                if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
+                    this.anims.play("SL");
+                    this.lastDirection = 'gauche'
+                }   
             }
         }
     } 
@@ -183,7 +238,10 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 1 || this.gravite == 3 ){
                 this.body.setVelocityY(-this.vitesseDeDeplacement);
-                this.lastDirection = 'haut'
+                if (this.lastDirection == 'gauche' || this.lastDirection == 'bas'){
+                    this.anims.play("SR");
+                    this.lastDirection = 'haut'
+                }
             }  
         }
     }
@@ -192,7 +250,10 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 1 || this.gravite == 3 ){
                 this.body.setVelocityY(this.vitesseDeDeplacement);
-                this.lastDirection = 'bas'
+                if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
+                    this.anims.play("SL");
+                    this.lastDirection = 'bas'
+                }
             }
         }
     } 
@@ -214,38 +275,56 @@ class Perso extends Phaser.GameObjects.Sprite{
     }
     
     
-    Jetpack (){
-        
-        
-        
-    }
-    
-    
     
     Gravite_Rouge(){
         this.body.setGravityY(0) 
         this.body.setGravityX(-this.puissanceDeGravite)  
         
+        this.flipX = true ;
+        this.angle = 90;
+        
         this.gravite = 3   
     }
+    
+    
     Gravite_Bleu(){
         this.body.setGravityY(-this.puissanceDeGravite)  
         this.body.setGravityX(0) 
         
+        this.flipX = true ;
+        this.angle = 180;
+        
         this.gravite = 2
     }
+    
+    
     Gravite_Vert(){
         this.body.setGravityY(0)
         this.body.setGravityX(this.puissanceDeGravite)  
         
+        this.flipX = false ;
+        this.angle = -90;
+        
         this.gravite = 1
     }
+    
+    
     Gravite_Blanc(){
+        
         this.body.setGravityY(this.puissanceDeGravite)  
         this.body.setGravityX(0) 
+        
+        this.flipX = false ;
+        this.angle = 0;
         
         this.gravite = 0
     }
     
+    
+    Dead (){
+        this.body.x = 300
+        this.body.y = 1800
+        this.hp = 3
+    }
     
 }
