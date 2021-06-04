@@ -9,7 +9,6 @@ class Runner extends Phaser.GameObjects.Sprite{
          console.log(this) 
          
          this.body.setSize(54,54);
-         this.body.immovable = true;
          
          this.randomTimer = 0;
          

@@ -16,10 +16,14 @@ class Load extends Phaser.Scene {
         this.load.image('ennemi', 'assets/ennemi.png');
         this.load.image('hitbox', 'assets/hitbox.png');
         this.load.image('fruit', 'assets/fruit.png');
+        this.load.image('panneaux_dash', 'assets/panneaux_dash.png');
+        this.load.image('panneaux_shield', 'assets/panneaux_shield.png');
+        
         this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:54});
         this.load.spritesheet("vie", 'assets/barreDeVie.png',{frameWidth:218, frameHeight:54});
         this.load.spritesheet("inventaire", 'assets/inventaire.png',{frameWidth:100, frameHeight:100});
-        this.load.spritesheet("CDF", 'assets/compteurDeFruit.png',{frameWidth:192, frameHeight:78});
+        this.load.spritesheet('compteurDeFruit', 'assets/compteurDeFruit.png',{frameWidth:192, frameHeight:78});
+        this.load.spritesheet('spaceShip', 'assets/spaceShip.png',{frameWidth:726, frameHeight:126});
         
         
     // Ennemis -------------------------------------  
@@ -50,7 +54,7 @@ class Load extends Phaser.Scene {
         
         this.load.image('debug_BG', 'assets/menus/debug_BG.png');
         this.load.image('menu', 'assets/menus/pauseBG.png');
-        
+        this.load.image('win', 'assets/menus/win.png');
     }
     
     create (){
@@ -89,7 +93,7 @@ class Load extends Phaser.Scene {
         });
         
         
-        /*    
+            
       // Barre de Vie
         this.anims.create({
             key: 'vie3',
@@ -108,34 +112,8 @@ class Load extends Phaser.Scene {
             repeat: 10000,
         });
         
-        this.anims.create({
-            key: 'vie_0',
-            frames: [ { key: 'vie', frame: 4. } ],
-        });
         
-      // Compteur de Fruit
-        this.anims.create({
-            key: 'fruit0',
-            frames: [ { key: 'CDF', frame: 0. } ],
-        });
-        
-        this.anims.create({
-            key: 'fruit1',
-            frames: [ { key: 'CDF', frame: 1. } ],
-        });
-        
-        this.anims.create({
-            key: 'fruit2',
-            frames: [ { key: 'CDF', frame: 2. } ],
-        });
-        
-        this.anims.create({
-            key: 'fruit3',
-            frames: [ { key: 'CDF', frame: 3. } ],
-        });
-        
-        
-      // Inventaire
+        // Inventaire
         this.anims.create({
             key: 'inv0',
             frames: [ { key: 'inventaire', frame: 0. } ],
@@ -150,10 +128,31 @@ class Load extends Phaser.Scene {
             key: 'inv2',
             frames: [ { key: 'inventaire', frame: 2. } ],
         });
+    
+    
+      // Compteur de Fruit
+        this.anims.create({
+            key: 'fruit0',
+            frames: [ { key: 'compteurDeFruit', frame: 0. } ],
+        });
         
-       
+        this.anims.create({
+            key: 'fruit1',
+            frames: [ { key: 'compteurDeFruit', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit2',
+            frames: [ { key: 'compteurDeFruit', frame: 2. } ],
+        });
+        
+        this.anims.create({
+            key: 'fruit3',
+            frames: [ { key: 'compteurDeFruit', frame: 3. } ],
+        });
+        
    
-         */  
+     
         
         console.log(this);
         this.scene.start("Menu");

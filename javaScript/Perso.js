@@ -25,6 +25,8 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.invu = false;
          this.invuTimer = 50;
          
+         this.inventaire = 0;
+         
          this.vitesseDeDeplacement = 300;
          this.hauteurDeSaut = 350;
          this.puissanceDeGravite = 400;
@@ -183,7 +185,6 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     Vie(){
         
-        if (this.invu == false){
             this.hp = this.hp - 1
             this.invu = true
             console.log('degat')
@@ -192,7 +193,6 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.Dead()
                 console.log(this)
             }  
-        } 
     }
     
     
@@ -268,10 +268,32 @@ class Perso extends Phaser.GameObjects.Sprite{
         
     } 
     
+    Loot (x){
+        this.items = x
+        
+        if (this.inventaire == 0){
+            if (this.items == "dash"){
+                this.inventaire = 1
+            }
+        
+            if (this.items == "shield"){
+                this.inventaire = 2
+            }
+        }
+        
+    }
     
     
-    Dash (){
-        this.dashOn = true
+    Pouvoir (){
+        if (this.inventaire == 1){
+            this.dashOn = true
+            this.inventaire = 0
+        }
+        
+        if (this.inventaire == 2){
+            this.invu = true
+            this.inventaire = 0
+        }
     }
     
     
