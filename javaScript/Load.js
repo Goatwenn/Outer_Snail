@@ -54,12 +54,10 @@ class Load extends Phaser.Scene {
         
         this.load.image('debug_BG', 'assets/menus/debug_BG.png');
         this.load.image('menu', 'assets/menus/pauseBG.png');
-        this.load.image('win', 'assets/menus/win.png');
     }
     
     create (){
-        
-    //--- Animations 
+    //--- Animations  : ----------------------------------------------------------
         
       // Player
         this.anims.create({
@@ -73,6 +71,9 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('snail', { start: 5, end: 8 }),
             duration: 300,
         });
+        
+        
+        
         
         
     // Runner
@@ -91,6 +92,8 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('runner', { start: 1, end: 6 }),
             frameRate: 12,
         });
+        
+        
         
         
             
@@ -113,7 +116,10 @@ class Load extends Phaser.Scene {
         });
         
         
-        // Inventaire
+        
+        
+        
+      // Inventaire
         this.anims.create({
             key: 'inv0',
             frames: [ { key: 'inventaire', frame: 0. } ],
@@ -130,6 +136,9 @@ class Load extends Phaser.Scene {
         });
     
     
+        
+        
+        
       // Compteur de Fruit
         this.anims.create({
             key: 'fruit0',

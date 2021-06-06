@@ -65,6 +65,7 @@ class Perso extends Phaser.GameObjects.Sprite{
            
             if (this.dashTimer >= this.dureDeDash){
                 this.dashOn = false
+                this.inventaire = 0
                 this.dashTimer = 0 
             }
         }
@@ -85,11 +86,11 @@ class Perso extends Phaser.GameObjects.Sprite{
         }
         
 
+        
+        
+        
         if (this.body.y >= 2000 ){
-            console.log('dead')
-            this.Dead()
-            console.log(this)
-           
+            this.Dead() 
         }
         
         
@@ -184,15 +185,14 @@ class Perso extends Phaser.GameObjects.Sprite{
  
     
     Vie(){
-        
-            this.hp = this.hp - 1
-            this.invu = true
-            console.log('degat')
+        this.hp = this.hp - 1
+        this.invu = true
+        //console.log('Joueur Degat')
 
-            if(this.hp <= 0){
-                this.Dead()
-                console.log(this)
-            }  
+        if(this.hp <= 0){
+            this.Dead()
+            console.log(this)
+        }  
     }
     
     
@@ -273,10 +273,12 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         if (this.inventaire == 0){
             if (this.items == "dash"){
+                console.log('Joueur Loot Dash')
                 this.inventaire = 1
             }
         
             if (this.items == "shield"){
+                console.log('Joueur Loot Shield')
                 this.inventaire = 2
             }
         }
@@ -287,11 +289,12 @@ class Perso extends Phaser.GameObjects.Sprite{
     Pouvoir (){
         if (this.inventaire == 1){
             this.dashOn = true
-            this.inventaire = 0
+            console.log('Joueur Utilisation Dash')
         }
         
         if (this.inventaire == 2){
             this.invu = true
+            console.log('Joueur Utilisation Shield')
             this.inventaire = 0
         }
     }
@@ -344,6 +347,7 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     
     Dead (){
+        console.log('Joueur Mort')
         this.body.x = 300
         this.body.y = 1800
         this.hp = 3

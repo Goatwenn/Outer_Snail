@@ -51,13 +51,8 @@ class Runner extends Phaser.GameObjects.Sprite{
             this.body.setAngularAcceleration(0);
             this.body.setAngularVelocity(0);
             this.angle = 0;
-            this.Normal()          
+            this.Marche()          
         }
-        
-       
-        
-        
-        
     }
     
     Charge(CD){
@@ -77,7 +72,7 @@ class Runner extends Phaser.GameObjects.Sprite{
         }   
     }
     
-    Normal (){
+    Marche (){
         
         if (this.randowmNB == 0){
             this.body.setVelocityX(this.vitesseDeDeplacement);
@@ -95,6 +90,13 @@ class Runner extends Phaser.GameObjects.Sprite{
 
     }
    
+    
+    Dead(){
+        console.log('Runner Dead')
+        this.body.destroy(true, true);
+        this.angle = 0;
+        
+    }
         
     
 }

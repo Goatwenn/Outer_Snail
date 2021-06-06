@@ -7,7 +7,7 @@
          "height":40,
          "id":9,
          "name":"antiGraviteLayer",
-         "opacity":0,
+         "opacity":1,
          "type":"tilelayer",
          "visible":true,
          "width":140,
@@ -21,7 +21,7 @@
          "name":"backgroundLayer",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":140,
          "x":0,
          "y":0

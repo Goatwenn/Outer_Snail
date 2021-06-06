@@ -219,6 +219,18 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
         if (this.cursors.space.isDown){
             this.scene.start("Niveaux1_1");
+            /*
+            
+            Niveaux0_Test
+            Niveaux0_Blank
+            Niveaux1_1
+            
+            
+            
+            
+            */
+            
+            
         }
         
     }
