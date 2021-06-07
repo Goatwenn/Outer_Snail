@@ -12,6 +12,8 @@ class Runner extends Phaser.GameObjects.Sprite{
          
          this.randomTimer = 0;
          
+         this.dead = false ;
+         
          this.vitesseDeDeplacement = 200;
          this.puissanceDeGravite = 400;
          this.rayonAction = 500;
@@ -56,43 +58,47 @@ class Runner extends Phaser.GameObjects.Sprite{
     }
     
     Charge(CD){
+        if (this.dead != true){
+                this.chargeDirection = CD
         
-        this.chargeDirection = CD
+            if (this.chargeDirection == "droit"){
+                this.body.setAccelerationX(-this.chargeAcceleration);
+                this.body.setAngularAcceleration(-this.chargeAcceleration);   
+                this.anims.play('runner_boule', true);
+            }
         
-        if (this.chargeDirection == "droit"){
-            this.body.setAccelerationX(-this.chargeAcceleration);
-            this.body.setAngularAcceleration(-this.chargeAcceleration);   
-            this.anims.play('runner_boule', true);
-        }
-        
-        if (this.chargeDirection == "gauche"){
-            this.body.setAccelerationX(this.chargeAcceleration);
-            this.body.setAngularAcceleration(this.chargeAcceleration);
-            this.anims.play('runner_boule', true);
-        }   
+            if (this.chargeDirection == "gauche"){
+             this.body.setAccelerationX(this.chargeAcceleration);
+             this.body.setAngularAcceleration(this.chargeAcceleration);
+             this.anims.play('runner_boule', true);
+            }  
+        }  
     }
     
     Marche (){
         
-        if (this.randowmNB == 0){
-            this.body.setVelocityX(this.vitesseDeDeplacement);
-            this.flipX = false ;
-            this.anims.play('runner_marche', true);
+        if (this.dead != true){
+            if (this.randowmNB == 0){
+                this.body.setVelocityX(this.vitesseDeDeplacement);
+                this.flipX = false ;
+                this.anims.play('runner_marche', true);
+            }
+            else if (this.randowmNB == 1){
+                this.body.setVelocityX(-this.vitesseDeDeplacement);
+                this.flipX = true ;
+                this.anims.play('runner_marche', true);
+            }
+            else {
+                this.anims.play('runner_surPate', true);
+            }
         }
-        else if (this.randowmNB == 1){
-            this.body.setVelocityX(-this.vitesseDeDeplacement);
-            this.flipX = true ;
-            this.anims.play('runner_marche', true);
-        }
-        else {
-            this.anims.play('runner_surPate', true);
-        }
-
     }
    
     
     Dead(){
         console.log('Runner Dead')
+        this.dead = true
+        this.anims.play('runner_dead');
         this.body.destroy(true, true);
         this.angle = 0;
         

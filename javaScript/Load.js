@@ -52,6 +52,9 @@ class Load extends Phaser.Scene {
         this.load.image('title', 'assets/menus/Main_title.png');
         this.load.image('destructeur', 'assets/menus/Main_destructeur.png');
         
+        this.load.image('UI', 'assets/menus/map/ui_bg.png');
+        this.load.spritesheet('cdf', 'assets/menus/map/cdf.png',{frameWidth:384, frameHeight:156});
+        
         this.load.image('debug_BG', 'assets/menus/debug_BG.png');
         this.load.image('menu', 'assets/menus/pauseBG.png');
     }
@@ -86,7 +89,12 @@ class Load extends Phaser.Scene {
             key: 'runner_surPate',
             frames: [ { key: 'runner', frame: 0. } ],
         });
-    
+        
+        this.anims.create({
+            key: 'runner_dead',
+            frames: [ { key: 'runner', frame: 8. } ],
+        });
+        
         this.anims.create({
             key: 'runner_marche',
             frames: this.anims.generateFrameNumbers('runner', { start: 1, end: 6 }),
@@ -158,6 +166,28 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'fruit3',
             frames: [ { key: 'compteurDeFruit', frame: 3. } ],
+        });
+        
+        
+    // Cdt
+        this.anims.create({
+            key: 'cdf0',
+            frames: [ { key: 'cdf', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'cdf1',
+            frames: [ { key: 'cdf', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'cdf2',
+            frames: [ { key: 'cdf', frame: 2. } ],
+        });
+        
+        this.anims.create({
+            key: 'cdf3',
+            frames: [ { key: 'cdf', frame: 3. } ],
         });
         
    

@@ -6,6 +6,8 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     
     
     init(data){
+        this.Fruit = data.fruit
+        this.save = data.save
     }
     
     
@@ -13,7 +15,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
      //--- Load du TileSet : ----------------------------------------------------------
         this.load.image("Tiles_Test", 'assets/mondes/Tiles_Test.png');
-        this.load.tilemapTiledJSON("map", 'assets/mondes/Niveaux1_1.json');
+        this.load.tilemapTiledJSON("map1_1", 'assets/mondes/Niveaux1_1.json');
         
     }
     
@@ -21,8 +23,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     create (){
         
     //--- Variables : ----------------------------------------------------------
-        this.cdf = 0;
-        
+        this.nfruit = 0;
     
         
         
@@ -48,7 +49,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Map Tiled : ----------------------------------------------------------
-        this.map = this.add.tilemap('map');
+        this.map = this.add.tilemap('map1_1');
         this.tiles = this.map.addTilesetImage('Tiles_Test');
          
       // Layer 
@@ -62,10 +63,10 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.player.Gravite_Blanc(this.player) });
-        this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> { this.player.Gravite_Vert(this.player) });
-        this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> { this.player.Gravite_Bleu(this.player) });
-        this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> { this.player.Gravite_Rouge(this.player) });
+        this.antiGraviteLayer.setTileIndexCallback([483,484,485,520,521,522,557,558,559], ()=> { this.player.Gravite_Blanc(this.player) });
+        this.graviteLayer.setTileIndexCallback([39,40,41,76,77,78,113,114,115], ()=> { this.player.Gravite_Vert(this.player) });
+        this.graviteLayer.setTileIndexCallback([335,336,337,372,373,374,409,410,411], ()=> { this.player.Gravite_Bleu(this.player) });
+        this.graviteLayer.setTileIndexCallback([187,188,189,223,225,226,261,262,263], ()=> { this.player.Gravite_Rouge(this.player) });
         
         
         
@@ -88,8 +89,6 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
      
         
         
-        
-    
     //--- Objet :  ----------------------------------------------------------
         
       // StaticGroup :
@@ -157,6 +156,8 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     //--- Debug  :  ----------------------------------------------------------
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.pYT = this.add.text(30,60,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        this.pTT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        
         
     }// fin de Create
     
@@ -174,18 +175,20 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
+        
     //--- Animations  :  ----------------------------------------------------------   
         this.inventaire.anims.play("inv" + this.player.inventaire);
-        this.compteurDeFruit.anims.play("fruit"+this.cdf);
+        this.compteurDeFruit.anims.play("fruit"+this.nfruit);
         
         
         
         
         
-    //--- Debug 
+    //--- Debug :  ---------------------------------------------------------
         if (debug == true){
             this.pXT.setText('X = ' + this.player.x);
             this.pYT.setText('Y = ' + this.player.y);
+            this.pTT.setText('Y = ' + this.Fruit);
         }
         
         
@@ -273,7 +276,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         }
         
         if (this.player.dashOn == true){
-            this.runner.Dead();
+            this.runner.Dead(this.runner);
         }
         
     }
@@ -296,13 +299,17 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     
     
     CollectFruits (player, fruit){
-        this.cdf = this.cdf+1
+        this.nfruit = this.nfruit +1
         fruit.destroy(true, true);
-        console.log('Joueur Loot Fruit : ' + this.cdf )
+        console.log('Joueur Loot Fruit : '+this.nfruit )
         
     }
     Sortie (player, spaceShip){
-        player.destroy(true, true);
+        if (this.Fruit[0] < this.nfruit){
+            this.Fruit[0] = this.nfruit
+        }
+        this.scene.start("Map", {fruit : this.Fruit, save : 1 });
+    
     }
     
 }// fin de Class

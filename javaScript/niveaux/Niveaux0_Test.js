@@ -12,7 +12,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     preload (){
         this.load.image("Tiles_Test", 'assets/mondes/Tiles_Test.png');
-        this.load.tilemapTiledJSON("map", 'assets/mondes/Niveaux0_Test.json');
+        this.load.tilemapTiledJSON("map_Test", 'assets/mondes/Niveaux0_Test.json');
         
     }
     
@@ -21,22 +21,9 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     create (){
         
     //--- Variables : ----------------------------------------------------------
-        this.cdf = 0;
-        
-    
-        
-        
-        
-    //--- Paralaxe : ----------------------------------------------------------
-        if (debug == false){
-            this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
-            this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
-        }
-        
-        
-        
-        
-        
+        this.nfruit = 0;
+        this.test = false
+  
     //--- Cursors : ----------------------------------------------------------
         this.cursors = this.input.keyboard.createCursorKeys();
     
@@ -48,7 +35,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Map Tiled : ----------------------------------------------------------
-        this.map = this.add.tilemap('map');
+        this.map = this.add.tilemap('map_Test');
         this.tiles = this.map.addTilesetImage('Tiles_Test');
          
       // Layer 
@@ -62,18 +49,27 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.antiGraviteLayer.setTileIndexCallback([482,483,484,519,520,521,556,557,558], ()=> { this.player.Gravite_Blanc(this.player) });
-        this.graviteLayer.setTileIndexCallback([38,39,40,75,76,77,112,113,11], ()=> { this.player.Gravite_Vert(this.player) });
-        this.graviteLayer.setTileIndexCallback([334,335,336,371,372,373,408,409,410], ()=> { this.player.Gravite_Bleu(this.player) });
-        this.graviteLayer.setTileIndexCallback([186,187,188,223,224,225,260,261,262], ()=> { this.player.Gravite_Rouge(this.player) });
+        this.antiGraviteLayer.setTileIndexCallback([483,484,485,520,521,522,557,558,559], ()=> { this.player.Gravite_Blanc(this.player) });
+        this.graviteLayer.setTileIndexCallback([39,40,41,76,77,78,113,114,115], ()=> { this.player.Gravite_Vert(this.player) });
+        this.graviteLayer.setTileIndexCallback([335,336,337,372,373,374,409,410,411], ()=> { this.player.Gravite_Bleu(this.player) });
+        this.graviteLayer.setTileIndexCallback([187,188,189,223,225,226,261,262,263], ()=> { this.player.Gravite_Rouge(this.player) });
         
         
         
         
         
     //--- Player : ----------------------------------------------------------
-        this.player = new Perso(this, 300, 1800, 'snail');
+        
+        // start
+        //this.player = new Perso(this, 300, 1800, 'snail');
 
+        
+        // ennemi
+        this.player = new Perso(this, 3100, 1500, 'snail');
+
+        
+        
+        
       // Cameras
         this.cameras.main.setSize(config.width, config.height);
         this.cameras.main.setBounds(0,0,7560,2160);
@@ -84,11 +80,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Ennemis : ----------------------------------------------------------
-        this.runner = new Runner(this, 2500, 1700, 'runner');
+        this.runner = new Runner(this, 4500, 1700, 'runner');
      
-        
-        
-        
     
     //--- Objet :  ----------------------------------------------------------
         
@@ -98,15 +91,15 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit = this.physics.add.staticGroup();
         
       // Dash
-        this.panneaux_dash.create(970,1755, 'panneaux_dash'); 
+        this.panneaux_dash.create(2300,1864, 'panneaux_dash'); 
         
       // Shield
-        this.panneaux_shield.create(600,1864, 'panneaux_shield')
+        this.panneaux_shield.create(2400,1864, 'panneaux_shield')
     
       // Fruit
-        this.fruit.create(2562,1600, 'fruit');
-        this.fruit.create(460,1860, 'fruit');  
-        this.fruit.create(4430,1377, 'fruit').setFlipY(true);;
+        this.fruit.create(1700,1800, 'fruit');
+        this.fruit.create(1800,1800, 'fruit');  
+        this.fruit.create(1900,1800, 'fruit').setFlipY(true);;
     
       // Sortie
         this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceShip');
@@ -140,6 +133,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.physics.add.overlap(this.player, this.antiGraviteLayer); 
         
         this.physics.add.collider(this.player, this.runner, this.Dommage, null, this);
+     
+        
         
         this.physics.add.overlap(this.player, this.fruit,  this.CollectFruits, null, this);
         this.physics.add.overlap(this.player, this.panneaux_dash, this.Dash, null, this);
@@ -148,15 +143,14 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
       // Ennemis
         this.physics.add.collider(this.runner,  this.collideLayer);
-        
      
-
-        
         
         
     //--- Debug  :  ----------------------------------------------------------
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.pYT = this.add.text(30,60,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        this.ptestT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        
         
     }// fin de Create
     
@@ -168,25 +162,22 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Updates des Class  :  ----------------------------------------------------------
         this.player.update();
+        
         this.runner.update(this.player.x, this.player.y);
-        
-        
-        
-        
+
         
     //--- Animations  :  ----------------------------------------------------------   
         this.inventaire.anims.play("inv" + this.player.inventaire);
-        this.compteurDeFruit.anims.play("fruit"+this.cdf);
+        this.compteurDeFruit.anims.play("fruit"+this.nfruit);
         
         
         
         
         
-    //--- Debug 
-        if (debug == true){
-            this.pXT.setText('X = ' + this.player.x);
-            this.pYT.setText('Y = ' + this.player.y);
-        }
+    //--- Debug :  --------------------------------------------------------
+        this.pXT.setText('X = ' + this.player.x);
+        this.pYT.setText('Y = ' + this.player.y);
+        this.ptestT.setText('Test = ' + this.test);
         
         
         
@@ -266,14 +257,14 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     Dommage(){
-        if (this.player.invu == false || this.player.dashOn == false){
+        if (this.player.invu == false && this.player.dashOn == false){
             this.player.Vie();
             this.cameras.main.shake(50, 0.02)
             this.barreDeVie.anims.play("vie" + this.player.hp);
         }
         
         if (this.player.dashOn == true){
-            this.runner.Dead();
+            this.runner.Dead(this.runner);
         }
         
     }
@@ -296,12 +287,14 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     CollectFruits (player, fruit){
-        this.cdf = this.cdf+1
+        this.nfruit = this.nfruit +1
         fruit.destroy(true, true);
+        console.log('Joueur Loot Fruit : '+this.nfruit )
         
     }
     Sortie (player, spaceShip){
-        player.destroy(true, true);
+        this.scene.start("Map");
+    
     }
     
 }// fin de Class

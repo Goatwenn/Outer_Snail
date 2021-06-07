@@ -70,9 +70,7 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
         }
   
-        
-        
-        
+    
         
         
         if  (this.invu == true){
@@ -85,20 +83,11 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
         }
         
-
-        
-        
-        
-        if (this.body.y >= 2000 ){
+        if (this.body.y >= 2160 || this.body.y <= 0 || this.body.x >= 8000 || this.body.x <= 0 ){
             this.Dead() 
         }
         
-        
-        
         if (this.gravite == 0){
-            
-        
-            
             
             if (this.body.blocked.down){
                 this.sol = true
