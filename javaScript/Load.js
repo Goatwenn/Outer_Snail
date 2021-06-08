@@ -29,18 +29,19 @@ class Load extends Phaser.Scene {
     // Ennemis -------------------------------------  
         
         this.load.spritesheet("runner", 'assets/ennemis/runner.png',{frameWidth:108, frameHeight:108});
+        this.load.spritesheet("thrower", 'assets/ennemis/thrower.png',{frameWidth:108, frameHeight:108});
         
         
     // Particules ---------------------------------
         
-        this.load.image('particule_energie_1', 'assets/particules/particule_energie_1.png');
-        this.load.image('particule_energie_2', 'assets/particules/particule_energie_2.png');
-        this.load.image('particule_flamme_1', 'assets/particules/particule_flamme_1.png');
-        this.load.image('particule_flamme_2', 'assets/particules/particule_flamme_2.png');
-        this.load.image('particule_herbe_1', 'assets/particules/particule_herbe_1.png');
-        this.load.image('particule_herbe_2', 'assets/particules/particule_herbe_2.png');
-        this.load.image('particule_sang_1', 'assets/particules/particule_sang_1.png');
-        this.load.image('particule_sang_2', 'assets/particules/particule_sang_2.png');
+        this.load.image('pb1', 'assets/particules/particule_energie_1.png');
+        this.load.image('pb2', 'assets/particules/particule_energie_2.png');
+        this.load.image('po1', 'assets/particules/particule_flamme_1.png');
+        this.load.image('po2', 'assets/particules/particule_flamme_2.png');
+        this.load.image('pv1', 'assets/particules/particule_herbe_1.png');
+        this.load.image('pv2', 'assets/particules/particule_herbe_2.png');
+        this.load.image('pr1', 'assets/particules/particule_sang_1.png');
+        this.load.image('pr2', 'assets/particules/particule_sang_2.png');
         
     // Menus --------------------------------------
         
@@ -102,6 +103,19 @@ class Load extends Phaser.Scene {
         });
         
         
+        
+     // Thrower
+        this.anims.create({
+            key: 'hide',
+            frames: this.anims.generateFrameNumbers('thrower', { start: 0, end: 4 }),
+            frameRate: 24,
+        });  
+        
+        this.anims.create({
+            key: 'un_hide',
+            frames: this.anims.generateFrameNumbers('thrower', { start: 5, end: 9 }),
+            frameRate: 24,
+        });
         
         
             

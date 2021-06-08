@@ -23,6 +23,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     //--- Variables : ----------------------------------------------------------
         this.nfruit = 0;
         this.test = false
+        
   
     //--- Cursors : ----------------------------------------------------------
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -80,8 +81,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Ennemis : ----------------------------------------------------------
-        this.runner = new Runner(this, 4500, 1700, 'runner');
-     
+        this.ennemi = new Thrower(this, 4500, 1600, 'thrower');
     
     //--- Objet :  ----------------------------------------------------------
         
@@ -104,6 +104,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
       // Sortie
         this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceShip');
         this.spaceShip.setSize(500,126)
+        
         
         
         
@@ -132,7 +133,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.physics.add.overlap(this.player, this.graviteLayer);
         this.physics.add.overlap(this.player, this.antiGraviteLayer); 
         
-        this.physics.add.collider(this.player, this.runner, this.Dommage, null, this);
+        this.physics.add.collider(this.player, this.ennemi, this.Dommage, null, this);
      
         
         
@@ -142,7 +143,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.physics.add.overlap(this.player, this.spaceShip, this.Sortie, null, this);
     
       // Ennemis
-        this.physics.add.collider(this.runner,  this.collideLayer);
+        this.physics.add.collider(this.ennemi,  this.collideLayer);
      
         
         
@@ -160,10 +161,14 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     update (){
         
+         
+        
+        
+        
     //--- Updates des Class  :  ----------------------------------------------------------
         this.player.update();
         
-        this.runner.update(this.player.x, this.player.y);
+        this.ennemi.update(this.player.x, this.player.y);
 
         
     //--- Animations  :  ----------------------------------------------------------   
@@ -177,7 +182,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     //--- Debug :  --------------------------------------------------------
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.ptestT.setText('Test = ' + this.test);
+        this.ptestT.setText('Test = ' + this.ennemi.hideVerif);
         
         
         
@@ -200,7 +205,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
       // Droit
         if(this.droit){ 
-            this.player.Droit(this.player);  
+            this.player.Droit(this.player);
+             
         } 
         
       //  Gauche         
@@ -250,6 +256,13 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
             this.player.Pouvoir(this.player);
         }
      
+        
+       
+        
+        
+        
+        
+        
     }// fin de Update
 
     
@@ -264,7 +277,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         }
         
         if (this.player.dashOn == true){
-            this.runner.Dead(this.runner);
+            //this.runner.Dead(this.runner);
         }
         
     }

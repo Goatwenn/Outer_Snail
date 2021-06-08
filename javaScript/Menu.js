@@ -11,11 +11,11 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
 
         this.cursors = this.input.keyboard.createCursorKeys();
        
-        this.pointerS = this.physics.add.sprite(1920, 200, 'particule_sang_1');
-        this.pointerT = this.physics.add.sprite(960, 540, 'particule_sang_1');
-        this.pointerF = this.physics.add.sprite(1520, 740, 'particule_sang_1');
-        this.pointerE = this.physics.add.sprite(960, 540, 'particule_sang_1');
-        this.pointerC = this.physics.add.sprite(960, 540, 'particule_sang_1');
+        this.pointerS = this.physics.add.sprite(1920, 200, 'ps1');
+        this.pointerT = this.physics.add.sprite(960, 540, 'ps1');
+        this.pointerF = this.physics.add.sprite(1520, 740, 'ps1');
+        this.pointerE = this.physics.add.sprite(960, 540, 'ps1');
+        this.pointerC = this.physics.add.sprite(960, 540, 'ps1');
         
         
         
@@ -164,7 +164,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
         
         this.particule = this.physics.add.group({
-            key: 'particule_energie_2',
+            key: 'pe2',
             setXY: { x: this.escargo.x, y: this.escargo.y}
         });
      
@@ -175,7 +175,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
         
         this.particule = this.physics.add.group({
-            key: 'particule_energie_1',
+            key: 'pe1',
             setXY: { x: this.escargo.x, y: this.escargo.y}
         });
         

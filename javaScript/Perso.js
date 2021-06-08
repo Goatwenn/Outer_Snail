@@ -10,14 +10,20 @@ class Perso extends Phaser.GameObjects.Sprite{
          
          this.body.setSize(54,54);
 
+         this.particule = new Particules();
          
          this.dashOn = false
          this.sol = false
          this.dsaut = false
          this.sdsaut = false
          
+         this.enMouvement = false
+         
          this.gravite = 0;
-        
+         
+         this.graviteDuJoueurX= 0;
+         this.graviteDuJoueurY= 0;
+         
          this.lastDirection = 'droit';
          this.animeLastdirection = 2;
          
@@ -71,6 +77,43 @@ class Perso extends Phaser.GameObjects.Sprite{
         }
   
     
+        
+        //--- Particules :  --------------------------------------------------------
+        
+        
+         if( this.enMouvement && this.sol){
+            this.particule.Frotement(
+                
+                this.scene, // Scenne
+                "pv",       // P = Particule + Couleur (v b r O )
+                
+                this.body,  // Target
+                0,          // OffSet X
+                0,          // OffSet Y
+                
+                this.graviteDuJoueurX,   // GraviteX
+                this.graviteDuJoueurY,   // GraviteY
+                
+                10,         // Delay D'apparition
+                false,      // Radial
+            );
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         if  (this.invu == true){
@@ -195,6 +238,7 @@ class Perso extends Phaser.GameObjects.Sprite{
             else if (this.gravite == 1 || this.gravite == 3 ){
                 this.body.setVelocityY(0);
             }
+            this.enMouvement = false
         }
         
     }
@@ -203,6 +247,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 0 || this.gravite == 2 ){
                 this.body.setVelocityX(this.vitesseDeDeplacement);
+                this.enMouvement = true
                 if (this.lastDirection == 'gauche'|| this.lastDirection == 'bas'){
                     this.anims.play("SR");
                     this.lastDirection = 'droit'
@@ -215,6 +260,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 0 || this.gravite == 2 ){
                 this.body.setVelocityX(-this.vitesseDeDeplacement);
+                this.enMouvement = true
                 if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
                     this.anims.play("SL");
                     this.lastDirection = 'gauche'
@@ -227,6 +273,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 1 || this.gravite == 3 ){
                 this.body.setVelocityY(-this.vitesseDeDeplacement);
+                this.enMouvement = true
                 if (this.lastDirection == 'gauche' || this.lastDirection == 'bas'){
                     this.anims.play("SR");
                     this.lastDirection = 'haut'
@@ -239,6 +286,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.dashOn == false){
             if (this.gravite == 1 || this.gravite == 3 ){
                 this.body.setVelocityY(this.vitesseDeDeplacement);
+                this.enMouvement = true
                 if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
                     this.anims.play("SL");
                     this.lastDirection = 'bas'
@@ -292,7 +340,10 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     Gravite_Rouge(){
         this.body.setGravityY(0) 
-        this.body.setGravityX(-this.puissanceDeGravite)  
+        this.body.setGravityX(-puissanceDeGravite)
+        
+        this.graviteDuJoueurY = (0)
+        this.graviteDuJoueurX = (-puissanceDeGravite)
         
         this.flipX = true ;
         this.angle = 90;
@@ -302,8 +353,11 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     
     Gravite_Bleu(){
-        this.body.setGravityY(-this.puissanceDeGravite)  
+        this.body.setGravityY(-puissanceDeGravite)  
         this.body.setGravityX(0) 
+        
+        this.graviteDuJoueurY = (-puissanceDeGravite)
+        this.graviteDuJoueurX = (0)
         
         this.flipX = true ;
         this.angle = 180;
@@ -314,7 +368,10 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     Gravite_Vert(){
         this.body.setGravityY(0)
-        this.body.setGravityX(this.puissanceDeGravite)  
+        this.body.setGravityX(puissanceDeGravite)  
+        
+        this.graviteDuJoueurY = (0)
+        this.graviteDuJoueurX = (puissanceDeGravite)
         
         this.flipX = false ;
         this.angle = -90;
@@ -325,8 +382,11 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     Gravite_Blanc(){
         
-        this.body.setGravityY(this.puissanceDeGravite)  
+        this.body.setGravityY(puissanceDeGravite)  
         this.body.setGravityX(0) 
+        
+        this.graviteDuJoueurY = (puissanceDeGravite)
+        this.graviteDuJoueurX = (0)
         
         this.flipX = false ;
         this.angle = 0;

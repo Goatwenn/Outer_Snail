@@ -26,6 +26,8 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
         this.lasDirection = 0;
         
+        this.monde = 0;
+        
         this.vitesseDeTravling = 400;
         this.lvl = 0
         
@@ -55,15 +57,15 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.graviteLayer.setTileIndexCallback([237], ()=> { this.scene.start("Niveaux0_Test") });
+        this.graviteLayer.setTileIndexCallback([237], ()=> { this.monde = 0, this.lvl = "Test" });
         
-        this.graviteLayer.setTileIndexCallback([87], ()=> { this.lvl = 0 });
-        this.graviteLayer.setTileIndexCallback([94], ()=> { this.lvl = 1 });
-        this.graviteLayer.setTileIndexCallback([97], ()=> { this.lvl = 2 });
-        this.graviteLayer.setTileIndexCallback([101], ()=> { this.lvl = 3 });
-        this.graviteLayer.setTileIndexCallback([103], ()=> { this.lvl = 4 });
-        this.graviteLayer.setTileIndexCallback([106], ()=> { this.lvl = 5 });
-        this.graviteLayer.setTileIndexCallback([108], ()=> { this.lvl = 6 });
+        this.graviteLayer.setTileIndexCallback([87], ()=> { this.monde = 1,this.lvl = 0 });
+        this.graviteLayer.setTileIndexCallback([94], ()=> { this.monde = 1,this.lvl = 1 });
+        this.graviteLayer.setTileIndexCallback([97], ()=> { this.monde = 1,this.lvl = 2 });
+        this.graviteLayer.setTileIndexCallback([101], ()=> { this.monde = 1,this.lvl = 3 });
+        this.graviteLayer.setTileIndexCallback([103], ()=> { this.monde = 1,this.lvl = 4 });
+        this.graviteLayer.setTileIndexCallback([106], ()=> { this.monde = 1,this.lvl = 5 });
+        this.graviteLayer.setTileIndexCallback([108], ()=> { this.monde = 1,this.lvl = 6 });
             
         
         
@@ -176,7 +178,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         }   
       // Espace
         if (this.cursors.space.isDown && this.lvl != 0){
-            this.scene.start("Niveaux1_"+ this.lvl, {fruit : this.Fruit, save : 1 });
+            this.scene.start("Niveaux" + this.monde + "_"+ this.lvl, {fruit : this.Fruit, save : 1 });
         } 
 
         
