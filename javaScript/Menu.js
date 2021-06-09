@@ -164,7 +164,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
         
         this.particule = this.physics.add.group({
-            key: 'pe2',
+            key: 'particule_bleu1',
             setXY: { x: this.escargo.x, y: this.escargo.y}
         });
      
@@ -175,7 +175,7 @@ class Menu extends Phaser.Scene {  // Copier Coller a modifier
         
         
         this.particule = this.physics.add.group({
-            key: 'pe1',
+            key: 'particule_bleu1',
             setXY: { x: this.escargo.x, y: this.escargo.y}
         });
         

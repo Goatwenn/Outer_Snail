@@ -47,11 +47,11 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.tiles = this.map.addTilesetImage('Tiles_Test');
          
       // Layer 
-        this.backgroundLayer = this.map.createStaticLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
-        this.antiGraviteLayer = this.map.createStaticLayer('antiGraviteLayer', this.tiles, 0, 0);
-        this.graviteLayer = this.map.createStaticLayer('graviteLayer', this.tiles, 0, 0);
-        this.collideLayer = this.map.createStaticLayer('collideLayer', this.tiles, 0, 0);
-        this.decoLayer = this.map.createStaticLayer('decoLayer', this.tiles, 0, 0);
+        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
+        this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
+        this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
+        this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
+        this.decoLayer = this.map.createLayer('decoLayer', this.tiles, 0, 0);
    
       // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);

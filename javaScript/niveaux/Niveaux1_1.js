@@ -169,7 +169,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Updates des Class  :  ----------------------------------------------------------
         this.player.update();
-        this.runner.update(this.player.x, this.player.y);
+        this.runner.update();
         
         
         

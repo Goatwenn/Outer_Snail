@@ -34,14 +34,14 @@ class Load extends Phaser.Scene {
         
     // Particules ---------------------------------
         
-        this.load.image('pb1', 'assets/particules/particule_energie_1.png');
-        this.load.image('pb2', 'assets/particules/particule_energie_2.png');
-        this.load.image('po1', 'assets/particules/particule_flamme_1.png');
-        this.load.image('po2', 'assets/particules/particule_flamme_2.png');
-        this.load.image('pv1', 'assets/particules/particule_herbe_1.png');
-        this.load.image('pv2', 'assets/particules/particule_herbe_2.png');
-        this.load.image('pr1', 'assets/particules/particule_sang_1.png');
-        this.load.image('pr2', 'assets/particules/particule_sang_2.png');
+        this.load.image('particule_bleu1', 'assets/particules/particule_energie_1.png');
+        this.load.image('particule_bleu2', 'assets/particules/particule_energie_2.png');
+        this.load.image('particule_orange1', 'assets/particules/particule_flamme_1.png');
+        this.load.image('particule_orange2', 'assets/particules/particule_flamme_2.png');
+        this.load.image('particule_vert1', 'assets/particules/particule_herbe_1.png');
+        this.load.image('particule_vert2', 'assets/particules/particule_herbe_2.png');
+        this.load.image('particule_rouge1', 'assets/particules/particule_sang_1.png');
+        this.load.image('particule_rouge2', 'assets/particules/particule_sang_2.png');
         
     // Menus --------------------------------------
         

@@ -7,36 +7,34 @@ class Particules {
     }
     
     
-    Frotement(Scene, texture, target, foX, foY, Gx, Gy, delay, radial){
+    Frotement(Scene, texture, target, foX, foY){
      
         this.timer = this.timer + 1
-        this.delay = delay;
+        this.delay = 10;
         
         if (this.timer >= this.delay){
             this.timer = 0
-            this.image = texture + Phaser.Math.Between(1, 2)
+            this.nb =  Phaser.Math.Between(1, 2)
             
-            var particles = Scene.add.particles(this.image);
+            var particles = Scene.add.particles('particule_' + texture + this.nb);
             
             var emitter = particles.createEmitter({
  
-                gravityX : Gx,
-                gravityY : Gy,
-
-                
                 follow : target,
-                followOffset : {x : foX, y : foY} ,
                 
-                angle: 0,
-                lifespan :500 , 
-                radial : radial,
+                followOffset : {x : foX, y : foY},
                 
-                speedY: 100 * -(Gy/puissanceDeGravite),
-                speedX: 100 * -(Gx/puissanceDeGravite),
+                angle: {min : 90, max : 0},
+                
+                lifespan :500, 
+                
+                gravityX : target.gravity.x,
+                gravityY : target.gravity.y,
+                
+                speedY: 100 * -(target.gravity.y/puissanceDeGravite),
+                speedX: 100 * -(target.gravity.x/puissanceDeGravite),
                 
                 maxParticles: 1,
-                
-                rotate: {min: -180}
                 
                 blendMode: 'COLOR_BRUN',
             }); 
@@ -47,17 +45,11 @@ class Particules {
             this.particule.Frotement(
                 
                 this.scene, // Scenne
-                "pv",       // P = Particule + Couleur (v b r O )
-                
+                "vert",       // P = Particule + Couleur
                 this.body,  // Target
                 0,          // OffSet X
                 0,          // OffSet Y
                 
-                this.graviteDuJoueurX,   // GraviteX
-                this.graviteDuJoueurY,   // GraviteY
-                
-                10,         // Delay D'apparition
-                false,      // Radial
             );
             
             

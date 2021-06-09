@@ -40,11 +40,11 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.tiles = this.map.addTilesetImage('Tiles_Test');
          
       // Layer 
-        this.backgroundLayer = this.map.createStaticLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
-        this.antiGraviteLayer = this.map.createStaticLayer('antiGraviteLayer', this.tiles, 0, 0);
-        this.graviteLayer = this.map.createStaticLayer('graviteLayer', this.tiles, 0, 0);
-        this.collideLayer = this.map.createStaticLayer('collideLayer', this.tiles, 0, 0);
-        this.decoLayer = this.map.createStaticLayer('decoLayer', this.tiles, 0, 0);
+        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
+        this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
+        this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
+        this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
+        this.decoLayer = this.map.createLayer('decoLayer', this.tiles, 0, 0);
    
       // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);
@@ -70,7 +70,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
 
         
         
-        
+         
       // Cameras
         this.cameras.main.setSize(config.width, config.height);
         this.cameras.main.setBounds(0,0,7560,2160);
@@ -82,7 +82,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Ennemis : ----------------------------------------------------------
         this.ennemi = new Thrower(this, 4500, 1600, 'thrower');
-    
+        this.runner = new Runner(this, 4500, 1600, 'runner');
+        
     //--- Objet :  ----------------------------------------------------------
         
       // StaticGroup :
@@ -145,7 +146,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
       // Ennemis
         this.physics.add.collider(this.ennemi,  this.collideLayer);
      
-        
+        this.physics.add.collider(this.player, this.runner, this.Dommage, null, this);
+        this.physics.add.collider(this.runner,  this.collideLayer);
         
     //--- Debug  :  ----------------------------------------------------------
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
@@ -169,7 +171,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.player.update();
         
         this.ennemi.update(this.player.x, this.player.y);
-
+        this.runner.update(this.player.x, this.player.y);
         
     //--- Animations  :  ----------------------------------------------------------   
         this.inventaire.anims.play("inv" + this.player.inventaire);
@@ -182,7 +184,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     //--- Debug :  --------------------------------------------------------
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.ptestT.setText('Test = ' + this.ennemi.hideVerif);
+        this.ptestT.setText('Test = ' + Particules.image);
         
         
         
@@ -277,7 +279,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         }
         
         if (this.player.dashOn == true){
-            //this.runner.Dead(this.runner);
+            this.runner.Dead(this.runner);
         }
         
     }

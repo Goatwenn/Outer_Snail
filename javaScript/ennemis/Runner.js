@@ -10,6 +10,9 @@ class Runner extends Phaser.GameObjects.Sprite{
          
          this.particule = new Particules();
          
+         this.scene.physics.add.collider(this.body, this.scene.collideLayer);
+         
+         
          this.body.setGravityY(puissanceDeGravite)
          this.body.setSize(54,54);
         
@@ -23,10 +26,8 @@ class Runner extends Phaser.GameObjects.Sprite{
     }
     
  
-    update(x, y){ 
+    update(){ 
         
-        this.playerX = x
-        this.playerY = y
         this.randomTimer = this.randomTimer + 1;
         
         
@@ -43,10 +44,10 @@ class Runner extends Phaser.GameObjects.Sprite{
         
         
         
-        if(this.playerX >= this.body.x - this.rayonAction && this.playerX < this.body.x ){
+        if(this.scene.player.x >= this.body.x - this.rayonAction && this.scene.player.x < this.body.x ){
             this.Charge("droit")
         }
-        else if(this.playerX <= this.body.x + this.rayonAction && this.playerX > this.body.x ){
+        else if(this.scene.player.x <= this.body.x + this.rayonAction && this.scene.player.x > this.body.x ){
             this.Charge("gauche")
         }
         else {
@@ -68,19 +69,11 @@ class Runner extends Phaser.GameObjects.Sprite{
                 this.anims.play('runner_boule', true);
                 
                 this.particule.Frotement(
-
                     this.scene, // Scenne
-                    "pv",       // P = Particule + Couleur (v b r O )
-
+                    "vert",       // P = Particule + Couleur
                     this.body,  // Target
                     54,          // OffSet X
                     54,          // OffSet Y
-
-                    puissanceDeGravite,   // GraviteX
-                    puissanceDeGravite,   // GraviteY
-
-                    10,         // Delay D'apparition
-                    false,      // Radial
                 );
             }
         
@@ -90,20 +83,12 @@ class Runner extends Phaser.GameObjects.Sprite{
                 this.anims.play('runner_boule', true);
                 
                 this.particule.Frotement(
-
                     this.scene, // Scenne
-                    "pv",       // P = Particule + Couleur (v b r O )
-
+                    "vert",       // P = Particule + Couleur
                     this.body,  // Target
                     0,          // OffSet X
                     54,          // OffSet Y
-
-                    puissanceDeGravite,   // GraviteX
-                    puissanceDeGravite,   // GraviteY
-
-                    10,         // Delay D'apparition
-                    false,      // Radial
-                ); 
+                );
             }
         }  
     }

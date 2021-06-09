@@ -1,6 +1,6 @@
 class Perso extends Phaser.GameObjects.Sprite{
     
-     constructor (scene, x, y, texture ){
+     constructor (scene, x, y, texture){
          super(scene, x, y, texture);
          
          scene.add.existing(this);
@@ -11,6 +11,8 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.body.setSize(54,54);
 
          this.particule = new Particules();
+         
+         
          
          this.dashOn = false
          this.sol = false
@@ -45,6 +47,7 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     update(){
         
+        
         if (this.dashOn == true){
            
             this.dashTimer = this.dashTimer + 1
@@ -78,24 +81,16 @@ class Perso extends Phaser.GameObjects.Sprite{
   
     
         
-        //--- Particules :  --------------------------------------------------------
+    //--- Particules :  --------------------------------------------------------
         
         
          if( this.enMouvement && this.sol){
             this.particule.Frotement(
-                
                 this.scene, // Scenne
-                "pv",       // P = Particule + Couleur (v b r O )
-                
+                "vert",       // P = Particule + Couleur
                 this.body,  // Target
                 27,          // OffSet X
                 54,          // OffSet Y
-                
-                this.graviteDuJoueurX,   // GraviteX
-                this.graviteDuJoueurY,   // GraviteY
-                
-                10,         // Delay D'apparition
-                false,      // Radial
             );
         }
         
@@ -138,6 +133,10 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.sdsaut = true   
             
             }
+            else {
+                this.sol = false
+            }
+            
         }
         else if (this.gravite == 1){
             
@@ -147,6 +146,10 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.sdsaut = true   
             
             }
+            else {
+                this.sol = false
+            }
+            
         }
         else if (this.gravite == 2){
    
@@ -156,6 +159,10 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.sdsaut = true   
             
             }
+            else {
+                this.sol = false
+            }
+            
         }
         else if (this.gravite == 3){
             
@@ -165,6 +172,10 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.sdsaut = true   
             
             }
+            else {
+                this.sol = false
+            }
+            
         }
     
         
@@ -172,7 +183,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         
         if (this.space && this.sol){
-            this.sol = false
+   
             
             
             if(this.gravite == 3){
