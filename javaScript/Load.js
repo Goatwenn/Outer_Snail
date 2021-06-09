@@ -55,6 +55,7 @@ class Load extends Phaser.Scene {
         
         this.load.image('UI', 'assets/menus/map/ui_bg.png');
         this.load.spritesheet('cdf', 'assets/menus/map/cdf.png',{frameWidth:384, frameHeight:156});
+        this.load.spritesheet('titre', 'assets/menus/map/titre.png',{frameWidth:120, frameHeight:54});
         
         this.load.image('debug_BG', 'assets/menus/debug_BG.png');
         this.load.image('menu', 'assets/menus/pauseBG.png');
@@ -185,7 +186,12 @@ class Load extends Phaser.Scene {
         
     // Cdt
         this.anims.create({
-            key: 'cdf0',
+            key: 'cdf0' ,
+            frames: [ { key: 'cdf', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'cdfundefined',
             frames: [ { key: 'cdf', frame: 0. } ],
         });
         
@@ -204,7 +210,43 @@ class Load extends Phaser.Scene {
             frames: [ { key: 'cdf', frame: 3. } ],
         });
         
-   
+    // titre des niveaux
+        
+        this.anims.create({
+            key: 'ntTest' ,
+            frames: [ { key: 'titre', frame: 0. } ],
+        });
+        
+        this.anims.create({
+            key: 'nt1' ,
+            frames: [ { key: 'titre', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'nt2' ,
+            frames: [ { key: 'titre', frame: 2. } ],
+        });
+     
+        this.anims.create({
+            key: 'nt3' ,
+            frames: [ { key: 'titre', frame: 3. } ],
+        });
+     
+        this.anims.create({
+            key: 'nt4' ,
+            frames: [ { key: 'titre', frame: 4. } ],
+        });
+        
+        this.anims.create({
+            key: 'nt5' ,
+            frames: [ { key: 'titre', frame: 5. } ],
+        });
+        
+        this.anims.create({
+            key: 'nt6' ,
+            frames: [ { key: 'titre', frame: 6. } ],
+        });
+        
      
         
         console.log(this);

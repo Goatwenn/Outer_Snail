@@ -1,13 +1,15 @@
-class Menu extends Phaser.Scene {  // Copier Coller a modifier
+class Menu extends Phaser.Scene { 
 
     constructor (){
-        super("Menu");   // Copier Coller a modifier
+        super("Menu");   
     }
     init(data){
         
     }
    
     create (){
+        
+        console.log(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
        

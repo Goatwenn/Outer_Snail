@@ -184,7 +184,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     //--- Debug :  --------------------------------------------------------
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.ptestT.setText('Test = ' + Particules.image);
+        this.ptestT.setText('Test = ' + this.test);
         
         
         
