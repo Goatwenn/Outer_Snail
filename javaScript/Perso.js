@@ -88,8 +88,8 @@ class Perso extends Phaser.GameObjects.Sprite{
                 "pv",       // P = Particule + Couleur (v b r O )
                 
                 this.body,  // Target
-                0,          // OffSet X
-                0,          // OffSet Y
+                27,          // OffSet X
+                54,          // OffSet Y
                 
                 this.graviteDuJoueurX,   // GraviteX
                 this.graviteDuJoueurY,   // GraviteY

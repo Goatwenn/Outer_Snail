@@ -7,7 +7,7 @@ class Particules {
     }
     
     
-    Frotement(Scene, texture, target,foX,foY, Gx,Gy, delay, radial){
+    Frotement(Scene, texture, target, foX, foY, Gx, Gy, delay, radial){
      
         this.timer = this.timer + 1
         this.delay = delay;
@@ -25,12 +25,19 @@ class Particules {
 
                 
                 follow : target,
-                followOffset : (foX , foY),
+                followOffset : {x : foX, y : foY} ,
                 
+                angle: 0,
                 lifespan :500 , 
                 radial : radial,
-                speed: 100,
+                
+                speedY: 100 * -(Gy/puissanceDeGravite),
+                speedX: 100 * -(Gx/puissanceDeGravite),
+                
                 maxParticles: 1,
+                
+                rotate: {min: -180}
+                
                 blendMode: 'COLOR_BRUN',
             }); 
             
@@ -52,6 +59,10 @@ class Particules {
                 10,         // Delay D'apparition
                 false,      // Radial
             );
+            
+            
+            
+            '\n'
             
             */
             
