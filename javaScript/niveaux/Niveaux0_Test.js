@@ -11,19 +11,19 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     preload (){
-        this.load.image("Tiles_Test", 'assets/mondes/Tiles_Test.png');
-        this.load.tilemapTiledJSON("map_Test", 'assets/mondes/Niveaux0_Test.json');
-        
+    //--- Load du TileSet : ----------------------------------------------------------
+        this.load.tilemapTiledJSON('Niveaux0_Test', 'assets/mondes/Niveaux0_Test.json');
     }
     
     
     
     create (){
         
+        console.log(this);
+        
     //--- Variables : ----------------------------------------------------------
         this.nfruit = 0;
         this.test = false
-        
   
     //--- Cursors : ----------------------------------------------------------
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -36,11 +36,11 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Map Tiled : ----------------------------------------------------------
-        this.map = this.add.tilemap('map_Test');
-        this.tiles = this.map.addTilesetImage('Tiles_Test');
+        this.map = this.add.tilemap('Niveaux0_Test');
+        this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 
-        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
+        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
         this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
@@ -50,10 +50,11 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.antiGraviteLayer.setTileIndexCallback([483,484,485,520,521,522,557,558,559], ()=> { this.player.Gravite_Blanc(this.player) });
-        this.graviteLayer.setTileIndexCallback([39,40,41,76,77,78,113,114,115], ()=> { this.player.Gravite_Vert(this.player) });
-        this.graviteLayer.setTileIndexCallback([335,336,337,372,373,374,409,410,411], ()=> { this.player.Gravite_Bleu(this.player) });
-        this.graviteLayer.setTileIndexCallback([187,188,189,223,225,226,261,262,263], ()=> { this.player.Gravite_Rouge(this.player) });
+        this.antiGraviteLayer.setTileIndexCallback([Blanc], ()=> { this.player.Gravite('blanc') });
+        this.graviteLayer.setTileIndexCallback([Vert], ()=> { this.player.Gravite('vert') });
+        this.graviteLayer.setTileIndexCallback([Bleu], ()=> { this.player.Gravite('bleu') });
+        this.graviteLayer.setTileIndexCallback([Rouge], ()=> { this.player.Gravite('rouge') });
+        
         
         
         
@@ -61,41 +62,43 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        // start
-        //this.player = new Perso(this, 300, 1800, 'snail');
+        //this.player = new Perso(this, 300, 1800, 'snail'); // Start
+        this.player = new Perso(this, 3100, 1500, 'snail');  // Zone ennemi
 
-        
-        // ennemi
-        this.player = new Perso(this, 3100, 1500, 'snail');
-
-        
-        
          
       // Cameras
         this.cameras.main.setSize(config.width, config.height);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
-        
-        
+    
         
         
         
     //--- Ennemis : ----------------------------------------------------------
-        this.ennemi = new Thrower(this, 4500, 1600, 'thrower');
-        this.runner = new Runner(this, 4500, 1600, 'runner');
+        
+        this.thrower = new Thrower(this, 5100, 1000, 'thrower');
+        this.runner1= new Runner(this, 3800, 1800, 'runner');
+        this.runner2= new Runner(this, 3800, 1800, 'runner');
+        
+        this.ennemiGroup = this.add.group();
+            this.ennemiGroup.add(this.thrower);
+            this.ennemiGroup.add(this.runner1);
+            this.ennemiGroup.add(this.runner2);
+          
+        
         
     //--- Objet :  ----------------------------------------------------------
-        
-      // StaticGroup :
-        this.panneaux_dash = this.physics.add.staticGroup(); 
-        this.panneaux_shield = this.physics.add.staticGroup();
+    
+      // Group :
+        this.dash = this.physics.add.staticGroup(); 
+        this.shield = this.physics.add.staticGroup();
         this.fruit = this.physics.add.staticGroup();
         
       // Dash
-        this.panneaux_dash.create(2300,1864, 'panneaux_dash'); 
+        this.dash.create(3600,1593, 'panneaux_dash'); 
         
       // Shield
-        this.panneaux_shield.create(2400,1864, 'panneaux_shield')
+        this.shield.create(4240,1593, 'panneaux_shield')
     
       // Fruit
         this.fruit.create(1700,1800, 'fruit');
@@ -106,11 +109,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceShip');
         this.spaceShip.setSize(500,126)
         
-        
-        
-        
-        
-        
+
     //--- Ui :  ----------------------------------------------------------
         
       // Barre de vie
@@ -123,8 +122,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'compteurDeFruit').setScrollFactor(0,0);
     
         
-        
-        
+    
         
     //--- Collider & Overlap :  ----------------------------------------------------------
         
@@ -134,22 +132,24 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.physics.add.overlap(this.player, this.graviteLayer);
         this.physics.add.overlap(this.player, this.antiGraviteLayer); 
         
-        this.physics.add.collider(this.player, this.ennemi, this.Dommage, null, this);
-     
+ 
+        this.physics.add.overlap(this.player, this.dash, this.Loot_Dash, null, this);
+        this.physics.add.overlap(this.player, this.shield, this.Loot_Shield, null, this);
+        this.physics.add.overlap(this.player, this.fruit, this.CollectFruits, null, this);
         
         
-        this.physics.add.overlap(this.player, this.fruit,  this.CollectFruits, null, this);
-        this.physics.add.overlap(this.player, this.panneaux_dash, this.Dash, null, this);
-        this.physics.add.overlap(this.player, this.panneaux_shield, this.Shield, null, this);
         this.physics.add.overlap(this.player, this.spaceShip, this.Sortie, null, this);
     
       // Ennemis
-        this.physics.add.collider(this.ennemi,  this.collideLayer);
-     
-        this.physics.add.collider(this.player, this.runner, this.Dommage, null, this);
-        this.physics.add.collider(this.runner,  this.collideLayer);
+        this.physics.add.collider(this.ennemiGroup,  this.collideLayer);
+        this.physics.add.collider(this.player,this.ennemiGroup, this.Dommage, null, this);
+        
+        
+        
+        
         
     //--- Debug  :  ----------------------------------------------------------
+        
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.pYT = this.add.text(30,60,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.ptestT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
@@ -163,15 +163,16 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     update (){
         
-         
-        
-        
-        
     //--- Updates des Class  :  ----------------------------------------------------------
-        this.player.update();
+        this.player.Update();
         
-        this.ennemi.update(this.player.x, this.player.y);
-        this.runner.update(this.player.x, this.player.y);
+        var children = this.ennemiGroup.getChildren();
+        for (var i = 0; i < children.length; i++){
+            children[i].Update();
+        }
+        
+      
+        
         
     //--- Animations  :  ----------------------------------------------------------   
         this.inventaire.anims.play("inv" + this.player.inventaire);
@@ -204,98 +205,37 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Controls  :  ----------------------------------------------------------
-        
-      // Droit
-        if(this.droit){ 
-            this.player.Droit(this.player);
-             
-        } 
-        
-      //  Gauche         
-        else if (this.gauche){
-            this.player.Gauche(this.player);
-        }   
-        
-      //  Annulation      
-        else if(!this.haut && !this.bas){
-            this.player.Stop(this.player);
-        }    
-        
-        
-        
-        
-      // Haut       
-        if (this.haut){
-            this.player.Haut(this.player);
-        }
-        
-      // Bas
-        else if (this.bas){
-            this.player.Bas(this.player);
-        }
-        
-      //  Annulation 
-        else if(!this.droit && !this.gauche){
-            this.player.Stop(this.player);
-        }   
- 
-        
-        
-        
-      //  Jump 
-        if (this.space){
-            this.player.Jump(this.player);
-        }
-      //  Annulation 
-        else{
-            this.player.noJump(this.player);
-        }
-
-        
-        
-      //  Touche A 
-        if(this.A.isDown){
-            this.player.Pouvoir(this.player);
-        }
-     
-        
-       
-        
-        
-        
-        
-        
+         this.player.Deplacement(
+             this.droit,
+             this.gauche,
+             this.haut,
+             this.bas,
+             this.space
+         );
+          
     }// fin de Update
 
     
     
     
     
-    Dommage(){
-        if (this.player.invu == false && this.player.dashOn == false){
-            this.player.Vie();
-            this.cameras.main.shake(50, 0.02)
-            this.barreDeVie.anims.play("vie" + this.player.hp);
-        }
+    Dommage(player,ennemi){
+        this.player.Vie(ennemi);  
+    }
+    
+    
+       
         
-        if (this.player.dashOn == true){
-            this.runner.Dead(this.runner);
-        }
-        
+    
+    Loot_Dash(){
+        this.player.Loot('dash');
     }
-    
-    
-    
-    
-    
-    
-    Dash (){
-        this.player.Loot("dash");
+    Loot_Shield(){
+        this.player.Loot('shield');
     }
-    Shield (){
-        this.player.Loot("shield");
+    Loot_Fruit(){
+        this.player.Loot('fruit');
     }
-    
     
     
     

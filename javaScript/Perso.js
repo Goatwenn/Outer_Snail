@@ -3,37 +3,43 @@ class Perso extends Phaser.GameObjects.Sprite{
      constructor (scene, x, y, texture){
          super(scene, x, y, texture);
          
+         
+    //--- Inicialisation :  ----------------------------------------------------------
+
          scene.add.existing(this);
          scene.physics.world.enableBody(this);
          
          console.log(this) 
          
          this.body.setSize(54,54);
-
          this.particule = new Particules();
          
          
-         
+      // Variables
          this.dashOn = false
+         this.invu = false;
+         
          this.sol = false
          this.dsaut = false
          this.sdsaut = false
-         
          this.enMouvement = false
          
          this.gravite = 0;
          
-         this.graviteDuJoueurX= 0;
-         this.graviteDuJoueurY= 0;
-         
          this.lastDirection = 'droit';
-         this.animeLastdirection = 2;
          
+         
+      // Sattistique du joueur 
          this.hp = 3;
-         this.invu = false;
+         
          this.invuTimer = 50;
          
+         this.dashTimer = 0;
+         this.dureDeDash = 30;
+         this.vitesseDeDash = 800;
+         
          this.inventaire = 0;
+         this.nbfruit = 0;
          
          this.vitesseDeDeplacement = 300;
          this.hauteurDeSaut = 350;
@@ -43,10 +49,15 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.dureDeDash = 30;
          this.vitesseDeDash = 800;
           
-    }
+         
+         
+         
+         
+    } // --- Fin du Constructor
     
-    update(){
+    Update(){
         
+    //--- Dash :  ----------------------------------------------------------
         
         if (this.dashOn == true){
            
@@ -79,10 +90,11 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
         }
   
+        
+        
     
         
     //--- Particules :  --------------------------------------------------------
-        
         
          if( this.enMouvement && this.sol){
             this.particule.Frotement(
@@ -95,21 +107,9 @@ class Perso extends Phaser.GameObjects.Sprite{
         }
         
         
+ 
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    //--- Invicibilité :  ----------------------------------------------------------
         
         if  (this.invu == true){
             
@@ -121,71 +121,149 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
         }
         
+        
+        
+        
+        
+    //--- Limite de Map :  ----------------------------------------------------------
+        
         if (this.body.y >= 2160 || this.body.y <= 0 || this.body.x >= 8000 || this.body.x <= 0 ){
             this.Dead() 
         }
         
-        if (this.gravite == 0){
+        
+        
+        
+        
+    //--- Reset de saut :  ----------------------------------------------------------
+        
+        if (this.gravite == 0 && this.body.blocked.down ||
+            this.gravite == 1 && this.body.blocked.right ||
+            this.gravite == 2 && this.body.blocked.up ||
+            this.gravite == 3 && this.body.blocked.left
+           ){
             
-            if (this.body.blocked.down){
-                this.sol = true
-                this.dsaut = false
-                this.sdsaut = true   
-            
-            }
-            else {
-                this.sol = false
-            }
-            
+            this.sol = true
+            this.dsaut = false
+            this.sdsaut = true  
         }
-        else if (this.gravite == 1){
-            
-            if (this.body.blocked.right){
-                this.sol = true
-                this.dsaut = false
-                this.sdsaut = true   
-            
-            }
-            else {
-                this.sol = false
-            }
-            
-        }
-        else if (this.gravite == 2){
-   
-            if (this.body.blocked.up){
-                this.sol = true
-                this.dsaut = false
-                this.sdsaut = true   
-            
-            }
-            else {
-                this.sol = false
-            }
-            
-        }
-        else if (this.gravite == 3){
-            
-            if (this.body.blocked.left){
-                this.sol = true
-                this.dsaut = false
-                this.sdsaut = true   
-            
-            }
-            else {
-                this.sol = false
-            }
-            
+        else {
+            this.sol = false
         }
     
+    }// --- Fin du Update
+ 
+    
+    
+    
+//--- Gravité :  ----------------------------------------------------------    
+    
+    Gravite(Couleur){
         
+        if (Couleur == 'rouge'){
+            
+            this.body.setGravityY(0) 
+            this.body.setGravityX(-puissanceDeGravite)
+
+            this.flipX = true ;
+            this.angle = 90;
+
+            this.gravite = 3  
+            
+        }
+        else if (Couleur == 'bleu'){
+            
+            this.body.setGravityY(-puissanceDeGravite)  
+            this.body.setGravityX(0)
+
+            this.flipX = true ;
+            this.angle = 180;
+
+            this.gravite = 2
+            
+        }
+        else if (Couleur == 'vert'){
+            
+            this.body.setGravityY(0)
+            this.body.setGravityX(puissanceDeGravite)  
+
+            this.flipX = false ;
+            this.angle = -90;
+
+            this.gravite = 1
+            
+        }
+        else if (Couleur == 'blanc'){
         
+            this.body.setGravityY(puissanceDeGravite)  
+            this.body.setGravityX(0) 
+
+            this.flipX = false ;
+            this.angle = 0;
+
+            this.gravite = 0
+        }
+    }
+    
+    
+    
+    
+    
+//--- Deplacements :  ----------------------------------------------------------
+    
+    Deplacement(D,G,H,B,S){ //Droit - gauche - haut - bas - space
         
+        if(!this.dashOn){
+            
+            if(this.gravite == 0 || this.gravite == 2){
+                
+                if(D){
+                    this.body.setVelocityX(this.vitesseDeDeplacement)
+                    if (this.lastDirection == 'gauche'|| this.lastDirection == 'bas'){
+                        this.anims.play("SR");
+                        this.lastDirection = 'droit'
+                    }
+                }
+                else if (G){
+                    this.body.setVelocityX(-this.vitesseDeDeplacement)
+                    if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
+                        this.anims.play("SL");
+                        this.lastDirection = 'gauche'
+                    }
+                }
+                else if (!H && !B){
+                    this.body.setVelocityX(0)    
+                    this.enMouvement = false
+                }
+            }
+            
+            else if(this.gravite == 1 || this.gravite == 3){ 
+                
+                if(B){
+                    this.body.setVelocityY(this.vitesseDeDeplacement)
+                        if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
+                        this.anims.play("SL");
+                        this.lastDirection = 'bas'
+                    }     
+                } 
+                else if (H){
+                    this.body.setVelocityY(-this.vitesseDeDeplacement) 
+                    if (this.lastDirection == 'gauche' || this.lastDirection == 'bas'){
+                        this.anims.play("SR");
+                        this.lastDirection = 'haut'
+                    }
+                }
+                else if(!G && !D){
+                    this.body.setVelocityY(0)    
+                    this.enMouvement = false
+                } 
+            }
+        }
         
-        if (this.space && this.sol){
+ //--- Saut :  ----------------------------------------------------------
+        
+        if (S && this.sol){
    
-            
-            
             if(this.gravite == 3){
                 this.body.setVelocityX(this.hauteurDeSaut);
             }
@@ -198,19 +276,18 @@ class Perso extends Phaser.GameObjects.Sprite{
             else if(this.gravite == 0){
                 this.body.setVelocityY(-this.hauteurDeSaut);
             }
-            
-            
         }
         
-        if (!this.space && !this.sol && this.sdsaut){
+        
+        if (!S && !this.sol && this.sdsaut){
             this.dsaut = true
         }
         
-        if (this.space && !this.sol && this.dsaut){
+        
+        if (S && !this.sol && this.dsaut){
             this.dsaut = false
             this.sdsaut = false
 
-            
             if(this.gravite == 3){
                 this.body.setVelocityX(this.hauteurDeSaut);
             }
@@ -225,114 +302,35 @@ class Perso extends Phaser.GameObjects.Sprite{
             }
         }
     }
- 
     
-    Vie(){
-        this.hp = this.hp - 1
-        this.invu = true
-        //console.log('Joueur Degat')
+  
+    
 
-        if(this.hp <= 0){
-            this.Dead()
-            console.log(this)
-        }  
-    }
     
     
-    Stop (){
-        
-        if (this.dashOn == false){
-        
-            if (this.gravite == 0 || this.gravite == 2 ){
-                this.body.setVelocityX(0);
-            }
-            else if (this.gravite == 1 || this.gravite == 3 ){
-                this.body.setVelocityY(0);
-            }
-            this.enMouvement = false
-        }
-        
-    }
+//--- Loot :  ----------------------------------------------------------
     
-    Droit (){ 
-        if (this.dashOn == false){
-            if (this.gravite == 0 || this.gravite == 2 ){
-                this.body.setVelocityX(this.vitesseDeDeplacement);
-                this.enMouvement = true
-                if (this.lastDirection == 'gauche'|| this.lastDirection == 'bas'){
-                    this.anims.play("SR");
-                    this.lastDirection = 'droit'
-                }
-            } 
-        }
-    }
-   
-    Gauche (){
-        if (this.dashOn == false){
-            if (this.gravite == 0 || this.gravite == 2 ){
-                this.body.setVelocityX(-this.vitesseDeDeplacement);
-                this.enMouvement = true
-                if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
-                    this.anims.play("SL");
-                    this.lastDirection = 'gauche'
-                }   
-            }
-        }
-    } 
-    
-    Haut (){ 
-        if (this.dashOn == false){
-            if (this.gravite == 1 || this.gravite == 3 ){
-                this.body.setVelocityY(-this.vitesseDeDeplacement);
-                this.enMouvement = true
-                if (this.lastDirection == 'gauche' || this.lastDirection == 'bas'){
-                    this.anims.play("SR");
-                    this.lastDirection = 'haut'
-                }
-            }  
-        }
-    }
-   
-    Bas (){
-        if (this.dashOn == false){
-            if (this.gravite == 1 || this.gravite == 3 ){
-                this.body.setVelocityY(this.vitesseDeDeplacement);
-                this.enMouvement = true
-                if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
-                    this.anims.play("SL");
-                    this.lastDirection = 'bas'
-                }
-            }
-        }
-    } 
-    
-    
-    noJump (){
-        this.space = false
-    }
-
-    Jump (){
-        this.space = true
-        
-    } 
-    
-    Loot (x){
-        this.items = x
+    Loot (item){
         
         if (this.inventaire == 0){
-            if (this.items == "dash"){
+            if (item == 'dash'){
                 console.log('Joueur Loot Dash')
                 this.inventaire = 1
             }
-        
-            if (this.items == "shield"){
+            if (item == 'shield'){
                 console.log('Joueur Loot Shield')
                 this.inventaire = 2
             }
+            
         }
         
     }
     
+    
+    
+    
+    
+//--- Pouvoir :  ----------------------------------------------------------
     
     Pouvoir (){
         if (this.inventaire == 1){
@@ -349,68 +347,47 @@ class Perso extends Phaser.GameObjects.Sprite{
     
     
     
-    Gravite_Rouge(){
-        this.body.setGravityY(0) 
-        this.body.setGravityX(-puissanceDeGravite)
+    
+    
+//--- Vie :  ----------------------------------------------------------
+    
+    Vie(ennemi){
+        if (!this.invu && !this.dashOn){
+            
+            console.log('Joueur - 1hp ' + (this.hp - 1) + '/3')
+            this.scene.barreDeVie.anims.play("vie" + (this.hp - 1));
+            this.scene.cameras.main.shake(50, 0.02)
+            
+            this.hp -= 1
+            this.invu = true
+            if (this.hp <= 0){
+                this.Dead();
+            }
+        }
         
-        this.graviteDuJoueurY = (0)
-        this.graviteDuJoueurX = (-puissanceDeGravite)
+        else if (this.dashOn) {
+            ennemi.Dead();
+            
+        }
         
-        this.flipX = true ;
-        this.angle = 90;
         
-        this.gravite = 3   
     }
     
     
-    Gravite_Bleu(){
-        this.body.setGravityY(-puissanceDeGravite)  
-        this.body.setGravityX(0) 
-        
-        this.graviteDuJoueurY = (-puissanceDeGravite)
-        this.graviteDuJoueurX = (0)
-        
-        this.flipX = true ;
-        this.angle = 180;
-        
-        this.gravite = 2
-    }
     
     
-    Gravite_Vert(){
-        this.body.setGravityY(0)
-        this.body.setGravityX(puissanceDeGravite)  
-        
-        this.graviteDuJoueurY = (0)
-        this.graviteDuJoueurX = (puissanceDeGravite)
-        
-        this.flipX = false ;
-        this.angle = -90;
-        
-        this.gravite = 1
-    }
     
-    
-    Gravite_Blanc(){
-        
-        this.body.setGravityY(puissanceDeGravite)  
-        this.body.setGravityX(0) 
-        
-        this.graviteDuJoueurY = (puissanceDeGravite)
-        this.graviteDuJoueurX = (0)
-        
-        this.flipX = false ;
-        this.angle = 0;
-        
-        this.gravite = 0
-    }
-    
+//--- Dead :  ----------------------------------------------------------
     
     Dead (){
         console.log('Joueur Mort')
+        
+        this.hp = 3
         this.body.x = 300
         this.body.y = 1800
-        this.hp = 3
+        
+        this.scene.barreDeVie.anims.play("vie" + this.hp);
+        
     }
     
 }

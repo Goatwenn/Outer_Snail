@@ -26,7 +26,7 @@ class Runner extends Phaser.GameObjects.Sprite{
     }
     
  
-    update(){ 
+    Update(){ 
         
         this.randomTimer = this.randomTimer + 1;
         

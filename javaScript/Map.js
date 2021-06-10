@@ -9,11 +9,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
     }
     preload (){
     //--- Load du TileSet : ----------------------------------------------------------
-        this.load.image("Tiles_Test", 'assets/mondes/Tiles_Test.png');
         this.load.tilemapTiledJSON("map", 'assets/mondes/Niveaux0_Map.json');
-        
-        
-        
     }
     create (){
         
@@ -46,7 +42,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Map Tiled : ----------------------------------------------------------
         this.map = this.add.tilemap('map');
-        this.tiles = this.map.addTilesetImage('Tiles_Test');
+        this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
@@ -57,15 +53,15 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.graviteLayer.setTileIndexCallback([237], ()=> { this.monde = 0, this.lvl = "Test" });
+        this.graviteLayer.setTileIndexCallback([193], ()=> { this.monde = 0, this.lvl = "Test" });
         
-        this.graviteLayer.setTileIndexCallback([87], ()=> { this.monde = 1,this.lvl = 0 });
-        this.graviteLayer.setTileIndexCallback([94], ()=> { this.monde = 1,this.lvl = 1 });
-        this.graviteLayer.setTileIndexCallback([97], ()=> { this.monde = 1,this.lvl = 2 });
-        this.graviteLayer.setTileIndexCallback([100], ()=> { this.monde = 1,this.lvl = 3 });
-        this.graviteLayer.setTileIndexCallback([103], ()=> { this.monde = 1,this.lvl = 4 });
-        this.graviteLayer.setTileIndexCallback([106], ()=> { this.monde = 1,this.lvl = 5 });
-        this.graviteLayer.setTileIndexCallback([109], ()=> { this.monde = 1,this.lvl = 6 });
+        this.graviteLayer.setTileIndexCallback([207], ()=> { this.monde = 1,this.lvl = 0 });
+        this.graviteLayer.setTileIndexCallback([195], ()=> { this.monde = 1,this.lvl = 1 });
+        this.graviteLayer.setTileIndexCallback([197], ()=> { this.monde = 1,this.lvl = 2 });
+        this.graviteLayer.setTileIndexCallback([199], ()=> { this.monde = 1,this.lvl = 3 });
+        this.graviteLayer.setTileIndexCallback([201], ()=> { this.monde = 1,this.lvl = 4 });
+        this.graviteLayer.setTileIndexCallback([203], ()=> { this.monde = 1,this.lvl = 5 });
+        this.graviteLayer.setTileIndexCallback([205], ()=> { this.monde = 1,this.lvl = 6 });
             
         
         
@@ -84,12 +80,14 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- UI :  ---------------------------------------------------------- 
         
-        this.ui = this.physics.add.image(960,774, 'UI').setScrollFactor(0,0);
+        this.bg = this.physics.add.image(960,774, 'UI').setScrollFactor(0,0);
         this.cdf = this.physics.add.sprite(960,1194, 'cdf').setScrollFactor(0,0);
-        
         this.nt = this.physics.add.sprite(300,1112,'titre').setScrollFactor(0,0);
         
-     
+        this.UiGroup = this.add.group();
+            this.UiGroup.add(this.bg);
+            this.UiGroup.add(this.cdf);
+            this.UiGroup.add(this.nt);
         
         
     //--- Collider & Overlap :  ----------------------------------------------------------
@@ -115,7 +113,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
     //--- Debug :  ---------------------------------------------------------
         if (debug == true){
             this.pXT.setText('X = ' + this.player.x);
-            this.pYT.setText('Y = ' + this.ui.y);
+            this.pYT.setText('Y = ' + this.player.y);
             this.pTT.setText('lvl = ' + this.lvl);
         }
         
@@ -204,27 +202,27 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
  
         if (this.lvl == 0){
-            if (this.ui.y <= 774){
-                this.ui.setVelocityY(this.vitesseDeTravling);
+            if (this.bg.y <= 774){
+                this.bg.setVelocityY(this.vitesseDeTravling);
                 this.cdf.setVelocityY(this.vitesseDeTravling);
                 this.nt.setVelocityY(this.vitesseDeTravling);
             }
             else{
-                this.ui.setVelocityY(0);
+                this.bg.setVelocityY(0);
                 this.cdf.setVelocityY(0);
                 this.nt.setVelocityY(0);
             }
         }
         else {
-            if (this.ui.y >= 552){
-                this.ui.setVelocityY(-this.vitesseDeTravling);
+            if (this.bg.y >= 552){
+                this.bg.setVelocityY(-this.vitesseDeTravling);
                 this.cdf.setVelocityY(-this.vitesseDeTravling);
                 this.nt.setVelocityY(-this.vitesseDeTravling);
                 this.cdf.anims.play("cdf"+this.Fruit[this.lvl-1]);
                 this.nt.anims.play("nt" + this.lvl);
             }
             else{
-                this.ui.setVelocityY(0);
+                this.bg.setVelocityY(0);
                 this.cdf.setVelocityY(0);
                 this.nt.setVelocityY(0);
             }

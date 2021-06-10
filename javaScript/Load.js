@@ -11,6 +11,12 @@ class Load extends Phaser.Scene {
         this.load.image('plan3', 'assets/plan3.png');
         this.load.image('plan4', 'assets/plan4.png');
         
+        
+    // TileSet ---------------------------------      
+        
+        this.load.image('OuterSnail_TileSet', 'assets/mondes/OuterSnail_TileSet.png');
+        
+        
     // Object -------------------------------------
         
         this.load.image('ennemi', 'assets/ennemi.png');
@@ -138,7 +144,10 @@ class Load extends Phaser.Scene {
             repeat: 10000,
         });
         
-        
+        this.anims.create({
+            key: 'vie0',
+            frames: [ { key: 'vie', frame: 4. } ],
+        });
         
         
         

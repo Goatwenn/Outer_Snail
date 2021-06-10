@@ -50,23 +50,23 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Map Tiled : ----------------------------------------------------------
         this.map = this.add.tilemap('map1_1');
-        this.tiles = this.map.addTilesetImage('Tiles_Test');
+        this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 
-        this.backgroundLayer = this.map.createStaticLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
-        this.antiGraviteLayer = this.map.createStaticLayer('antiGraviteLayer', this.tiles, 0, 0);
-        this.graviteLayer = this.map.createStaticLayer('graviteLayer', this.tiles, 0, 0);
-        this.collideLayer = this.map.createStaticLayer('collideLayer', this.tiles, 0, 0);
-        this.decoLayer = this.map.createStaticLayer('decoLayer', this.tiles, 0, 0);
+        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
+        this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
+        this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
+        this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
+        this.decoLayer = this.map.createLayer('decoLayer', this.tiles, 0, 0);
    
       // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.antiGraviteLayer.setTileIndexCallback([483,484,485,520,521,522,557,558,559], ()=> { this.player.Gravite_Blanc(this.player) });
-        this.graviteLayer.setTileIndexCallback([39,40,41,76,77,78,113,114,115], ()=> { this.player.Gravite_Vert(this.player) });
-        this.graviteLayer.setTileIndexCallback([335,336,337,372,373,374,409,410,411], ()=> { this.player.Gravite_Bleu(this.player) });
-        this.graviteLayer.setTileIndexCallback([187,188,189,223,225,226,261,262,263], ()=> { this.player.Gravite_Rouge(this.player) });
+        this.antiGraviteLayer.setTileIndexCallback([Blanc], ()=> { this.player.Gravite_Blanc(this.player) });
+        this.graviteLayer.setTileIndexCallback([Vert], ()=> { this.player.Gravite_Vert(this.player) });
+        this.graviteLayer.setTileIndexCallback([Bleu], ()=> { this.player.Gravite_Bleu(this.player) });
+        this.graviteLayer.setTileIndexCallback([Rouge], ()=> { this.player.Gravite_Rouge(this.player) });
         
         
         
