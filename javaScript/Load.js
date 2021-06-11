@@ -74,8 +74,8 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('Right_arrow', 'assets/mobil/Right_Arrow.png',{frameWidth:162, frameHeight:162});
         this.load.spritesheet('Left_arrow', 'assets/mobil/Left_Arrow.png',{frameWidth:162, frameHeight:162});
         
-        this.load.spritesheet('A_arrow', 'assets/mobil/A_Arrow.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('S_arrow', 'assets/mobil/S_Arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('A_arrow', 'assets/mobil/A_arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('S_arrow', 'assets/mobil/S_arrow.png',{frameWidth:162, frameHeight:162});
         
         
     }
