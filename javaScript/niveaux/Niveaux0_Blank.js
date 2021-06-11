@@ -260,7 +260,7 @@ class Niveaux0_Blank extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     Sortie (player, spaceShip){
-        this.scene.start("Map");
+        this.scene.start("Map", {fruit : this.Fruit, save : 1 });
     
     }
     

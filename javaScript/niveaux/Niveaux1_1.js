@@ -55,11 +55,15 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 
-        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
+        if (debug){
+            this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
+        }
+        
         this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
-        this.decoLayer = this.map.createLayer('decoLayer', this.tiles, 0, 0);
+        this.DLayer = this.map.createLayer('DLayer', this.tiles, 0, 0);
+        this.bordureLayer = this.map.createLayer('bordureLayer', this.tiles, 0, 0);
    
       // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);
@@ -74,7 +78,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
      //--- Player : ----------------------------------------------------------
         
-        this.player = new Perso(this, 300, 1800, 'snail');
+        this.player = new Perso(this, 405, 1800, 'snail').setDepth(1);
     
       // Cameras
         this.cameras.main.setSize(config.width, config.height);
@@ -91,15 +95,13 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     //--- Ennemis : ----------------------------------------------------------
         
       // Liste
-        this.thrower = new Thrower(this, 5100, 1000, 'thrower');
-        this.runner1= new Runner(this, 3800, 1800, 'runner');
-        this.runner2= new Runner(this, 3800, 1800, 'runner');
+        this.runner1= new Runner(this, 3000, 1800, 'runner').setDepth(1);
+     
         
       // Group
         this.ennemiGroup = this.add.group();
-            this.ennemiGroup.add(this.thrower);
             this.ennemiGroup.add(this.runner1);
-            this.ennemiGroup.add(this.runner2);
+
           
         
         
@@ -111,16 +113,16 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit = this.physics.add.staticGroup();
         
       // Dash
-        this.dash.create(3600,1593, 'panneaux_dash'); 
-        this.dash.create(830,1863, 'panneaux_dash');
+        this.dash.create(1972,1700, 'panneaux_dash').angle = -7; 
+        this.dash.create(5420,1377, 'panneaux_dash').angle = 164; 
         
       // Shield
-        this.shield.create(4240,1593, 'panneaux_shield')
+        
     
       // Fruit
-        this.fruit.create(1700,1800, 'fruit');
-        this.fruit.create(1800,1800, 'fruit');  
-        this.fruit.create(1900,1800, 'fruit').setFlipY(true);;
+        this.fruit.create(3000,1860, 'fruit');
+        this.fruit.create(4455,510, 'fruit');  
+        this.fruit.create(6340,1917, 'fruit').setFlipY(true);
     
       // Sortie
         this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceShip');
@@ -165,7 +167,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.pYT = this.add.text(30,60,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
-        this.ptestT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        this.pTT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         
         
         
@@ -195,7 +197,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Debug :  --------------------------------------------------------
         
-        if (!debug){
+        if (debug){
             this.pXT.setText('X = ' + this.player.x);
             this.pYT.setText('Y = ' + this.player.y);
             this.pTT.setText('Y = ' + this.Fruit);
@@ -259,8 +261,13 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         console.log('Joueur Loot Fruit : '+this.nfruit )
         
     }
+    
+    
     Sortie (player, spaceShip){
-        this.scene.start("Map");
+        if (this.Fruit[1] < this.nfruit){
+            this.Fruit[1] = this.nfruit
+        }
+        this.scene.start("Map", {fruit : this.Fruit, save : 1 });
     
     }
     

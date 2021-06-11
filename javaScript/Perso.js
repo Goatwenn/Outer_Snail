@@ -66,7 +66,7 @@ class Perso extends Phaser.GameObjects.Sprite{
            
             this.dashTimer += 1
         
-            this.particule.Flammes(this.scene,"bleu",this.body,27,54);
+            this.particule.Flammes(this.scene,"bleu",this.body,27,27);
             
             if (this.lastDirection == 'droit' && this.gravite == 0 || this.lastDirection == 'droit' && this.gravite ==2 ){
                 this.body.setVelocityX(900)
@@ -108,8 +108,8 @@ class Perso extends Phaser.GameObjects.Sprite{
         
     //--- Particules :  --------------------------------------------------------
         
-         if( this.enMouvement && this.sol){
-            this.particule.Frotement(this.scene,"vert",this.body,27,54);
+        if( this.enMouvement && this.sol){
+                this.particule.Frotement(this.scene,"vert",this.body,27,27);
         }
         
         

@@ -19,7 +19,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
             
         }
         else {
-            this.Fruit = [0,0,0,0,0];    
+            this.Fruit = [0,0,0,0,0,0,0];    
         }
         
         this.lasDirection = 0;
@@ -61,7 +61,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.graviteLayer.setTileIndexCallback([199], ()=> { this.monde = 1,this.lvl = 3 });
         this.graviteLayer.setTileIndexCallback([201], ()=> { this.monde = 1,this.lvl = 4 });
         this.graviteLayer.setTileIndexCallback([203], ()=> { this.monde = 1,this.lvl = 5 });
-        this.graviteLayer.setTileIndexCallback([205], ()=> { this.monde = 1,this.lvl = 6 });
+        this.graviteLayer.setTileIndexCallback([205], ()=> { this.monde = 1,this.lvl = 'boss' });
             
         
         
@@ -218,7 +218,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
                 this.bg.setVelocityY(-this.vitesseDeTravling);
                 this.cdf.setVelocityY(-this.vitesseDeTravling);
                 this.nt.setVelocityY(-this.vitesseDeTravling);
-                this.cdf.anims.play("cdf"+this.Fruit[this.lvl-1]);
+                this.cdf.anims.play("cdf"+this.Fruit[this.lvl]);
                 this.nt.anims.play("nt" + this.lvl);
             }
             else{

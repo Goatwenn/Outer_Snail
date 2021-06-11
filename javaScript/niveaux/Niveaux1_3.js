@@ -55,7 +55,7 @@ class Niveaux1_3 extends Phaser.Scene {  // Copier Coller a modifier
         this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 
-        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
+        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
         this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
@@ -165,7 +165,7 @@ class Niveaux1_3 extends Phaser.Scene {  // Copier Coller a modifier
         
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.pYT = this.add.text(30,60,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
-        this.ptestT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        this.pTT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         
         
         
@@ -195,7 +195,7 @@ class Niveaux1_3 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Debug :  --------------------------------------------------------
         
-        if (!debug){
+        if (debug){
             this.pXT.setText('X = ' + this.player.x);
             this.pYT.setText('Y = ' + this.player.y);
             this.pTT.setText('Y = ' + this.Fruit);
@@ -259,8 +259,12 @@ class Niveaux1_3 extends Phaser.Scene {  // Copier Coller a modifier
         console.log('Joueur Loot Fruit : '+this.nfruit )
         
     }
-    Sortie (player, spaceShip){
-        this.scene.start("Map");
+    
+     Sortie (player, spaceShip){
+        if (this.Fruit[3] < this.nfruit){
+            this.Fruit[3] = this.nfruit
+        }
+        this.scene.start("Map", {fruit : this.Fruit, save : 1 });
     
     }
     

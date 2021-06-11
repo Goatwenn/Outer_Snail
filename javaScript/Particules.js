@@ -15,7 +15,7 @@ class Particules {
         this.foY = FoY ;
         
         this.timer = this.timer + 1
-        this.delay = 10;
+        this.delay = 5;
         
         if (this.timer >= this.delay){
             this.timer = 0
@@ -30,15 +30,13 @@ class Particules {
                 
         // --------------------------------------------------
                 
-                angle: {min : 90, max : 0},
-                
                 lifespan :500, 
                 
                 gravityX : this.target.gravity.x,
                 gravityY : this.target.gravity.y,
                 
-                speedY: 100 * -(this.target.gravity.y/puissanceDeGravite),
-                speedX: 100 * -(this.target.gravity.x/puissanceDeGravite),
+                speedY: {min: -60, max: 60}, //* -(this.target.gravity.y/puissanceDeGravite),
+                speedX: {min: -60, max: 60}, //* -(this.target.gravity.x/puissanceDeGravite),
                 
                 maxParticles: 1,
                 
@@ -58,9 +56,9 @@ class Particules {
 
         var particles = scene.add.particles('particule_' + texture + this.nb);
 
+        
 
-
-        var emitter = particles.createEmitter({
+        var emitter = particles.setDepth(0).createEmitter({
 
             follow : target,
             followOffset : {x : foX, y : foY},
@@ -83,7 +81,6 @@ class Particules {
     // --------------------------------------------------
             blendMode: 'COLOR_BRUN',
         }); 
-        
     } 
     
     

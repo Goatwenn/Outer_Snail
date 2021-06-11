@@ -255,6 +255,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         console.log('Joueur Loot Fruit : '+this.nfruit )
         
     }
+    
     Sortie (player, spaceShip){
         this.scene.start("Map");
     

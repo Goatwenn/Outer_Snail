@@ -10,11 +10,14 @@ class Controle_mobil {
     Create (scene){
         console.log(this)
         
-        this.Down_arrow = scene.add.image(960,540,'Down_arrow').setScrollFactor(0,0);
+        this.Down_arrow = scene.add.image(1537,862,'Down_arrow').setScrollFactor(0,0).setDepth(3);
+        this.Up = scene.add.image(1536,538,'Up_arrow').setScrollFactor(0,0).setDepth(3);
+        this.Right = scene.add.image(1699,700,'Right_arrow').setScrollFactor(0,0).setDepth(3);
+        this.Ledt = scene.add.image(1375,700,'Left_arrow').setScrollFactor(0,0).setDepth(3);
         
-        scene.input.on('pointerdown', function (pointer) {
+        this.Down_arrow.on('pointerdown', function (pointer) {
 
-            console.log('this')
+            console.log('down')
             
         });
    
