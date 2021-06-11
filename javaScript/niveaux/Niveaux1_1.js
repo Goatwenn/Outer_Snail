@@ -206,15 +206,14 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
-    //--- Input  :  ----------------------------------------------------------
-        
-        this.droit = this.cursors.right.isDown
-        this.gauche = this.cursors.left.isDown
-        this.haut = this.cursors.up.isDown
-        this.bas = this.cursors.down.isDown
+   //--- Input  :  ----------------------------------------------------------
+        this.droit = this.cursors.right.isDown || this.mobil.droit
+        this.gauche = this.cursors.left.isDown || this.mobil.gauche
+        this.haut = this.cursors.up.isDown || this.mobil.haut
+        this.bas = this.cursors.down.isDown || this.mobil.bas
 
-        this.space = this.cursors.space.isDown
-        this.echap = this.esc.isDown
+        this.space = this.cursors.space.isDown || this.mobil.s
+   
         
         
         
@@ -228,7 +227,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
             this.space
         );
         
-        if(this.A.isDown){
+        if(this.A.isDown || this.mobil.a){
             this.player.Pouvoir();
         }
         

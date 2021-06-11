@@ -1,42 +1,124 @@
 class Controle_mobil { 
     constructor (){
-    
-        //this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
-        
-        
         
     }
     
-    Create (scene){
-        console.log(this)
+    Create (Scene){
         
-        this.Down_arrow = scene.add.image(1537,862,'Down_arrow').setScrollFactor(0,0).setDepth(3);
-        this.Up = scene.add.image(1536,538,'Up_arrow').setScrollFactor(0,0).setDepth(3);
-        this.Right = scene.add.image(1699,700,'Right_arrow').setScrollFactor(0,0).setDepth(3);
-        this.Ledt = scene.add.image(1375,700,'Left_arrow').setScrollFactor(0,0).setDepth(3);
+    //--- Boutons  :  ----------------------------------------------------------     
         
-        this.Down_arrow.on('pointerdown', function (pointer) {
-
-            console.log('down')
-            
-        });
-   
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        // Right
+        this.right = Scene.add.sprite(469,600,'Right_arrow')
+            .setScrollFactor(0,0)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.right.anims.play("Right_arrow_1");
+                this.droit = true
+            })
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () =>{
+                this.right.anims.play("Right_arrow_0");
+                this.droit = false
+            })
+        
+        
+        
+        
+       // Left
+        this.left = Scene.add.sprite(145,600,'Left_arrow')
+            .setScrollFactor(0,0)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.left.anims.play("Left_arrow_1");
+                this.gauche = true
+            })
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () =>{
+                this.left.anims.play("Left_arrow_0");
+                this.gauche = false
+            })
+        
+        
+        
+       
+      // Up
+        this.up = Scene.add.sprite(306,438,'Up_arrow')
+            .setScrollFactor(0,0)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.up.anims.play("Up_arrow_1");
+                this.haut = true
+            })
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () =>{
+                this.up.anims.play("Up_arrow_0");
+                this.haut = false
+            })
+        
+        
+       
+        
+      // Down
+        this.down = Scene.add.sprite(307,762,'Down_arrow')
+            .setScrollFactor(0,0)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.down.anims.play("Down_arrow_1");
+                this.bas = true
+            })
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () =>{
+                this.down.anims.play("Down_arrow_0");
+                this.bas = false
+            })
+        
+        
+       
+        
+      // A
+        this.toucheA = Scene.add.sprite(1750,762,'A_arrow')
+            .setScrollFactor(0,0)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.toucheA.anims.play("A_arrow_1");
+                this.a = true
+            })
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () =>{
+                this.toucheA.anims.play("A_arrow_0");
+                this.a = false
+            })        
+        
+        
+       
+        
+      // S
+        this.toucheS = Scene.add.sprite(1500,762,'S_arrow')
+            .setScrollFactor(0,0)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.toucheS.anims.play("S_arrow_1");
+                this.s = true
+            })
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () =>{
+                this.toucheS.anims.play("S_arrow_0");
+                this.s = false
+            })        
+        
+        
+        
+        }
 }
-
-
 
 /*
     this.mobil = new Controle_mobil();
     this.mobil.Create();
-        
+        1537 862
         */

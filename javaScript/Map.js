@@ -75,7 +75,9 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
         
-        
+      // Controle Mobile
+        this.mobil = new Controle_mobil();
+        this.mobil.Create(this);
         
         
     //--- UI :  ---------------------------------------------------------- 
@@ -122,13 +124,13 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Input  :  ----------------------------------------------------------
-        this.droit = this.cursors.right.isDown
-        this.gauche = this.cursors.left.isDown
-        this.haut = this.cursors.up.isDown
-        this.bas = this.cursors.down.isDown
+        this.droit = this.cursors.right.isDown || this.mobil.droit
+        this.gauche = this.cursors.left.isDown || this.mobil.gauche
+        this.haut = this.cursors.up.isDown || this.mobil.haut
+        this.bas = this.cursors.down.isDown || this.mobil.bas
 
-        this.space = this.cursors.space.isDown
-        this.echap = this.esc.isDown
+        this.space = this.cursors.space.isDown || this.mobil.s
+
         
         
         
@@ -138,7 +140,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
       
         
       // Boost
-        if (this.A.isDown){
+        if (this.A.isDown || this.mobil.a){
             this.vitesseDeDeplacement = 700
         }
         else{
@@ -192,13 +194,10 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
             this.player.setVelocityY(0);
         }   
       // Espace
-        if (this.cursors.space.isDown && this.lvl != 0){
+        if (this.space && this.lvl != 0){
             this.scene.start("Niveaux" + this.monde + "_"+ this.lvl, {fruit : this.Fruit, save : 1 });
         } 
 
-        
-        
-        
         
  
         if (this.lvl == 0){

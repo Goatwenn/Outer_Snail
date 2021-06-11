@@ -69,11 +69,13 @@ class Load extends Phaser.Scene {
         
  // Mobil --------------------------------------
         
-        this.load.spritesheet('Down_arrow', 'assets/mobil/down_arrow.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('Up_arrow', 'assets/mobil/up_arrow.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('Right_arrow', 'assets/mobil/right_arrow.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('Left_arrow', 'assets/mobil/left_arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('Down_arrow', 'assets/mobil/Down_Arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('Up_arrow', 'assets/mobil/Up_Arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('Right_arrow', 'assets/mobil/Right_Arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('Left_arrow', 'assets/mobil/Left_Arrow.png',{frameWidth:162, frameHeight:162});
         
+        this.load.spritesheet('A_arrow', 'assets/mobil/A_Arrow.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('S_arrow', 'assets/mobil/S_Arrow.png',{frameWidth:162, frameHeight:162});
         
         
     }
@@ -275,7 +277,61 @@ class Load extends Phaser.Scene {
             frames: [ { key: 'titre', frame: 6. } ],
         });
         
-     
+        
+    // Button mobils 
+        this.anims.create({
+            key: 'Down_arrow_0' ,
+            frames: [ { key: 'Down_arrow', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'Down_arrow_1' ,
+            frames: [ { key: 'Down_arrow', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'Up_arrow_0' ,
+            frames: [ { key: 'Up_arrow', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'Up_arrow_1' ,
+            frames: [ { key: 'Up_arrow', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'Right_arrow_0' ,
+            frames: [ { key: 'Right_arrow', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'Right_arrow_1' ,
+            frames: [ { key: 'Right_arrow', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'Left_arrow_0' ,
+            frames: [ { key: 'Left_arrow', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'Left_arrow_1' ,
+            frames: [ { key: 'Left_arrow', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'S_arrow_0' ,
+            frames: [ { key: 'S_arrow', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'S_arrow_1' ,
+            frames: [ { key: 'S_arrow', frame: 1. } ],
+        });
+        
+        this.anims.create({
+            key: 'A_arrow_0' ,
+            frames: [ { key: 'A_arrow', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'A_arrow_1' ,
+            frames: [ { key: 'A_arrow', frame: 1. } ],
+        });
         
         console.log(this);
         this.scene.start("Menu");
