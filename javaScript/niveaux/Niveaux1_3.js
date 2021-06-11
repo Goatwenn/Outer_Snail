@@ -1,7 +1,7 @@
-class Niveaux0_Blank extends Phaser.Scene {  // Copier Coller a modifier
+class Niveaux1_3 extends Phaser.Scene {  // Copier Coller a modifier
 
     constructor (){
-        super("Niveaux0_Blank");   // Copier Coller a modifier
+        super("Niveaux1_3");   // Copier Coller a modifier
     }
     
     
@@ -14,7 +14,7 @@ class Niveaux0_Blank extends Phaser.Scene {  // Copier Coller a modifier
     preload (){
     //--- Load du TileSet : ----------------------------------------------------------
         
-        this.load.tilemapTiledJSON("Niveaux0_Blank", 'assets/mondes/Niveaux0_Blank.json');
+        this.load.tilemapTiledJSON("Niveaux1_3", 'assets/mondes/Niveaux1_3.json');
     }
     
     
@@ -51,7 +51,7 @@ class Niveaux0_Blank extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Map Tiled : ----------------------------------------------------------
         
-        this.map = this.add.tilemap('Niveaux0_Blank');
+        this.map = this.add.tilemap('Niveaux1_3');
         this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 

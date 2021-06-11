@@ -25,13 +25,13 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.nfruit = 0;
         this.test = false
   
+        
+        
     //--- Cursors : ----------------------------------------------------------
         this.cursors = this.input.keyboard.createCursorKeys();
     
         this.esc = this.input.keyboard.addKey('esc');
         this.A = this.input.keyboard.addKey('A');
-        
-        
         
         
         
@@ -71,8 +71,10 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
     
+   
         
-        
+        this.mobil = new Controle_mobil();
+        this.mobil.Create(this);
         
     //--- Ennemis : ----------------------------------------------------------
         

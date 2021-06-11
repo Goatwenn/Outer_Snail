@@ -59,12 +59,23 @@ class Load extends Phaser.Scene {
         this.load.image('title', 'assets/menus/Main_title.png');
         this.load.image('destructeur', 'assets/menus/Main_destructeur.png');
         
+ // Menus --------------------------------------
         this.load.image('UI', 'assets/menus/map/ui_bg.png');
         this.load.spritesheet('cdf', 'assets/menus/map/cdf.png',{frameWidth:384, frameHeight:156});
         this.load.spritesheet('titre', 'assets/menus/map/titre.png',{frameWidth:120, frameHeight:54});
-        
+ // Menus --------------------------------------
         this.load.image('debug_BG', 'assets/menus/debug_BG.png');
         this.load.image('menu', 'assets/menus/pauseBG.png');
+        
+ // Mobil --------------------------------------
+        
+        this.load.image('Down_arrow', 'assets/mobil/Down_arrow.png');
+        this.load.image('Up_arrow', 'assets/mobil/Up_arrow.png');
+        this.load.image('Right_arrow', 'assets/mobil/Right_arrow.png');
+        this.load.image('Left_arrow', 'assets/mobil/Left_arrow.png');
+        
+        
+        
     }
     
     create (){
