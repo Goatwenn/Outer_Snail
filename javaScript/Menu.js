@@ -10,7 +10,9 @@ class Menu extends Phaser.Scene {
     create (){
         
         console.log(this);
-
+        
+        this.s = false
+        
         this.cursors = this.input.keyboard.createCursorKeys();
        
         this.pointerS = this.physics.add.sprite(1920, 200, 'ps1');
@@ -20,6 +22,24 @@ class Menu extends Phaser.Scene {
         this.pointerC = this.physics.add.sprite(960, 540, 'ps1');
         
         
+        this.mobil = new Controle_mobil();
+    
+        
+        // Mode manette
+        this.toucheA = this.add.sprite(1750,762,'A_arrow')
+            .setScrollFactor(0,0)
+            .setDepth(3)
+            .setInteractive()
+        
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
+                this.toucheA.anims.play("A_arrow_1");
+                this.s = true
+                this.mobil.Activation(true);
+            })
+        
+       
+        
+ 
         
         this.graphics1 = this.add.graphics();
         
@@ -219,20 +239,8 @@ class Menu extends Phaser.Scene {
         
         
         
-        if (this.cursors.space.isDown){
+        if (this.cursors.space.isDown || this.s ){
             this.scene.start("Map");
-            /*
-            
-            Niveaux0_Test
-            Niveaux0_Blank
-            Niveaux1_1
-            
-            
-            
-            
-            */
-            
-            
         }
         
     }

@@ -1,6 +1,8 @@
 class Controle_mobil { 
     constructor (){
         
+        
+        
     }
     
     Create (Scene){
@@ -113,8 +115,34 @@ class Controle_mobil {
             })        
         
         
+        this.boutonGroup = Scene.add.group();
+            this.boutonGroup.add(this.toucheA);
+            this.boutonGroup.add(this.toucheS);
+            this.boutonGroup.add(this.down);
+            this.boutonGroup.add(this.up);
+            this.boutonGroup.add(this.right);
+            this.boutonGroup.add(this.left);
+        
+        
         
         }
+    
+    Activation(x){
+        if (x == true){
+            this.toucheA.y = 0
+            console.log('eqsg')
+        }
+        else{
+            this.toucheA.y = 2000
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
 }
 
 /*
