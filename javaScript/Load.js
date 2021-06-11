@@ -83,7 +83,15 @@ class Load extends Phaser.Scene {
             duration: 300,
         });
         
+        this.anims.create({
+            key: 'dash_droit',
+            frames: [ { key: 'snail', frame: 5. } ],
+        });
         
+        this.anims.create({
+            key: 'dash_gauche',
+            frames: [ { key: 'snail', frame: 1. } ],
+        });
         
         
         

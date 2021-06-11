@@ -29,16 +29,19 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.lastDirection = 'droit';
          
          
+         
+         
       // Sattistique du joueur 
          this.hp = 3;
          
          this.invuTimer = 50;
          
-         this.dashTimer = 0;
-         this.dureDeDash = 30;
-         this.vitesseDeDash = 800;
+         this.duredash = 50;
          
-         this.inventaire = 0;
+         
+         
+         
+         this.inventaire = 1;
          this.nbfruit = 0;
          
          this.vitesseDeDeplacement = 300;
@@ -61,32 +64,41 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         if (this.dashOn == true){
            
-            this.dashTimer = this.dashTimer + 1
-           
-           
-            if(this.gravite == 0 || this.gravite == 2){
-                if (this.lastDirection == "droit"){
-                    this.body.setVelocityX(this.vitesseDeDash);
-                }
-                else if (this.lastDirection == "gauche"){
-                this.body.setVelocityX(-this.vitesseDeDash);
-                }
+            this.dashTimer += 1
+        
+            this.particule.Flammes(this.scene,"bleu",this.body,27,54);
+            
+            if (this.lastDirection == 'droit' && this.gravite == 0 || this.lastDirection == 'droit' && this.gravite ==2 ){
+                this.body.setVelocityX(900)
+                this.anims.play("dash_droit");
             }
-           
-           
-            if (this.lastDirection == "haut"){
-                this.body.setVelocityY(-this.vitesseDeDash);
+            else if (this.lastDirection == 'gauche' && this.gravite == 0 || this.lastDirection == 'gauche' && this.gravite ==2){
+                this.body.setVelocityX(-800)
+                this.anims.play("dash_gauche");
             }
-            else if (this.lastDirection == "bas"){
-                this.body.setVelocityY(this.vitesseDeDash);
+            else if (this.lastDirection == 'haut' && this.gravite == 1 || this.lastDirection == 'haut' && this.gravite == 3){
+                this.body.setVelocityY(-800)
+                this.anims.play("dash_droit");
             }
-           
-    
-           
-            if (this.dashTimer >= this.dureDeDash){
-                this.dashOn = false
+            else if (this.lastDirection == 'bas' && this.gravite == 1 || this.lastDirection == 'bas' && this.gravite == 3){
+                this.body.setVelocityY(800)
+                this.anims.play("dash_gauche");
+            }
+            
+            
+            
+            if (this.dashTimer >= this.duredash){
+                this.dashTimer = 0
                 this.inventaire = 0
-                this.dashTimer = 0 
+                this.dashOn = false
+                
+                if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
+                this.anims.play("SR");   
+                }
+                
+                if (this.lastDirection == 'gauche' || this.lastDirection == 'bas'){
+                this.anims.play("SL");   
+                }
             }
         }
   
@@ -97,13 +109,7 @@ class Perso extends Phaser.GameObjects.Sprite{
     //--- Particules :  --------------------------------------------------------
         
          if( this.enMouvement && this.sol){
-            this.particule.Frotement(
-                this.scene, // Scenne
-                "vert",       // P = Particule + Couleur
-                this.body,  // Target
-                27,          // OffSet X
-                54,          // OffSet Y
-            );
+            this.particule.Frotement(this.scene,"vert",this.body,27,54);
         }
         
         
@@ -113,7 +119,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         if  (this.invu == true){
             
-            this.invuTimer = this.invuTimer - 1
+            this.invuTimer -=  1
             
             if(this.invuTimer <= 0){
                 this.invu = false
@@ -164,9 +170,11 @@ class Perso extends Phaser.GameObjects.Sprite{
             
             this.body.setGravityY(0) 
             this.body.setGravityX(-puissanceDeGravite)
-
-            this.flipX = true ;
-            this.angle = 90;
+            
+            if (!this.dashOn){
+                this.flipX = true ;
+                this.angle = 90; 
+            }
 
             this.gravite = 3  
             
@@ -175,10 +183,12 @@ class Perso extends Phaser.GameObjects.Sprite{
             
             this.body.setGravityY(-puissanceDeGravite)  
             this.body.setGravityX(0)
-
-            this.flipX = true ;
-            this.angle = 180;
-
+            
+            if (!this.dashOn){
+                this.flipX = true ;
+                this.angle = 180;
+            }
+            
             this.gravite = 2
             
         }
@@ -186,10 +196,12 @@ class Perso extends Phaser.GameObjects.Sprite{
             
             this.body.setGravityY(0)
             this.body.setGravityX(puissanceDeGravite)  
-
-            this.flipX = false ;
-            this.angle = -90;
-
+            
+            if (!this.dashOn){
+                this.flipX = false ;
+                this.angle = -90;
+            }
+            
             this.gravite = 1
             
         }
@@ -198,9 +210,11 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setGravityY(puissanceDeGravite)  
             this.body.setGravityX(0) 
 
-            this.flipX = false ;
-            this.angle = 0;
-
+            if (!this.dashOn){
+                this.flipX = false ;
+                this.angle = 0;
+            }
+            
             this.gravite = 0
         }
     }
@@ -219,17 +233,19 @@ class Perso extends Phaser.GameObjects.Sprite{
                 
                 if(D){
                     this.body.setVelocityX(this.vitesseDeDeplacement)
+                    this.enMouvement = true
                     if (this.lastDirection == 'gauche'|| this.lastDirection == 'bas'){
                         this.anims.play("SR");
-                        this.lastDirection = 'droit'
                     }
+                this.lastDirection = 'droit'    
                 }
                 else if (G){
                     this.body.setVelocityX(-this.vitesseDeDeplacement)
+                    this.enMouvement = true
                     if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
-                        this.anims.play("SL");
-                        this.lastDirection = 'gauche'
+                        this.anims.play("SL");         
                     }
+                this.lastDirection = 'gauche'    
                 }
                 else if (!H && !B){
                     this.body.setVelocityX(0)    
@@ -241,17 +257,19 @@ class Perso extends Phaser.GameObjects.Sprite{
                 
                 if(B){
                     this.body.setVelocityY(this.vitesseDeDeplacement)
+                    this.enMouvement = true
                         if (this.lastDirection == 'droit' || this.lastDirection == 'haut'){
                         this.anims.play("SL");
-                        this.lastDirection = 'bas'
-                    }     
+                    } 
+                this.lastDirection = 'bas'
                 } 
                 else if (H){
-                    this.body.setVelocityY(-this.vitesseDeDeplacement) 
+                    this.body.setVelocityY(-this.vitesseDeDeplacement)
+                    this.enMouvement = true
                     if (this.lastDirection == 'gauche' || this.lastDirection == 'bas'){
                         this.anims.play("SR");
-                        this.lastDirection = 'haut'
                     }
+                this.lastDirection = 'haut'
                 }
                 else if(!G && !D){
                     this.body.setVelocityY(0)    
@@ -336,12 +354,6 @@ class Perso extends Phaser.GameObjects.Sprite{
         if (this.inventaire == 1){
             this.dashOn = true
             console.log('Joueur Utilisation Dash')
-        }
-        
-        if (this.inventaire == 2){
-            this.invu = true
-            console.log('Joueur Utilisation Shield')
-            this.inventaire = 0
         }
     }
     

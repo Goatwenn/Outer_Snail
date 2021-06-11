@@ -62,8 +62,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        //this.player = new Perso(this, 300, 1800, 'snail'); // Start
-        this.player = new Perso(this, 3100, 1500, 'snail');  // Zone ennemi
+        this.player = new Perso(this, 300, 1800, 'snail'); // Start
+        //this.player = new Perso(this, 3100, 1500, 'snail');  // Zone ennemi
 
          
       // Cameras
@@ -96,6 +96,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
       // Dash
         this.dash.create(3600,1593, 'panneaux_dash'); 
+        this.dash.create(830,1863, 'panneaux_dash');
         
       // Shield
         this.shield.create(4240,1593, 'panneaux_shield')
@@ -205,13 +206,18 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Controls  :  ----------------------------------------------------------
-         this.player.Deplacement(
-             this.droit,
-             this.gauche,
-             this.haut,
-             this.bas,
-             this.space
-         );
+        this.player.Deplacement(
+            this.droit,
+            this.gauche,
+            this.haut,
+            this.bas,
+            this.space
+        );
+        
+        if(this.A.isDown){
+            this.player.Pouvoir();
+        }
+        
           
     }// fin de Update
 
