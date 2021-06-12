@@ -96,12 +96,12 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.shield = this.physics.add.staticGroup();
         this.fruit = this.physics.add.staticGroup();
         
-      // Dash
-        this.dash.create(3600,1593, 'panneaux_dash'); 
-        this.dash.create(830,1863, 'panneaux_dash');
+      // Dash   --  this.dash.create(x,y, 'dash'); 
+        this.dash.create(3600,1593, 'dash'); 
+        this.dash.create(830,1863, 'dash');
         
-      // Shield
-        this.shield.create(4240,1593, 'panneaux_shield')
+      // Shield   --   this.shield.create(x,1593, 'shield')
+        this.shield.create(4240,1593, 'shield')
     
       // Fruit
         this.fruit.create(1700,1800, 'fruit');
@@ -109,7 +109,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit.create(1900,1800, 'fruit').setFlipY(true);;
     
       // Sortie
-        this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceShip');
+        this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceship');
         this.spaceShip.setSize(500,126)
         
 
@@ -122,7 +122,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
       
       // Cmpteur De Fruit
-        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'compteurDeFruit').setScrollFactor(0,0);
+        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
     
         
     
@@ -155,7 +155,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         this.pXT = this.add.text(30,30,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         this.pYT = this.add.text(30,60,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
-        this.ptestT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
+        this.pTT = this.add.text(30,120,(''), { fontSize: FontSize, fill: FontColor, strokeThickness: FontThisckness, stroke: FontColor }).setScrollFactor(0);
         
         
     }// fin de Create
@@ -164,50 +164,52 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     
-    update (){
-        
+update (){
+    
     //--- Updates des Class  :  ----------------------------------------------------------
+        
+      // Player
         this.player.Update();
         
+      // Ennemis
         var children = this.ennemiGroup.getChildren();
         for (var i = 0; i < children.length; i++){
             children[i].Update();
         }
         
       
-        
-        
+    
     //--- Animations  :  ----------------------------------------------------------   
+        
         this.inventaire.anims.play("inv" + this.player.inventaire);
-        this.compteurDeFruit.anims.play("fruit"+this.nfruit);
-        
-        
+        this.compteurDeFruit.anims.play("CDF"+this.nfruit);
         
         
         
     //--- Debug :  --------------------------------------------------------
+        
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.ptestT.setText('Test = ' + this.test);
+        this.pTT.setText('Y = ' + this.Fruit);
+       
         
         
         
         
-        
-    //--- Input  :  ----------------------------------------------------------
-        this.droit = this.cursors.right.isDown
-        this.gauche = this.cursors.left.isDown
-        this.haut = this.cursors.up.isDown
-        this.bas = this.cursors.down.isDown
+   //--- Input  :  ----------------------------------------------------------
+    
+        this.droit = this.cursors.right.isDown || this.mobil.droit
+        this.gauche = this.cursors.left.isDown || this.mobil.gauche
+        this.haut = this.cursors.up.isDown || this.mobil.haut
+        this.bas = this.cursors.down.isDown || this.mobil.bas
 
-        this.space = this.cursors.space.isDown
-        this.echap = this.esc.isDown
-        
-        
+        this.space = this.cursors.space.isDown || this.mobil.s
+   
         
         
         
     //--- Controls  :  ----------------------------------------------------------
+        
         this.player.Deplacement(
             this.droit,
             this.gauche,
@@ -216,24 +218,20 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
             this.space
         );
         
-        if(this.A.isDown){
+        if(this.A.isDown || this.mobil.a){
             this.player.Pouvoir();
         }
         
-          
+        
+        
     }// fin de Update
 
-    
-    
-    
     
     Dommage(player,ennemi){
         this.player.Vie(ennemi);  
     }
     
     
-       
-        
     
     Loot_Dash(){
         this.player.Loot('dash');
@@ -247,8 +245,6 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     
-    
-    
     CollectFruits (player, fruit){
         this.nfruit = this.nfruit +1
         fruit.destroy(true, true);
@@ -256,8 +252,9 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     
+    
     Sortie (player, spaceShip){
-        this.scene.start("Map");
+        this.scene.start("Map", {fruit : this.Fruit, save : 1 });
     
     }
     

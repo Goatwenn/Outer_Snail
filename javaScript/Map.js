@@ -82,9 +82,9 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- UI :  ---------------------------------------------------------- 
         
-        this.bg = this.physics.add.image(960,774, 'UI').setScrollFactor(0,0);
-        this.cdf = this.physics.add.sprite(960,1194, 'cdf').setScrollFactor(0,0);
-        this.nt = this.physics.add.sprite(300,1112,'titre').setScrollFactor(0,0);
+        this.bg = this.physics.add.image(960,774, 'map_background').setScrollFactor(0,0);
+        this.cdf = this.physics.add.sprite(960,1194, 'map_CDF').setScrollFactor(0,0);
+        this.nt = this.physics.add.sprite(300,1112,'map_number').setScrollFactor(0,0);
         
         this.UiGroup = this.add.group();
             this.UiGroup.add(this.bg);
@@ -217,6 +217,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
                 this.bg.setVelocityY(-this.vitesseDeTravling);
                 this.cdf.setVelocityY(-this.vitesseDeTravling);
                 this.nt.setVelocityY(-this.vitesseDeTravling);
+                
                 this.cdf.anims.play("cdf"+this.Fruit[this.lvl]);
                 this.nt.anims.play("nt" + this.lvl);
             }

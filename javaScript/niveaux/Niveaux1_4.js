@@ -72,9 +72,9 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
-     //--- Player : ----------------------------------------------------------
+    //--- Player : ----------------------------------------------------------
         
-        this.player = new Perso(this, 300, 1800, 'snail');
+        this.player = new Perso(this, 405, 1800, 'snail').setDepth(1);
     
       // Cameras
         this.cameras.main.setSize(config.width, config.height);
@@ -86,48 +86,48 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
         this.mobil = new Controle_mobil();
         this.mobil.Create(this);
         
-        
-        
+     
     //--- Ennemis : ----------------------------------------------------------
         
-      // Liste
-        this.thrower = new Thrower(this, 5100, 1000, 'thrower');
-        this.runner1= new Runner(this, 3800, 1800, 'runner');
-        this.runner2= new Runner(this, 3800, 1800, 'runner');
+        // this.ennemi_x = new Thrower(this, x, y, 'thrower').setDepth(1);
+        // this.ennemi_x = new Runner(this, x, y, 'runner').setDepth(1);
         
-      // Group
-        this.ennemiGroup = this.add.group();
-            this.ennemiGroup.add(this.thrower);
-            this.ennemiGroup.add(this.runner1);
-            this.ennemiGroup.add(this.runner2);
+        this.ennemi_1= new Runner(this, 3000, 1800, 'runner').setDepth(1);
+
+        
+        this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);
+        
+          //this.ennemiGroup.add(this.ennemi_X);
+            this.ennemiGroup.add(this.ennemi_1);
           
         
         
     //--- Objet :  ----------------------------------------------------------
-        
+    
       // Group :
         this.dash = this.physics.add.staticGroup(); 
         this.shield = this.physics.add.staticGroup();
         this.fruit = this.physics.add.staticGroup();
         
-      // Dash
-        this.dash.create(3600,1593, 'panneaux_dash'); 
-        this.dash.create(830,1863, 'panneaux_dash');
+      // Dash   --  this.dash.create(x,y, 'dash').angle = x ; 
+        this.dash.create(1972,1700, 'dash').angle = -7; 
+        this.dash.create(5420,1377, 'dash').angle = 164; 
         
-      // Shield
-        this.shield.create(4240,1593, 'panneaux_shield')
+        
+      // Shield   --   this.shield.create(x,y, 'shield').angle = x ; 
+        
     
-      // Fruit
-        this.fruit.create(1700,1800, 'fruit');
-        this.fruit.create(1800,1800, 'fruit');  
-        this.fruit.create(1900,1800, 'fruit').setFlipY(true);;
+      // Fruit ---          X - Y            .setFlipY(true/false)
+        this.fruit.create(3000,1860, 'fruit');
+        this.fruit.create(4455,510, 'fruit');  
+        this.fruit.create(6340,1917, 'fruit').setFlipY(true);
     
       // Sortie
-        this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceShip');
+        this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceship');
         this.spaceShip.setSize(500,126)
+                
         
-        
-
+   
     //--- Ui :  ----------------------------------------------------------
         
       // Barre de vie
@@ -137,7 +137,7 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
         this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
       
       // Cmpteur De Fruit
-        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'compteurDeFruit').setScrollFactor(0,0);
+        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
     
         
     
@@ -189,7 +189,7 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
     //--- Animations  :  ----------------------------------------------------------   
         
         this.inventaire.anims.play("inv" + this.player.inventaire);
-        this.compteurDeFruit.anims.play("fruit"+this.nfruit);
+        this.compteurDeFruit.anims.play("CDF"+this.nfruit);
         
         
         
@@ -204,15 +204,15 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
-    //--- Input  :  ----------------------------------------------------------
+   //--- Input  :  ----------------------------------------------------------
         
-        this.droit = this.cursors.right.isDown
-        this.gauche = this.cursors.left.isDown
-        this.haut = this.cursors.up.isDown
-        this.bas = this.cursors.down.isDown
+        this.droit = this.cursors.right.isDown || this.mobil.droit
+        this.gauche = this.cursors.left.isDown || this.mobil.gauche
+        this.haut = this.cursors.up.isDown || this.mobil.haut
+        this.bas = this.cursors.down.isDown || this.mobil.bas
 
-        this.space = this.cursors.space.isDown
-        this.echap = this.esc.isDown
+        this.space = this.cursors.space.isDown || this.mobil.s
+   
         
         
         
@@ -226,7 +226,7 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
             this.space
         );
         
-        if(this.A.isDown){
+        if(this.A.isDown || this.mobil.a){
             this.player.Pouvoir();
         }
         
@@ -260,7 +260,8 @@ class Niveaux1_4 extends Phaser.Scene {  // Copier Coller a modifier
         
     }
     
-     Sortie (player, spaceShip){
+    
+    Sortie (player, spaceShip){
         if (this.Fruit[4] < this.nfruit){
             this.Fruit[4] = this.nfruit
         }

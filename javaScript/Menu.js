@@ -15,26 +15,27 @@ class Menu extends Phaser.Scene {
         
         this.cursors = this.input.keyboard.createCursorKeys();
        
-        this.pointerS = this.physics.add.sprite(1920, 200, 'ps1');
-        this.pointerT = this.physics.add.sprite(960, 540, 'ps1');
-        this.pointerF = this.physics.add.sprite(1520, 740, 'ps1');
-        this.pointerE = this.physics.add.sprite(960, 540, 'ps1');
-        this.pointerC = this.physics.add.sprite(960, 540, 'ps1');
+        this.pointerS = this.physics.add.sprite(1920, 200, 'rouge1');
+        this.pointerT = this.physics.add.sprite(960, 540, 'rouge1');
+        this.pointerF = this.physics.add.sprite(1520, 740, 'rouge1');
+        this.pointerE = this.physics.add.sprite(960, 540, 'rouge1');
+        this.pointerC = this.physics.add.sprite(960, 540, 'rouge1');
         
         
         this.mobil = new Controle_mobil();
     
         
         // Mode manette
-        this.toucheA = this.add.sprite(1750,762,'A_arrow')
+        this.toucheA = this.add.sprite(1750,762,'button_A')
             .setScrollFactor(0,0)
             .setDepth(3)
             .setInteractive()
         
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () =>{
-                this.toucheA.anims.play("A_arrow_1");
+                this.toucheA.anims.play("button_A_1");
                 this.s = true
-                this.mobil.Activation(true);
+            
+                controle_mobiles = true
             })
         
        
@@ -128,14 +129,15 @@ class Menu extends Phaser.Scene {
             repeat: -1
         });
         
-        this.bg = this.physics.add.sprite(960, 540, 'bg');
-        this.montagne = this.physics.add.sprite(960, 540, 'montagne');
-        this.start = this.physics.add.sprite(960, 540, 'start');
-        this.title = this.physics.add.sprite(960, 250, 'title');
-        this.fruit = this.physics.add.sprite(960, 540, 'fruit');
-        this.escargo = this.physics.add.sprite(960, 540, 'escargot').setDepth(2);
         
-        this.destructeur = this.physics.add.sprite(0, 1080, 'destructeur');
+        this.bg = this.physics.add.sprite(960, 540, 'Main_background');
+        this.montagne = this.physics.add.sprite(960, 540, 'Main_montagne');
+        this.start = this.physics.add.sprite(960, 540, 'Main_start');
+        this.title = this.physics.add.sprite(960, 250, 'Main_title');
+        this.fruit = this.physics.add.sprite(960, 540, 'Main_fruit');
+        this.escargo = this.physics.add.sprite(960, 540, 'Main_Snail').setDepth(2);
+        
+        this.destructeur = this.physics.add.sprite(0, 1080, 'Main_limite');
         
     }
     update(){
@@ -186,7 +188,7 @@ class Menu extends Phaser.Scene {
         
         
         this.particule = this.physics.add.group({
-            key: 'particule_bleu1',
+            key: 'bleu1',
             setXY: { x: this.escargo.x, y: this.escargo.y}
         });
      
@@ -197,7 +199,7 @@ class Menu extends Phaser.Scene {
         
         
         this.particule = this.physics.add.group({
-            key: 'particule_bleu1',
+            key: 'bleu1',
             setXY: { x: this.escargo.x, y: this.escargo.y}
         });
         

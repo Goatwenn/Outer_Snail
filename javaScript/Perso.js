@@ -31,7 +31,7 @@ class Perso extends Phaser.GameObjects.Sprite{
          
          
          
-      // Sattistique du joueur 
+      // Satistique du joueur 
          this.hp = 3;
          
          this.invuTimer = 50;
@@ -39,9 +39,7 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.duredash = 50;
          
          
-         
-         
-         this.inventaire = 1;
+         this.inventaire = 0;
          this.nbfruit = 0;
          
          this.vitesseDeDeplacement = 300;

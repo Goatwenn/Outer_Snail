@@ -21,7 +21,7 @@ class Particules {
             this.timer = 0
             this.nb =  Phaser.Math.Between(1, 2)
             
-            var particles = this.scene.add.particles('particule_' + this.texture + this.nb);
+            var particles = this.scene.add.particles(this.texture + this.nb);
             
             var emitter = particles.createEmitter({
  
@@ -54,7 +54,7 @@ class Particules {
             
         this.nb =  Phaser.Math.Between(1,2)
 
-        var particles = scene.add.particles('particule_' + texture + this.nb);
+        var particles = scene.add.particles(texture + this.nb);
 
         
 
