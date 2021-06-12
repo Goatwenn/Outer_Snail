@@ -25,66 +25,66 @@ class Load extends Phaser.Scene {
         
     // Object -------------------------------------
         
-        this.load.image('fruit', 'assets/Fruit.png');
-        this.load.image('dash', 'assets/Dash.png');
-        this.load.image('shield', 'assets/Shield.png');
+        this.load.image('fruit', 'assets/fruit.png');
+        this.load.image('dash', 'assets/dash.png');
+        this.load.image('shield', 'assets/shield.png');
         
-        this.load.spritesheet("snail", 'assets/Snail.png',{frameWidth:108, frameHeight:54});
-        this.load.spritesheet("vie", 'assets/Vie.png',{frameWidth:218, frameHeight:54});
+        this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:54});
+        this.load.spritesheet("vie", 'assets/vie.png',{frameWidth:218, frameHeight:54});
         this.load.spritesheet("inventaire", 'assets/Inventaire.png',{frameWidth:100, frameHeight:100});
-        this.load.spritesheet('CDF', 'assets/Compteur_de_fruit.png',{frameWidth:192, frameHeight:78});
-        this.load.spritesheet('spaceship', 'assets/Spaceship.png',{frameWidth:726, frameHeight:126});
+        this.load.spritesheet('CDF', 'assets/compteur_de_fruit.png',{frameWidth:192, frameHeight:78});
+        this.load.spritesheet('spaceship', 'assets/spaceship.png',{frameWidth:726, frameHeight:126});
         
         
         
     // Ennemis -------------------------------------  
         
-        this.load.spritesheet("runner", 'assets/ennemis/Runner.png',{frameWidth:108, frameHeight:108});
-        this.load.spritesheet("thrower", 'assets/ennemis/Thrower.png',{frameWidth:108, frameHeight:108});
+        this.load.spritesheet("runner", 'assets/ennemis/runner.png',{frameWidth:108, frameHeight:108});
+        this.load.spritesheet("thrower", 'assets/ennemis/thrower.png',{frameWidth:108, frameHeight:108});
         
         
         
     // Particules ---------------------------------
         
-        this.load.image('bleu1', 'assets/particules/Bleu_1.png');
-        this.load.image('bleu2', 'assets/particules/Bleu_2.png');
-        this.load.image('orange1', 'assets/particules/Orange_1.png');
-        this.load.image('orange2', 'assets/particules/Orange_2.png');
-        this.load.image('vert1', 'assets/particules/Vert_1.png');
-        this.load.image('vert2', 'assets/particules/Vert_2.png');
-        this.load.image('rouge1', 'assets/particules/Rouge_1.png');
-        this.load.image('rouge2', 'assets/particules/Rouge_2.png');
+        this.load.image('bleu1', 'assets/particules/bleu_1.png');
+        this.load.image('bleu2', 'assets/particules/bleu_2.png');
+        this.load.image('orange1', 'assets/particules/orange_1.png');
+        this.load.image('orange2', 'assets/particules/orange_2.png');
+        this.load.image('vert1', 'assets/particules/vert_1.png');
+        this.load.image('vert2', 'assets/particules/vert_2.png');
+        this.load.image('rouge1', 'assets/particules/rouge_1.png');
+        this.load.image('rouge2', 'assets/particules/rouge_2.png');
         
         
         
     // Menus --------------------------------------
         
-        this.load.image('Main_background', 'assets/menu/Background.png');
-        this.load.image('Main_fruit', 'assets/menu/Fruit.png');
-        this.load.image('Main_limite', 'assets/menu/Limite.png');
-        this.load.image('Main_Snail', 'assets/menu/Snail.png');
-        this.load.image('Main_start', 'assets/menu/Start.png');
-        this.load.image('Main_title', 'assets/menu/Title.png');
-        this.load.image('Main_montagne', 'assets/menu/Montagne.png');
+        this.load.image('Main_background', 'assets/menu/background.png');
+        this.load.image('Main_fruit', 'assets/menu/fruit.png');
+        this.load.image('Main_limite', 'assets/menu/limite.png');
+        this.load.image('Main_Snail', 'assets/menu/snail.png');
+        this.load.image('Main_start', 'assets/menu/start.png');
+        this.load.image('Main_title', 'assets/menu/title.png');
+        this.load.image('Main_montagne', 'assets/menu/montagne.png');
         
         
         
     // Map --------------------------------------        
 
-        this.load.image('map_background', 'assets/map/Background.png');
-        this.load.spritesheet('map_CDF', 'assets/map/Compteur_de_fruit.png',{frameWidth:384, frameHeight:156});
-        this.load.spritesheet('map_number', 'assets/map/Number.png',{frameWidth:120, frameHeight:54});
+        this.load.image('map_background', 'assets/map/background.png');
+        this.load.spritesheet('map_CDF', 'assets/map/compteur_de_fruit.png',{frameWidth:384, frameHeight:156});
+        this.load.spritesheet('map_number', 'assets/map/number.png',{frameWidth:120, frameHeight:54});
         
         
     // Button -------------------------------------- 
         
-        this.load.spritesheet('button_Down', 'assets/buttons/Down.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('button_Up', 'assets/buttons/Up.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('button_Right', 'assets/buttons/Right.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('button_Left', 'assets/buttons/Left.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('button_Down', 'assets/buttons/down.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('button_Up', 'assets/buttons/up.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('button_Right', 'assets/buttons/right.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('button_Left', 'assets/buttons/left.png',{frameWidth:162, frameHeight:162});
         
-        this.load.spritesheet('button_A', 'assets/buttons/A.png',{frameWidth:162, frameHeight:162});
-        this.load.spritesheet('button_S', 'assets/buttons/S.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('button_A', 'assets/buttons/touche_a.png',{frameWidth:162, frameHeight:162});
+        this.load.spritesheet('button_S', 'assets/buttons/touche_s.png',{frameWidth:162, frameHeight:162});
            
     }// Fin de preload
     
