@@ -31,7 +31,7 @@ class Load extends Phaser.Scene {
         
         this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:54});
         this.load.spritesheet("vie", 'assets/vie.png',{frameWidth:218, frameHeight:54});
-        this.load.spritesheet("inventaire", 'assets/Inventaire.png',{frameWidth:100, frameHeight:100});
+        this.load.spritesheet("inventaire", 'assets/inventaire.png',{frameWidth:100, frameHeight:100});
         this.load.spritesheet('CDF', 'assets/compteur_de_fruit.png',{frameWidth:192, frameHeight:78});
         this.load.spritesheet('spaceship', 'assets/spaceship.png',{frameWidth:726, frameHeight:126});
         
