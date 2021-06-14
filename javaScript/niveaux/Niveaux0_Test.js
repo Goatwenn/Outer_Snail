@@ -6,7 +6,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     init(data){
-        
+        this.Fruit = data.fruit
+        this.save = data.save
     }
     
     
