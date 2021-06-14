@@ -41,6 +41,7 @@ class Load extends Phaser.Scene {
         
         this.load.spritesheet("runner", 'assets/ennemis/runner.png',{frameWidth:108, frameHeight:108});
         this.load.spritesheet("thrower", 'assets/ennemis/thrower.png',{frameWidth:108, frameHeight:108});
+        this.load.spritesheet("rock", 'assets/ennemis/rock_chaine.png',{frameWidth:54, frameHeight:54});
         
         
         
@@ -220,6 +221,13 @@ class Load extends Phaser.Scene {
             key: 'un_hide',
             frames: this.anims.generateFrameNumbers('thrower', { start: 5, end: 9 }),
             frameRate: 24,
+        });
+        
+        this.anims.create({
+            key: 'rock_wave',
+            frames: this.anims.generateFrameNumbers('rock', { start: 0, end: 6 }),
+            frameRate: 12,
+            repeat : -1,
         });
         
       

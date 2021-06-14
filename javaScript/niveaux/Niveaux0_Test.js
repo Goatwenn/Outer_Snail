@@ -62,8 +62,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        this.player = new Perso(this, 300, 1800, 'snail'); // Start
-        //this.player = new Perso(this, 3100, 1500, 'snail');  // Zone ennemi
+        //this.player = new Perso(this, 300, 1800, 'snail'); // Start
+        this.player = new Perso(this, 4800, 1000, 'snail');  // Zone ennemi
 
          
       // Cameras
@@ -86,7 +86,9 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
             this.ennemiGroup.add(this.thrower);
             this.ennemiGroup.add(this.runner1);
             this.ennemiGroup.add(this.runner2);
-          
+        
+        
+       
         
         
     //--- Objet :  ----------------------------------------------------------

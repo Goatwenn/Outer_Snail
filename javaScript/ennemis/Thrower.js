@@ -13,8 +13,10 @@ class Thrower extends Phaser.GameObjects.Sprite{
         this.body.setSize(54,54);
         this.body.setOffset(27,[54]);
         
-        this.hideVerif = 0
+        this.rock;
         
+        this.hideVerif = 0
+        this.rock_chaine == false
         this.rayonAction = 850;
         
          this.dead = false ;
@@ -22,8 +24,13 @@ class Thrower extends Phaser.GameObjects.Sprite{
     
     Update(){ 
         
+        if (this.rock){
+            this.rock.Update();
+        }
+        
+        
+        
          if(this.scene.player.x <= this.body.x + this.rayonAction && this.scene.player.x > this.body.x ){
-            this.Lancer()
              this.Hide(false)
              //console.log("cacher")
         }
@@ -33,10 +40,7 @@ class Thrower extends Phaser.GameObjects.Sprite{
         }
     }
     
-    
-    Lancer(){
-        
-    }
+
     
     Hide (A){
         this.hide = A
@@ -44,6 +48,8 @@ class Thrower extends Phaser.GameObjects.Sprite{
         if (this.hide == false && !this.dead){
             if (this.hideVerif == 0){
                 this.anims.play('hide', true);   
+                
+                this.rock = new Rock(this.scene, this.body.x, this.body.y + 27, 'rock');
                 
                 this.hideVerif = 1
             }  
@@ -60,7 +66,10 @@ class Thrower extends Phaser.GameObjects.Sprite{
         
     }
     
-     Dead(){
+    
+    
+    
+    Dead(){
         console.log('Thrower Dead')
         this.dead = true
         this.body.destroy(true, true);
