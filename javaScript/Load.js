@@ -223,17 +223,24 @@ class Load extends Phaser.Scene {
             frameRate: 24,
         });
         
+        
+        
+        
         this.anims.create({
-            key: 'rock_wave',
-            frames: this.anims.generateFrameNumbers('rock', { start: 0, end: 6 }),
-            frameRate: 12,
-            repeat : -1,
+            key: 'rock_chaine',
+            frames: this.anims.generateFrameNumbers('rock', { start: 0, end: 5 }),
+            frameRate: 8,
         });
         
-      
+        this.anims.create({
+            key: 'rock_bool' ,
+            frames: [ { key: 'rock', frame: 6. } ],
+        });
         
-        
-        
+        this.anims.create({
+            key: 'rock_hide' ,
+            frames: [ { key: 'rock', frame: 0. } ],
+        });
            
 // Maps --------------------------------------      
         

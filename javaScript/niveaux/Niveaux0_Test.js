@@ -62,8 +62,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        //this.player = new Perso(this, 300, 1800, 'snail'); // Start
-        this.player = new Perso(this, 4800, 1000, 'snail');  // Zone ennemi
+        //this.player = new Perso(this, 300, 1800, 'snail').setDepth(1); // Start
+        this.player = new Perso(this, 4800, 1000, 'snail').setDepth(1);  // Zone ennemi
 
          
       // Cameras
@@ -78,12 +78,13 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Ennemis : ----------------------------------------------------------
         
-        this.thrower = new Thrower(this, 5100, 1000, 'thrower');
+        //his.thrower = new Thrower(this, 5100, 1000, 'thrower');
         this.runner1= new Runner(this, 3800, 1800, 'runner');
         this.runner2= new Runner(this, 3800, 1800, 'runner');
+        this.ennemi_1 = new Thrower(this, 5300, 1000, 'thrower').setDepth(1);
         
         this.ennemiGroup = this.add.group();
-            this.ennemiGroup.add(this.thrower);
+            this.ennemiGroup.add(this.ennemi_1);
             this.ennemiGroup.add(this.runner1);
             this.ennemiGroup.add(this.runner2);
         
@@ -192,7 +193,7 @@ update (){
         
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.pTT.setText('Y = ' + this.Fruit);
+        this.pTT.setText('Y = ' + this.ennemi_1.timer);
        
         
         
