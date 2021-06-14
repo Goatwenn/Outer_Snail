@@ -13,6 +13,8 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
     }
     create (){
         
+        this.input.addPointer(3);
+        
         console.log(this);
        
         if (this.save == 1) {
@@ -71,7 +73,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.player = this.physics.add.sprite(700,1500, 'snail');
 
       // Cameras
-        this.cameras.main.setSize(config.width, config.height);
+        this.cameras.main.setSize(cameX, cameY);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
         

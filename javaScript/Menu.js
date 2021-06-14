@@ -36,6 +36,8 @@ class Menu extends Phaser.Scene {
                 this.s = true
             
                 controle_mobiles = true
+                cameX = 1920
+                cameY = 700
             })
         
        

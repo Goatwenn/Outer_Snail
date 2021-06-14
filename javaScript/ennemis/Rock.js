@@ -9,8 +9,9 @@ class Rock extends Phaser.GameObjects.Sprite{
         this.particule = new Particules();
         this.body.setGravityY(puissanceDeGravite)
     
+        this.body.setSize(30,30);
         
-        
+        this.anims.play('rock_bool',true)
         
         this.direction = true
 
@@ -22,27 +23,28 @@ class Rock extends Phaser.GameObjects.Sprite{
         
     Update(){ 
         
+        this.angle += 15;
+        
         if (this.direction){
-            this.body.setVelocityX(400)
-            this.D = 54
+            this.body.setVelocityX(800)
+            this.D = 90
         }
         else{
-            this.body.setVelocityX(-400)
-            this.D = -54
+            this.body.setVelocityX(-800)
+            this.D = - 90
         }
        
         
         
         if (this.body.blocked.down) {
-            this.angle = 0;
             this.scene.cameras.main.shake(50, 0.001)
-            this.anims.play('rock_hide',true)
-            this.onde = this.scene.add.sprite(this.body.x + this.D  ,this.body.y + 27 ,'rock')
+            this.onde = this.scene.add.sprite(this.body.x + this.D  ,this.body.y + 10 ,'rock')
+            this.onde.immovable = true;
             this.onde.anims.play('rock_chaine',true)
         }
         else{   
-            this.anims.play('rock_bool',true)
-            this.angle += 15;
+            
+            
         }
         
         if (this.body.blocked.left){
@@ -54,6 +56,7 @@ class Rock extends Phaser.GameObjects.Sprite{
         }
         
         if (this.body.y >= 2160){
+            this.anims.play('rock_hide',true)
             this.body.destroy(true, true);   
         }
     

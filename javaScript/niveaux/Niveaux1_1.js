@@ -21,6 +21,8 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     
     create (){
         
+        this.input.addPointer(3);
+        
         console.log(this);
         this.nfruit = 0;
         
@@ -81,7 +83,7 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
         this.player = new Perso(this, 405, 1800, 'snail').setDepth(1);
     
       // Cameras
-        this.cameras.main.setSize(config.width, config.height);
+        this.cameras.main.setSize(cameX, cameY);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
     

@@ -19,7 +19,7 @@ class Thrower extends Phaser.GameObjects.Sprite{
         this.timer = 0;
         this.hideVerif = 0
         this.rock_chaine == false
-        this.rayonAction = 850;
+        this.rayonAction = 2000;
         
          this.dead = false ;
     }

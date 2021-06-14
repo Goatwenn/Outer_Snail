@@ -21,6 +21,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         
         console.log(this);
         
+        this.input.addPointer(3);
+        
     //--- Variables : ----------------------------------------------------------
         this.nfruit = 0;
         this.test = false
@@ -67,7 +69,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
 
          
       // Cameras
-        this.cameras.main.setSize(config.width, config.height);
+        this.cameras.main.setSize(cameX, cameY);
         this.cameras.main.setBounds(0,0,7560,2160);
         this.cameras.main.startFollow(this.player,true,0.08,0.08);
     
