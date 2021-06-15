@@ -45,8 +45,8 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
     //--- Paralaxe : ----------------------------------------------------------
         
         if (!debug){
-            this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
-            this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
+            this.add.image(4000, 1080, 'BG_S').setScrollFactor(0.75,1);
+            this.add.image(4000, 1080, 'PX_A').setScrollFactor(0.30,1);
         }
         
 
@@ -57,11 +57,15 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
          
       // Layer 
-        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
+        if (debug){
+            this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
+        }
+        
         this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
-        this.decoLayer = this.map.createLayer('decoLayer', this.tiles, 0, 0);
+        this.DLayer = this.map.createLayer('DLayer', this.tiles, 0, 0);
+        this.bordureLayer = this.map.createLayer('bordureLayer', this.tiles, 0, 0);
    
       // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);
@@ -76,7 +80,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        this.player = new Perso(this, 405, 1800, 'snail').setDepth(1);
+        this.player = new Perso(this, 486, 1730, 'snail').setDepth(1);
     
       // Cameras
         this.cameras.main.setSize(cameX, cameY);
@@ -112,12 +116,12 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit = this.physics.add.staticGroup();
         
       // Dash   --  this.dash.create(x,y, 'dash').angle = x ; 
-        this.dash.create(1972,1700, 'dash').angle = -7; 
-        this.dash.create(5420,1377, 'dash').angle = 164; 
+        this.dash.create(5103,1706, 'dash').angle = - 94; 
+        this.dash.create(3375,565, 'dash').angle = 164; 
         
         
       // Shield   --   this.shield.create(x,y, 'shield').angle = x ; 
-        
+        this.shield.create(5265,300, 'shield').angle = 168 ; 
     
       // Fruit ---          X - Y            .setFlipY(true/false)
         this.fruit.create(3000,1860, 'fruit');
@@ -125,7 +129,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit.create(6340,1917, 'fruit').setFlipY(true);
     
       // Sortie
-        this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceship');
+        this.spaceShip = this.physics.add.sprite(0,0, 'spaceship');
         this.spaceShip.setSize(500,126)
                 
         

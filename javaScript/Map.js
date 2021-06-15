@@ -55,15 +55,15 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.collideLayer.setCollisionByExclusion(-1, true);
         
       // Overlap
-        this.graviteLayer.setTileIndexCallback([193], ()=> { this.monde = 0, this.lvl = "Test" });
+        this.graviteLayer.setTileIndexCallback([200], ()=> { this.monde = 0, this.lvl = "Test" });
         
-        this.graviteLayer.setTileIndexCallback([207], ()=> { this.monde = 1,this.lvl = 0 });
-        this.graviteLayer.setTileIndexCallback([195], ()=> { this.monde = 1,this.lvl = 1 });
-        this.graviteLayer.setTileIndexCallback([197], ()=> { this.monde = 1,this.lvl = 2 });
-        this.graviteLayer.setTileIndexCallback([199], ()=> { this.monde = 1,this.lvl = 3 });
-        this.graviteLayer.setTileIndexCallback([201], ()=> { this.monde = 1,this.lvl = 4 });
-        this.graviteLayer.setTileIndexCallback([203], ()=> { this.monde = 1,this.lvl = 5 });
-        this.graviteLayer.setTileIndexCallback([205], ()=> { this.monde = 1,this.lvl = 'boss' });
+        this.graviteLayer.setTileIndexCallback([214], ()=> { this.monde = 1,this.lvl = 0 });
+        this.graviteLayer.setTileIndexCallback([202], ()=> { this.monde = 1,this.lvl = 1 });
+        this.graviteLayer.setTileIndexCallback([204], ()=> { this.monde = 1,this.lvl = 2 });
+        this.graviteLayer.setTileIndexCallback([206], ()=> { this.monde = 1,this.lvl = 3 });
+        this.graviteLayer.setTileIndexCallback([208], ()=> { this.monde = 1,this.lvl = 4 });
+        this.graviteLayer.setTileIndexCallback([210], ()=> { this.monde = 1,this.lvl = 5 });
+        this.graviteLayer.setTileIndexCallback([212], ()=> { this.monde = 1,this.lvl = 'boss' });
             
         
         

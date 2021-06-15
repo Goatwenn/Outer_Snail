@@ -12,8 +12,11 @@ class Load extends Phaser.Scene {
 
     // BackGround ---------------------------------
         
-        this.load.image('plan3', 'assets/plan3.png');
-        this.load.image('plan4', 'assets/plan4.png');
+        this.load.image('PX_M', 'assets/plan/Px_Montgne.png');
+        this.load.image('PX_A', 'assets/plan/Px_Asteroid.png');
+        
+        this.load.image('BG_DM', 'assets/plan/Bg_DoubleMonde.png');
+        this.load.image('BG_S', 'assets/plan/Bg_Space.png');
         
         
         
@@ -30,6 +33,8 @@ class Load extends Phaser.Scene {
         this.load.image('shield', 'assets/shield.png');
         
         this.load.spritesheet("snail", 'assets/snail.png',{frameWidth:108, frameHeight:54});
+        this.load.spritesheet("bouclier", 'assets/bouclier.png',{frameWidth:130, frameHeight:130});
+        
         this.load.spritesheet("vie", 'assets/vie.png',{frameWidth:218, frameHeight:54});
         this.load.spritesheet("inventaire", 'assets/inventaire.png',{frameWidth:100, frameHeight:100});
         this.load.spritesheet('CDF', 'assets/compteur_de_fruit.png',{frameWidth:192, frameHeight:78});
@@ -122,6 +127,20 @@ class Load extends Phaser.Scene {
         });
         
         
+        this.anims.create({
+            key: 'bouclier_Up',
+            frames: [ { key: 'bouclier', frame: 1. } ],
+        });
+        this.anims.create({
+            key: 'bouclier_Down',
+            frames: [ { key: 'bouclier', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'bouclier_Alerte',
+            frames: this.anims.generateFrameNumbers('bouclier', { start: 1, end: 2 }),
+            frameRate: 5,
+            repeat: 10000,
+        });
         
         
     // Barre de Vie

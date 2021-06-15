@@ -45,8 +45,8 @@ class Niveaux1_1 extends Phaser.Scene {  // Copier Coller a modifier
     //--- Paralaxe : ----------------------------------------------------------
         
         if (!debug){
-            this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
-            this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
+            this.add.image(4000, 1080, 'BG_DM').setScrollFactor(0.20,1);
+            this.add.image(4000, 1080, 'PX_M').setScrollFactor(0.30,1);
         }
         
 

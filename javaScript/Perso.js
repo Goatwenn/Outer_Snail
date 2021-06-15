@@ -15,8 +15,11 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.particule = new Particules();
          
          
+         this.bouclier = this.scene.add.sprite(this.body.x  ,this.body.y,'bouclier').setDepth(2);
+         
       // Variables
          this.dashOn = false
+         this.bouclierOn = false
          this.invu = false;
          
          this.sol = false
@@ -35,6 +38,7 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.hp = 3;
          
          this.invuTimer = 50;
+         this.bouclier_Timer = 500;
          
          this.duredash = 50;
          
@@ -98,11 +102,39 @@ class Perso extends Phaser.GameObjects.Sprite{
                 this.anims.play("SL");   
                 }
             }
+ 
         }
   
         
         
-    
+     //--- Bouclier :  --------------------------------------------------------       
+        
+        this.bouclier.x = this.body.x + 27
+        this.bouclier.y = this.body.y + 27
+        this.bouclier.angle += 20
+        
+        if (this.bouclierOn ){
+            this.bouclier_Timer -=  1
+            
+            if(this.bouclier_Timer <= 500 && this.bouclier_Timer >= 499){
+              this.bouclier.anims.play("bouclier_Up");  
+                
+            }
+            
+            if(this.bouclier_Timer <= 152 && this.bouclier_Timer >= 150){
+              this.bouclier.anims.play("bouclier_Alerte");  
+                
+            }
+            
+            if(this.bouclier_Timer <= 0){
+                this.bouclierOn = false
+                this.bouclier_Timer = 500
+                this.inventaire = 0
+                this.bouclier.anims.play("bouclier_Down");
+            }
+        }
+        
+        
         
     //--- Particules :  --------------------------------------------------------
         
@@ -169,11 +201,10 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setGravityY(0) 
             this.body.setGravityX(-puissanceDeGravite)
             
-            if (!this.dashOn){
-                this.flipX = true ;
-                this.angle = 90; 
-            }
-
+            this.flipX = true ;
+            this.angle = 90; 
+            
+            
             this.gravite = 3  
             
         }
@@ -182,10 +213,11 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setGravityY(-puissanceDeGravite)  
             this.body.setGravityX(0)
             
-            if (!this.dashOn){
-                this.flipX = true ;
-                this.angle = 180;
-            }
+         
+            this.flipX = true ;
+            this.angle = 180;
+        
+            
             
             this.gravite = 2
             
@@ -195,10 +227,10 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setGravityY(0)
             this.body.setGravityX(puissanceDeGravite)  
             
-            if (!this.dashOn){
-                this.flipX = false ;
-                this.angle = -90;
-            }
+            
+            this.flipX = false ;
+            this.angle = -90;
+            
             
             this.gravite = 1
             
@@ -208,10 +240,10 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.body.setGravityY(puissanceDeGravite)  
             this.body.setGravityX(0) 
 
-            if (!this.dashOn){
-                this.flipX = false ;
-                this.angle = 0;
-            }
+            
+            this.flipX = false ;
+            this.angle = 0;
+            
             
             this.gravite = 0
         }
@@ -353,6 +385,10 @@ class Perso extends Phaser.GameObjects.Sprite{
             this.dashOn = true
             console.log('Joueur Utilisation Dash')
         }
+        else if (this.inventaire == 2){
+            this.bouclierOn = true
+            console.log('Joueur Utilisation Dash')
+        }
     }
     
     
@@ -362,7 +398,7 @@ class Perso extends Phaser.GameObjects.Sprite{
 //--- Vie :  ----------------------------------------------------------
     
     Vie(ennemi){
-        if (!this.invu && !this.dashOn){
+        if (!this.invu && !this.dashOn && !this.bouclierOn){
             
             console.log('Joueur - 1hp ' + (this.hp - 1) + '/3')
             this.scene.barreDeVie.anims.play("vie" + (this.hp - 1));
@@ -393,8 +429,12 @@ class Perso extends Phaser.GameObjects.Sprite{
         console.log('Joueur Mort')
         
         this.hp = 3
-        this.body.x = 300
-        this.body.y = 1800
+        this.body.x = 486 
+        this.body.y = 1730
+        
+        this.inventaire = 0
+        this.dashOn = false
+        this.bouclierOn = false
         
         this.scene.barreDeVie.anims.play("vie" + this.hp);
         
