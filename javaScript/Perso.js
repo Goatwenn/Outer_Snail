@@ -43,7 +43,7 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.duredash = 50;
          
          
-         this.inventaire = 0;
+         this.inventaire = 2;
          this.nbfruit = 0;
          
          this.vitesseDeDeplacement = 300;
@@ -434,7 +434,8 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         this.inventaire = 0
         this.dashOn = false
-        this.bouclierOn = false
+        this.bouclier_Timer = 1
+        
         
         this.scene.barreDeVie.anims.play("vie" + this.hp);
         

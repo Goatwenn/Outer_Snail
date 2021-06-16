@@ -96,15 +96,16 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
     //--- Ennemis : ----------------------------------------------------------
         
         // this.ennemi_x = new Thrower(this, x, y, 'thrower').setDepth(1);
-        // this.ennemi_x = new Runner(this, x, y, 'runner').setDepth(1);
+        // this.ennemi_x = new Runner(this, x, y, 'runner', grav).setDepth(1);
         
         this.ennemi_1= new Runner(this, 6029, 671, 'runner',1).setDepth(1);
+        this.ennemi_2 = new Flyer(this, 4230, 900, 'flyer').setDepth(1);
 
         
         this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);
         
-          //this.ennemiGroup.add(this.ennemi_X);
             this.ennemiGroup.add(this.ennemi_1);
+            this.ennemiGroup.add(this.ennemi_2);
           
         
         
@@ -117,7 +118,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         
       // Dash   --  this.dash.create(x,y, 'dash').angle = x ; 
         this.dash.create(5103,1706, 'dash').angle = - 94; 
-        this.dash.create(3375,565, 'dash').angle = 164; 
+        this.dash.create(3375,565, 'dash').angle = - 75;
         
         
       // Shield   --   this.shield.create(x,y, 'shield').angle = x ; 

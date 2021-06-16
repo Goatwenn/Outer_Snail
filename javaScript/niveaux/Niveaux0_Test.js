@@ -85,11 +85,14 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.runner1= new Runner(this, 3800, 1800, 'runner', 0);
         this.runner2= new Runner(this, 3800, 1800, 'runner', 0);
         this.ennemi_1 = new Thrower(this, 5300, 1000, 'thrower').setDepth(1);
+        this.ennemi_2 = new Flyer(this, 4230, 900, 'flyer').setDepth(1);
+        
         
         this.ennemiGroup = this.add.group();
             this.ennemiGroup.add(this.ennemi_1);
             this.ennemiGroup.add(this.runner1);
-            this.ennemiGroup.add(this.runner2);
+            this.ennemiGroup.add(this.runner2); 
+            this.ennemiGroup.add(this.ennemi_2); 
         
         
        
@@ -151,7 +154,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
       // Ennemis
         this.physics.add.collider(this.ennemiGroup,  this.collideLayer);
-        this.physics.add.collider(this.player,this.ennemiGroup, this.Dommage, null, this);
+        this.physics.add.collider(this.player, this.ennemiGroup, this.Dommage, null, this);
         
         
         
@@ -196,7 +199,7 @@ update (){
         
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.pTT.setText('Y = ' + this.ennemi_1.timer);
+        this.pTT.setText('Y = ' + this.test);
        
         
         
@@ -234,7 +237,7 @@ update (){
 
     
     Dommage(player,ennemi){
-        this.player.Vie(ennemi);  
+        this.player.Vie();  
     }
     
     

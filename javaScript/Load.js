@@ -45,10 +45,14 @@ class Load extends Phaser.Scene {
     // Ennemis -------------------------------------  
         
         this.load.spritesheet("runner", 'assets/ennemis/runner.png',{frameWidth:108, frameHeight:108});
+        
         this.load.spritesheet("thrower", 'assets/ennemis/thrower.png',{frameWidth:108, frameHeight:108});
-        this.load.spritesheet("rock", 'assets/ennemis/rock_chaine.png',{frameWidth:54, frameHeight:54});
+        this.load.spritesheet("rock", 'assets/ennemis/rock_chaine.png',{frameWidth: 54, frameHeight:54});
         
+        this.load.spritesheet("flyer", 'assets/ennemis/flyer.png',{frameWidth:108, frameHeight:108});
         
+        this.load.spritesheet("lazer_charge", 'assets/ennemis/lazer_charge.png',{frameWidth:5000, frameHeight:24});
+        this.load.spritesheet("lazer_shoot", 'assets/ennemis/lazer_shoot.png',{frameWidth:5000, frameHeight:24});
         
     // Particules ---------------------------------
         
@@ -261,6 +265,39 @@ class Load extends Phaser.Scene {
             frames: [ { key: 'rock', frame: 0. } ],
         });
            
+        
+        
+     // Thrower
+        this.anims.create({
+            key: 'flyer_fermer' ,
+            frames: [ { key: 'flyer', frame: 0. } ],
+        });
+        this.anims.create({
+            key: 'flyer_charge' ,
+            frames: [ { key: 'flyer', frame: 1. } ],
+        });
+        this.anims.create({
+            key: 'flyer_shoot' ,
+            frames: [ { key: 'flyer', frame: 2. } ],
+        });
+        this.anims.create({
+            key: 'flyer_dead' ,
+            frames: [ { key: 'flyer', frame: 3. } ],
+        });
+        
+        this.anims.create({
+            key: 'lazer_charge',
+            frames: this.anims.generateFrameNumbers('lazer_charge', { start: 0, end: 3 }),
+            frameRate: 4,
+        });
+        this.anims.create({
+            key: 'lazer_shoot',
+            frames: this.anims.generateFrameNumbers('lazer_shoot', { start: 0, end: 3 }),
+            frameRate: 32,
+            repeat : -1,
+        });
+        
+        
 // Maps --------------------------------------      
         
     // Compteur De Fruit
