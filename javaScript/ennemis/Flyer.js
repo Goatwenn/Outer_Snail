@@ -10,32 +10,58 @@ class Flyer extends Phaser.GameObjects.Sprite{
          
          console.log(this); 
          this.particule = new Particules();
+         //this.body.immovable = true;
          
          this.body.setSize(54,54);
-         this.body.setCollideWorldBounds(false);
+
          
          this.shootOn = false;
          this.randomTimer = 0;
          
          this.shoot_Timer = 100;
-         this.rayonAction = 1000
+         this.rayonAction = 900
          this.rayonhauteur = 10;
-         this.vitesseDeDeplacement = 1000
+         this.vitesseDeDeplacement = 400
          
          this.dead = false
          
+      
+         var zone1;
+         var zone2;
+         var zone3;
+         var zone4;
          
-         /*
-         this.limite = this.scene.add.zone(300, 200).setSize(200, 200);
-         var graphics = this.scene.add.graphics();
-         graphics.lineStyle(1, 0x00ff00, 1);
-         */
+         zone1 = this.scene.add.zone(this.x, this.y+500).setSize(1000, 20);
+         this.scene.physics.world.enable(zone1);
+         zone1.body.immovable = true;
+         
+         zone2 = this.scene.add.zone(this.x, this.y-500).setSize(1000, 20);
+         this.scene.physics.world.enable(zone2);
+         zone2.body.immovable = true;
+         
+         zone3 = this.scene.add.zone(this.x-500, this.y).setSize(20, 1000);
+         this.scene.physics.world.enable(zone3);
+         zone3.body.immovable = true;
+
+         zone4 = this.scene.add.zone(this.x+500, this.y).setSize(20, 1000);
+         this.scene.physics.world.enable(zone4);
+         zone4.body.immovable = true;
+         
+          this.zoneGroup = this.scene.add.group();
+            this.zoneGroup.add(zone1);
+            this.zoneGroup.add(zone2);
+            this.zoneGroup.add(zone3);
+            this.zoneGroup.add(zone4);
+          
+         this.scene.physics.add.collider(this.zoneGroup, this.body);
+         //this.scene.physics.add.collider(this.zoneGroup, this.scene.player);
+             
          
      }
     
     Update(){
         
-       
+        
         if (this.shootOn || !this.dead && this.scene.player.x <= this.body.x + this.rayonAction && this.scene.player.x > this.body.x - this.rayonAction && 
         this.scene.player.y >= this.body.y - this.rayonhauteur && this.scene.player.y <= this.body.y + this.rayonhauteur ){
             this.Shoot();
@@ -50,14 +76,7 @@ class Flyer extends Phaser.GameObjects.Sprite{
         this.scene.physics.add.overlap(this.scene.player, this.scene.lazer_shoot, this.Dommage, null, this);
         
         
-        
-        
-        
-        
-       
-        
-        
-        
+
         
         
         
@@ -151,6 +170,19 @@ class Flyer extends Phaser.GameObjects.Sprite{
         
         
     }
+    
+    Stop(){
+        
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(0);
+        
+    
+        
+        
+    }
+    
+    
+    
     
     
 }

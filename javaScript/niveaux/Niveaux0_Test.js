@@ -19,7 +19,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     
     
     create (){
-        
+       
         console.log(this);
         
         this.input.addPointer(3);
@@ -58,7 +58,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.graviteLayer.setTileIndexCallback([Bleu], ()=> { this.player.Gravite('bleu') });
         this.graviteLayer.setTileIndexCallback([Rouge], ()=> { this.player.Gravite('rouge') });
         
-        
+
         
         
         
@@ -66,7 +66,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     //--- Player : ----------------------------------------------------------
         
         //this.player = new Perso(this, 300, 1800, 'snail').setDepth(1); // Start
-        this.player = new Perso(this, 4800, 1000, 'snail').setDepth(1);  // Zone ennemi
+        this.player = new Perso(this, 4230, 900, 'snail').setDepth(1);  // Zone ennemi
 
          
       // Cameras
