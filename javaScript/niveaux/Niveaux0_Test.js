@@ -82,8 +82,8 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
     //--- Ennemis : ----------------------------------------------------------
         
         //his.thrower = new Thrower(this, 5100, 1000, 'thrower');
-        this.runner1= new Runner(this, 3800, 1800, 'runner');
-        this.runner2= new Runner(this, 3800, 1800, 'runner');
+        this.runner1= new Runner(this, 3800, 1800, 'runner', 0);
+        this.runner2= new Runner(this, 3800, 1800, 'runner', 0);
         this.ennemi_1 = new Thrower(this, 5300, 1000, 'thrower').setDepth(1);
         
         this.ennemiGroup = this.add.group();

@@ -98,7 +98,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         // this.ennemi_x = new Thrower(this, x, y, 'thrower').setDepth(1);
         // this.ennemi_x = new Runner(this, x, y, 'runner').setDepth(1);
         
-        this.ennemi_1= new Runner(this, 3000, 1800, 'runner').setDepth(1);
+        this.ennemi_1= new Runner(this, 6029, 671, 'runner',1).setDepth(1);
 
         
         this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);
