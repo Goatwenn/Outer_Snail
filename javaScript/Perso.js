@@ -43,7 +43,7 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.duredash = 50;
          
          
-         this.inventaire = 2;
+         this.inventaire = 0;
          this.nbfruit = 0;
          
          this.vitesseDeDeplacement = 300;

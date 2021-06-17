@@ -25,7 +25,7 @@ class Flyer extends Phaser.GameObjects.Sprite{
          this.shoot_Timer = 100;
          this.rayonAction = 900
          this.rayonhauteur = 10;
-         this.vitesseDeDeplacement = 800
+         this.vitesseDeDeplacement = 1000
          
          this.range = range;
          

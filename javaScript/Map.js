@@ -71,7 +71,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         this.player = this.physics.add.sprite(700,1500, 'snail');
-
+        this.player.setCollideWorldBounds(true);
       // Cameras
         this.cameras.main.setSize(cameX, cameY);
         this.cameras.main.setBounds(0,0,7560,2160);

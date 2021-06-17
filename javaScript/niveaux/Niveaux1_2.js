@@ -133,9 +133,9 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         this.shield.create(5265,300, 'shield').angle = 168 ; 
     
       // Fruit ---          X - Y            .setFlipY(true/false)
-        this.fruit.create(3000,1860, 'fruit');
-        this.fruit.create(4455,510, 'fruit');  
-        this.fruit.create(6340,1917, 'fruit').setFlipY(true);
+        this.fruit.create(3600,1271, 'fruit').setAngle(-90);;
+        this.fruit.create(6400,620, 'fruit');  
+        this.fruit.create(1900,900, 'fruit').setAngle(90);
     
       // Sortie
         this.spaceShip = this.physics.add.sprite(0,0, 'spaceship');
