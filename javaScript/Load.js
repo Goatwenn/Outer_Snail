@@ -49,7 +49,7 @@ class Load extends Phaser.Scene {
         this.load.spritesheet("thrower", 'assets/ennemis/thrower.png',{frameWidth:108, frameHeight:108});
         this.load.spritesheet("rock", 'assets/ennemis/rock_chaine.png',{frameWidth: 54, frameHeight:54});
         
-        this.load.spritesheet("flyer", 'assets/ennemis/flyer.png',{frameWidth:108, frameHeight:108});
+        this.load.spritesheet("flyer", 'assets/ennemis/Flyer.png',{frameWidth:108, frameHeight:108});
         
         this.load.spritesheet("lazer_charge", 'assets/ennemis/lazer_charge.png',{frameWidth:5000, frameHeight:24});
         this.load.spritesheet("lazer_shoot", 'assets/ennemis/lazer_shoot.png',{frameWidth:5000, frameHeight:24});
