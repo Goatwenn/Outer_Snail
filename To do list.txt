@@ -1,0 +1,73 @@
+Inportant : ///////////////////////////////////////
+
+- Menu:
+	- changement d'affichage pour mobils
+	- toucher la totalitée du screen pour mobile
+	- delet  la touche A
+	- auto detecte du device (option) 
+
+- Map:
+	- Assets : 
+		- Arbre
+		- Riviére
+		- hauteur
+ 		- pont
+		- buisson
+
+	- Code :
+		- collide world bordeur
+		- Ath volet a monte
+		- modifier le bouton space
+		- activation de la map test si debug on
+
+- Code pricipale:
+	- Assets : 
+		- Rework l'escargot
+
+	- Code : 
+		- Vaiseaux de fin a FAIR 
+		- Rework des couche de grav
+
+	
+- Flyer:
+	- Code: 
+		-  Zone d'activitée du mob
+
+
+- LVL designe : 
+	- assets:
+		-asteroids
+		- angle platforme flotante
+		- reacteur PF x 4
+
+	- code: 
+		- Possition des ennemis
+		- position des pouvoir
+		- Possition des fruit
+		- Possition du vaiseaux
+
+	- Tile map:
+		- Niveau 1 a rework
+		- Fin niveau 2 
+		- Faire niveau 3
+		- Faire niveau 4
+ 		- Faire niveau 5
+		- Faire niveau Boss
+
+- Boss Fight :
+	
+	Fonction restart
+	Le but est de lui mettre 3 Dash dans la tete pour changer de phase
+
+	Phase 1 
+		Tape sur le sol avec ces pate et sa tete .
+		
+	Phase 2
+		IL baleye le terrain avec c'est pate 
+		
+	Phase 3
+		Il tourne sa tete pour tirer des Rayon vert le bas 
+
+
+- Google Slide /!\ :
+	- consepte  arte flyer + boss

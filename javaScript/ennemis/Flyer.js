@@ -24,39 +24,10 @@ class Flyer extends Phaser.GameObjects.Sprite{
          this.vitesseDeDeplacement = 400
          
          this.dead = false
+         this.stop = false
          
-      
-         var zone1;
-         var zone2;
-         var zone3;
-         var zone4;
-         
-         zone1 = this.scene.add.zone(this.x, this.y+500).setSize(1000, 20);
-         this.scene.physics.world.enable(zone1);
-         zone1.body.immovable = true;
-         
-         zone2 = this.scene.add.zone(this.x, this.y-500).setSize(1000, 20);
-         this.scene.physics.world.enable(zone2);
-         zone2.body.immovable = true;
-         
-         zone3 = this.scene.add.zone(this.x-500, this.y).setSize(20, 1000);
-         this.scene.physics.world.enable(zone3);
-         zone3.body.immovable = true;
-
-         zone4 = this.scene.add.zone(this.x+500, this.y).setSize(20, 1000);
-         this.scene.physics.world.enable(zone4);
-         zone4.body.immovable = true;
-         
-          this.zoneGroup = this.scene.add.group();
-            this.zoneGroup.add(zone1);
-            this.zoneGroup.add(zone2);
-            this.zoneGroup.add(zone3);
-            this.zoneGroup.add(zone4);
-          
-         this.scene.physics.add.collider(this.zoneGroup, this.body);
-         //this.scene.physics.add.collider(this.zoneGroup, this.scene.player);
-             
-         
+         this.Limite(this.scene);
+  
      }
     
     Update(){
@@ -73,14 +44,7 @@ class Flyer extends Phaser.GameObjects.Sprite{
              this.Dead();
         }
         
-        this.scene.physics.add.overlap(this.scene.player, this.scene.lazer_shoot, this.Dommage, null, this);
-        
-        
-
-        
-        
-        
-        
+        this.scene.physics.add.overlap(this.scene.player, this.scene.lazer_shoot, this.Dommage, null, this);  
     }
     
     Shoot(){
@@ -122,40 +86,47 @@ class Flyer extends Phaser.GameObjects.Sprite{
     
     Move(){
         
-        this.anims.play("flyer_fermer");
+        if (!this.stop){
+            this.anims.play("flyer_fermer");
         
-        this.randomTimer = this.randomTimer + 1;
+            this.randomTimer = this.randomTimer + 1;
+
+            if (this.randomTimer >= 10){
+                this.randomTimer = 0; 
+                this.randowmNBX = Phaser.Math.Between(0, 6);
+                this.randowmNBY = Phaser.Math.Between(0, 6);
+            }
+
+            if(this.randowmNBX == 1){
+                this.body.setVelocityX(this.vitesseDeDeplacement);
+            }
+            else if(this.randowmNBX == 2){
+                this.body.setVelocityX( - this.vitesseDeDeplacement);
+            }
+            else{
+                this.body.setVelocityX(0);
+            }
+
+            if(this.randowmNBY == 1){
+                this.body.setVelocityY(this.vitesseDeDeplacement);
+            }
+            else if(this.randowmNBY == 2){
+                this.body.setVelocityY( - this.vitesseDeDeplacement);
+            }
+            else{
+                this.body.setVelocityY(0);
+            }
+        }
+    }
+    
+    Limite(scene){
         
-        if (this.randomTimer >= 10){
-            this.randomTimer = 0; 
-            this.randowmNBX = Phaser.Math.Between(0, 6);
-            this.randowmNBY = Phaser.Math.Between(0, 6);
-        }
-        
-        if(this.randowmNBX == 1){
-            this.body.setVelocityX(this.vitesseDeDeplacement);
-        }
-        else if(this.randowmNBX == 2){
-            this.body.setVelocityX( - this.vitesseDeDeplacement);
-        }
-        else{
-            this.body.setVelocityX(0);
-        }
-        
-        if(this.randowmNBY == 1){
-            this.body.setVelocityY(this.vitesseDeDeplacement);
-        }
-        else if(this.randowmNBY == 2){
-            this.body.setVelocityY( - this.vitesseDeDeplacement);
-        }
-        else{
-            this.body.setVelocityY(0);
-        }
-        
-        
+       
+     
         
     }
     
+
     Dommage(player,ennemi){
         this.scene.player.Vie();  
     }
@@ -170,20 +141,7 @@ class Flyer extends Phaser.GameObjects.Sprite{
         
         
     }
-    
-    Stop(){
-        
-        this.body.setVelocityX(0);
-        this.body.setVelocityY(0);
-        
-    
-        
-        
-    }
-    
-    
-    
-    
+
     
 }
 

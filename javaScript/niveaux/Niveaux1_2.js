@@ -205,7 +205,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         if (debug){
             this.pXT.setText('X = ' + this.player.x);
             this.pYT.setText('Y = ' + this.player.y);
-            this.pTT.setText('Y = ' + this.Fruit);
+            this.pTT.setText('test = ' + this.player.bouclier_Timer);
         }
         
         

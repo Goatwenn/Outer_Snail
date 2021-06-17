@@ -199,7 +199,7 @@ update (){
         
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.pTT.setText('Y = ' + this.test);
+        this.pTT.setText('test = ' + this.player.bouclier_Timer);
        
         
         

@@ -13,7 +13,7 @@ class Perso extends Phaser.GameObjects.Sprite{
          
          this.body.setSize(54,54);
          this.particule = new Particules();
-         
+    
          
          this.bouclier = this.scene.add.sprite(this.body.x  ,this.body.y,'bouclier').setDepth(2);
          
@@ -434,11 +434,12 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         this.inventaire = 0
         this.dashOn = false
-        this.bouclier_Timer = 1
-        
+        this.bouclierOn = false
+        this.bouclier_Timer = 500
+        this.bouclier.anims.play("bouclier_Down");
         
         this.scene.barreDeVie.anims.play("vie" + this.hp);
-        
+ 
     }
     
 }
