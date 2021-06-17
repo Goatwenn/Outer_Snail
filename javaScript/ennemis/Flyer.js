@@ -1,12 +1,15 @@
 class Flyer extends Phaser.GameObjects.Sprite{
     
-     constructor (scene, x, y, texture){
+     constructor (scene, x, y, texture, range){
          super(scene, x, y, texture);
          
          scene.add.existing(this);
          scene.physics.world.enableBody(this);
          
          this.scene = scene;
+         
+         this.x = x ;
+         this.y = y ;
          
          console.log(this); 
          this.particule = new Particules();
@@ -23,15 +26,24 @@ class Flyer extends Phaser.GameObjects.Sprite{
          this.rayonhauteur = 10;
          this.vitesseDeDeplacement = 400
          
+         this.range = range;
+         
          this.dead = false
          this.stop = false
          
-         this.Limite(this.scene);
+         var zone1;
+         
+         zone1 = this.scene.add.zone(this.x, this.y).setSize(this.range * 2, this.range * 2);
+         this.scene.physics.world.enable(zone1);
+         zone1.body.immovable = true;
+         
+         
   
      }
     
     Update(){
         
+        this.Limite();
         
         if (this.shootOn || !this.dead && this.scene.player.x <= this.body.x + this.rayonAction && this.scene.player.x > this.body.x - this.rayonAction && 
         this.scene.player.y >= this.body.y - this.rayonhauteur && this.scene.player.y <= this.body.y + this.rayonhauteur ){
@@ -119,11 +131,18 @@ class Flyer extends Phaser.GameObjects.Sprite{
         }
     }
     
-    Limite(scene){
-        
-       
+    Limite(){
+        if (this.body.x <= this.x - this.range && 
+            this.body.x >= this.x + this.range && 
+            this.body.y >= this.y + this.range && 
+            this.body.y <= this.y - this.range){
+            
+            this.stop = true
+            console.log('dzsew')
      
-        
+    
+            
+        }
     }
     
 
