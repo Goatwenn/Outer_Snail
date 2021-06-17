@@ -8,15 +8,16 @@ class Flyer extends Phaser.GameObjects.Sprite{
          
          this.scene = scene;
          
-         this.x = x ;
-         this.y = y ;
+         this.zonex = x ;
+         this.zoney = y ;
+        
          
          console.log(this); 
          this.particule = new Particules();
          //this.body.immovable = true;
          
          this.body.setSize(54,54);
-
+         this.test = true
          
          this.shootOn = false;
          this.randomTimer = 0;
@@ -33,7 +34,7 @@ class Flyer extends Phaser.GameObjects.Sprite{
          
          var zone1;
          
-         zone1 = this.scene.add.zone(this.x, this.y).setSize(this.range * 2, this.range * 2);
+         zone1 = this.scene.add.zone(this.x, this.y).setSize(this.range * 2, this.range);
          this.scene.physics.world.enable(zone1);
          zone1.body.immovable = true;
          
@@ -43,7 +44,6 @@ class Flyer extends Phaser.GameObjects.Sprite{
     
     Update(){
         
-        this.Limite();
         
         if (this.shootOn || !this.dead && this.scene.player.x <= this.body.x + this.rayonAction && this.scene.player.x > this.body.x - this.rayonAction && 
         this.scene.player.y >= this.body.y - this.rayonhauteur && this.scene.player.y <= this.body.y + this.rayonhauteur ){
@@ -57,6 +57,42 @@ class Flyer extends Phaser.GameObjects.Sprite{
         }
         
         this.scene.physics.add.overlap(this.scene.player, this.scene.lazer_shoot, this.Dommage, null, this);  
+        
+        
+        
+        if (this.body.x <= this.zonex - this.range || 
+            this.body.x >= this.zonex + this.range || 
+            this.body.y >= this.zoney + this.range || 
+            this.body.y <= this.zoney - this.range){
+            
+            this.randowmNBX = 6
+            this.randowmNBY = 6
+            this.stop = true
+             
+             
+            if (this.body.x <= this.zonex - this.range){
+                this.body.setVelocityX(this.vitesseDeDeplacement);
+            }
+            else if (this.body.x >= this.zonex + this.range){
+                this.body.setVelocityX(-this.vitesseDeDeplacement);
+            }
+            else if (this.body.y >= this.zoney + this.range){
+                this.body.setVelocityY( - this.vitesseDeDeplacement);
+            }
+            else if (this.body.y <= this.zoney - this.range){
+                this.body.setVelocityY(this.vitesseDeDeplacement);
+            }
+             
+             
+             
+       
+        }
+        else{
+            this.stop = false
+        }
+        
+        
+        
     }
     
     Shoot(){
@@ -98,54 +134,38 @@ class Flyer extends Phaser.GameObjects.Sprite{
     
     Move(){
         
-        if (!this.stop){
-            this.anims.play("flyer_fermer");
-        
-            this.randomTimer = this.randomTimer + 1;
+       
+        this.anims.play("flyer_fermer");
 
-            if (this.randomTimer >= 10){
-                this.randomTimer = 0; 
-                this.randowmNBX = Phaser.Math.Between(0, 6);
-                this.randowmNBY = Phaser.Math.Between(0, 6);
-            }
+        this.randomTimer = this.randomTimer + 1;
 
-            if(this.randowmNBX == 1){
-                this.body.setVelocityX(this.vitesseDeDeplacement);
-            }
-            else if(this.randowmNBX == 2){
-                this.body.setVelocityX( - this.vitesseDeDeplacement);
-            }
-            else{
-                this.body.setVelocityX(0);
-            }
+        if ( !this.stop && this.randomTimer >= 10){
+            this.randomTimer = 0; 
+            this.randowmNBX = Phaser.Math.Between(0, 6);
+            this.randowmNBY = Phaser.Math.Between(0, 6);
+        }
 
-            if(this.randowmNBY == 1){
-                this.body.setVelocityY(this.vitesseDeDeplacement);
-            }
-            else if(this.randowmNBY == 2){
-                this.body.setVelocityY( - this.vitesseDeDeplacement);
-            }
-            else{
-                this.body.setVelocityY(0);
-            }
+        if(this.randowmNBX == 1){
+            this.body.setVelocityX(this.vitesseDeDeplacement);
+        }
+        else if(this.randowmNBX == 2){
+            this.body.setVelocityX( - this.vitesseDeDeplacement);
+        }
+        else{
+            this.body.setVelocityX(0);
+        }
+
+        if(this.randowmNBY == 1){
+            this.body.setVelocityY(this.vitesseDeDeplacement);
+        }
+        else if(this.randowmNBY == 2){
+            this.body.setVelocityY( - this.vitesseDeDeplacement);
+        }
+        else{
+            this.body.setVelocityY(0);
         }
     }
     
-    Limite(){
-        if (this.body.x <= this.x - this.range && 
-            this.body.x >= this.x + this.range && 
-            this.body.y >= this.y + this.range && 
-            this.body.y <= this.y - this.range){
-            
-            this.stop = true
-            console.log('dzsew')
-     
-    
-            
-        }
-    }
-    
-
     Dommage(player,ennemi){
         this.scene.player.Vie();  
     }

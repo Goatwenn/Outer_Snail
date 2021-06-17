@@ -132,14 +132,30 @@ class Niveaux1_3 extends Phaser.Scene {  // Copier Coller a modifier
    
     //--- Ui :  ----------------------------------------------------------
         
-      // Barre de vie
-        this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
-      
-      // Inventaire
-        this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
-      
-      // Cmpteur De Fruit
-        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
+        if (controle_mobiles){
+              
+          // Barre de vie
+            this.barreDeVie = this.physics.add.sprite(200, 100, 'vie').setScrollFactor(0,0);
+
+          // Inventaire
+            this.inventaire = this.physics.add.sprite(1820,100, 'inventaire').setScrollFactor(0,0);   
+
+          // Cmpteur De Fruit
+            this.compteurDeFruit = this.physics.add.sprite(1650,100, 'CDF').setScrollFactor(0,0);
+
+        }
+        else{
+              
+          // Barre de vie
+            this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
+
+          // Inventaire
+            this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
+
+          // Cmpteur De Fruit
+            this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
+
+        }
     
         
     

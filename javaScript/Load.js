@@ -293,7 +293,7 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'lazer_shoot',
             frames: this.anims.generateFrameNumbers('lazer_shoot', { start: 0, end: 3 }),
-            frameRate: 32,
+            frameRate: 48,
             repeat : -1,
         });
         

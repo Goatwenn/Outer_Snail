@@ -28,11 +28,6 @@ Inportant : ///////////////////////////////////////
 		- Vaiseaux de fin a FAIR 
 		- Rework des couche de grav
 
-	
-- Flyer:
-	- Code: 
-		-  Zone d'activitée du mob
-
 
 - LVL designe : 
 	- assets:

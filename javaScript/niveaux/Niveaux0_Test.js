@@ -85,7 +85,7 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
         this.runner1= new Runner(this, 3800, 1800, 'runner', 0);
         this.runner2= new Runner(this, 3800, 1800, 'runner', 0);
         this.ennemi_1 = new Thrower(this, 5300, 1000, 'thrower').setDepth(1);
-        this.ennemi_2 = new Flyer(this, 4230, 900, 'flyer', 200).setDepth(1);
+        this.ennemi_2 = new Flyer(this, 4230, 900, 'flyer', 500).setDepth(1);
         
         
         this.ennemiGroup = this.add.group();
@@ -124,18 +124,32 @@ class Niveaux0_Test extends Phaser.Scene {  // Copier Coller a modifier
 
     //--- Ui :  ----------------------------------------------------------
         
-      // Barre de vie
-        this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
-      
-      // Inventaire
-        this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
-      
-      // Cmpteur De Fruit
-        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
-    
+        if (controle_mobiles){
+              
+          // Barre de vie
+            this.barreDeVie = this.physics.add.sprite(200, 100, 'vie').setScrollFactor(0,0);
+
+          // Inventaire
+            this.inventaire = this.physics.add.sprite(1820,100, 'inventaire').setScrollFactor(0,0);   
+
+          // Cmpteur De Fruit
+            this.compteurDeFruit = this.physics.add.sprite(1650,100, 'CDF').setScrollFactor(0,0);
+
+        }
+        else{
+              
+          // Barre de vie
+            this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
+
+          // Inventaire
+            this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
+
+          // Cmpteur De Fruit
+            this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
+
+        }
         
-    
-        
+  
     //--- Collider & Overlap :  ----------------------------------------------------------
         
       // Player
@@ -199,7 +213,7 @@ update (){
         
         this.pXT.setText('X = ' + this.player.x);
         this.pYT.setText('Y = ' + this.player.y);
-        this.pTT.setText('test = ' + this.player.bouclier_Timer);
+        this.pTT.setText('test = ' + this.ennemi_2.zonex);
        
         
         

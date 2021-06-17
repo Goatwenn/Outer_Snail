@@ -26,7 +26,7 @@ class Menu extends Phaser.Scene {
     
         
         // Mode manette
-        this.toucheA = this.add.sprite(1750,762,'button_A')
+        this.toucheA = this.add.sprite(1750,(540),'button_A')
             .setScrollFactor(0,0)
             .setDepth(3)
             .setInteractive()

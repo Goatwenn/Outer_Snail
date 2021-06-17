@@ -83,10 +83,17 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- UI :  ---------------------------------------------------------- 
-        
-        this.bg = this.physics.add.image(960,774, 'map_background').setScrollFactor(0,0);
-        this.cdf = this.physics.add.sprite(960,1194, 'map_CDF').setScrollFactor(0,0);
-        this.nt = this.physics.add.sprite(300,1112,'map_number').setScrollFactor(0,0);
+        if (controle_mobiles) {
+            this.bg = this.physics.add.image(960,774, 'map_background').setScrollFactor(0,0);
+            this.cdf = this.physics.add.sprite(960,1194, 'map_CDF').setScrollFactor(0,0);
+            this.nt = this.physics.add.sprite(300,1112,'map_number').setScrollFactor(0,0);  
+        }
+        else {
+            this.bg = this.physics.add.image(960,774, 'map_background').setScrollFactor(0,0);
+            this.cdf = this.physics.add.sprite(960,1194, 'map_CDF').setScrollFactor(0,0);
+            this.nt = this.physics.add.sprite(300,1112,'map_number').setScrollFactor(0,0);
+        }
+       
         
         this.UiGroup = this.add.group();
             this.UiGroup.add(this.bg);
@@ -215,7 +222,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
             }
         }
         else {
-            if (this.bg.y >= 552){
+            if (controle_mobiles == false && this.bg.y >= 552 || controle_mobiles == true && this.bg.y >= 252 ){
                 this.bg.setVelocityY(-this.vitesseDeTravling);
                 this.cdf.setVelocityY(-this.vitesseDeTravling);
                 this.nt.setVelocityY(-this.vitesseDeTravling);

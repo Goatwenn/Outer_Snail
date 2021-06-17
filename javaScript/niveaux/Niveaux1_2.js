@@ -80,7 +80,9 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        this.player = new Perso(this, 486, 1730, 'snail').setDepth(1);
+        //this.player = new Perso(this, 486, 1730, 'snail').setDepth(1);
+        
+        this.player = new Perso(this, 2500, 100, 'snail').setDepth(1);
     
       // Cameras
         this.cameras.main.setSize(cameX, cameY);
@@ -99,7 +101,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         // this.ennemi_x = new Runner(this, x, y, 'runner', grav).setDepth(1);
         
         this.ennemi_1= new Runner(this, 6029, 671, 'runner',1).setDepth(1);
-        this.ennemi_2 = new Flyer(this, 1642, 900, 'flyer').setDepth(1);
+        this.ennemi_2 = new Flyer(this, 2390, 500, 'flyer', 700 ).setDepth(1);
 
         
         this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);
@@ -137,16 +139,30 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
    
     //--- Ui :  ----------------------------------------------------------
         
-      // Barre de vie
-        this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
-      
-      // Inventaire
-        this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
-      
-      // Cmpteur De Fruit
-        this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
-    
-        
+        if (controle_mobiles){
+              
+          // Barre de vie
+            this.barreDeVie = this.physics.add.sprite(200, 100, 'vie').setScrollFactor(0,0);
+
+          // Inventaire
+            this.inventaire = this.physics.add.sprite(1820,100, 'inventaire').setScrollFactor(0,0);   
+
+          // Cmpteur De Fruit
+            this.compteurDeFruit = this.physics.add.sprite(1650,100, 'CDF').setScrollFactor(0,0);
+
+        }
+        else{
+              
+          // Barre de vie
+            this.barreDeVie = this.physics.add.sprite(200, 1000, 'vie').setScrollFactor(0,0);
+
+          // Inventaire
+            this.inventaire = this.physics.add.sprite(1820,1000, 'inventaire').setScrollFactor(0,0);   
+
+          // Cmpteur De Fruit
+            this.compteurDeFruit = this.physics.add.sprite(1650,1000, 'CDF').setScrollFactor(0,0);
+
+        }
     
     //--- Collider & Overlap :  ----------------------------------------------------------
         
