@@ -11,7 +11,7 @@ class Runner extends Phaser.GameObjects.Sprite{
          this.gravite = grav;
          this.particule = new Particules();
          
-         
+         this.body.immovable = true;
          this.body.setSize(54,54);
          
          

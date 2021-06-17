@@ -25,7 +25,7 @@ class Flyer extends Phaser.GameObjects.Sprite{
          this.shoot_Timer = 100;
          this.rayonAction = 900
          this.rayonhauteur = 10;
-         this.vitesseDeDeplacement = 400
+         this.vitesseDeDeplacement = 800
          
          this.range = range;
          
@@ -62,25 +62,30 @@ class Flyer extends Phaser.GameObjects.Sprite{
         
         if (this.body.x <= this.zonex - this.range || 
             this.body.x >= this.zonex + this.range || 
-            this.body.y >= this.zoney + this.range || 
-            this.body.y <= this.zoney - this.range){
+            this.body.y >= this.zoney + (this.range / 2)|| 
+            this.body.y <= this.zoney - (this.range / 2)){
             
             this.randowmNBX = 6
             this.randowmNBY = 6
             this.stop = true
+            
              
              
             if (this.body.x <= this.zonex - this.range){
                 this.body.setVelocityX(this.vitesseDeDeplacement);
+                console.log("droit ")
             }
             else if (this.body.x >= this.zonex + this.range){
                 this.body.setVelocityX(-this.vitesseDeDeplacement);
+                console.log("gauche ")
             }
-            else if (this.body.y >= this.zoney + this.range){
+            else if (this.body.y >= this.zoney + (this.range / 2)){
                 this.body.setVelocityY( - this.vitesseDeDeplacement);
+                console.log("haut ")
             }
-            else if (this.body.y <= this.zoney - this.range){
-                this.body.setVelocityY(this.vitesseDeDeplacement);
+            else if (this.body.y <= this.zoney - (this.range / 2)){
+                this.body.setVelocityY( this.vitesseDeDeplacement);
+                console.log("bas ")
             }
              
              

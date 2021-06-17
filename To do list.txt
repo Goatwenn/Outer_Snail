@@ -23,6 +23,7 @@ Inportant : ///////////////////////////////////////
 - Code pricipale:
 	- Assets : 
 		- Rework l'escargot
+		- plus de plan de paralax
 
 	- Code : 
 		- Vaiseaux de fin a FAIR 

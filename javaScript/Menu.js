@@ -35,6 +35,9 @@ class Menu extends Phaser.Scene {
                 this.toucheA.anims.play("button_A_1");
                 this.s = true
             
+                cameX = 1920
+                cameY = 880
+            
                 controle_mobiles = true
             })
         

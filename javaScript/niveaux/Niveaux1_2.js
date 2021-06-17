@@ -80,14 +80,20 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         
     //--- Player : ----------------------------------------------------------
         
-        //this.player = new Perso(this, 486, 1730, 'snail').setDepth(1);
+        this.player = new Perso(this, 486, 1730, 'snail').setDepth(1);
         
-        this.player = new Perso(this, 2500, 100, 'snail').setDepth(1);
-    
+        
       // Cameras
         this.cameras.main.setSize(cameX, cameY);
         this.cameras.main.setBounds(0,0,7560,2160);
-        this.cameras.main.startFollow(this.player,true,0.08,0.08);
+        
+        if(controle_mobiles){
+            this.cameras.main.startFollow(this.player,true,0.08,0.08, 0, -100);
+        }
+        else {
+             this.cameras.main.startFollow(this.player,true,0.08,0.08);
+        }
+     
     
    
       // Controle Mobile
@@ -101,7 +107,7 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         // this.ennemi_x = new Runner(this, x, y, 'runner', grav).setDepth(1);
         
         this.ennemi_1= new Runner(this, 6029, 671, 'runner',1).setDepth(1);
-        this.ennemi_2 = new Flyer(this, 2390, 500, 'flyer', 700 ).setDepth(1);
+        this.ennemi_2 = new Flyer(this, 2390, 600, 'flyer', 900 ).setDepth(1);
 
         
         this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);

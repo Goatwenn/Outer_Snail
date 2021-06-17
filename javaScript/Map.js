@@ -75,7 +75,12 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
       // Cameras
         this.cameras.main.setSize(cameX, cameY);
         this.cameras.main.setBounds(0,0,7560,2160);
-        this.cameras.main.startFollow(this.player,true,0.08,0.08);
+        if(controle_mobiles){
+            this.cameras.main.startFollow(this.player,true,0.08,0.08, 0, -100);
+        }
+        else {
+             this.cameras.main.startFollow(this.player,true,0.08,0.08);
+        }
         
       // Controle Mobile
         this.mobil = new Controle_mobil();

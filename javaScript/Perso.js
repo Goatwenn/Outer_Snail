@@ -51,8 +51,8 @@ class Perso extends Phaser.GameObjects.Sprite{
          this.puissanceDeGravite = 400;
          
          this.dashTimer = 0;
-         this.dureDeDash = 30;
-         this.vitesseDeDash = 800;
+         this.dureDeDash = 40;
+         this.vitesseDeDash = 700;
           
          
          
