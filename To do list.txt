@@ -1,28 +1,7 @@
 Inportant : ///////////////////////////////////////
 
-- Menu:
-	- changement d'affichage pour mobils
-	- toucher la totalitée du screen pour mobile
-	- delet  la touche A
-	- auto detecte du device (option) 
-
-- Map:
-	- Assets : 
-		- Arbre
-		- Riviére
-		- hauteur
- 		- pont
-		- buisson
-
-	- Code :
-		- collide world bordeur
-		- Ath volet a monte
-		- modifier le bouton space
-		- activation de la map test si debug on
-
 - Code pricipale:
 	- Assets : 
-		- Rework l'escargot
 		- plus de plan de paralax
 
 	- Code : 
@@ -31,10 +10,6 @@ Inportant : ///////////////////////////////////////
 
 
 - LVL designe : 
-	- assets:
-		-asteroids
-		- angle platforme flotante
-		- reacteur PF x 4
 
 	- code: 
 		- Possition des ennemis
@@ -43,8 +18,6 @@ Inportant : ///////////////////////////////////////
 		- Possition du vaiseaux
 
 	- Tile map:
-		- Niveau 1 a rework
-		- Fin niveau 2 
 		- Faire niveau 3
 		- Faire niveau 4
  		- Faire niveau 5

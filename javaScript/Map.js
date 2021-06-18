@@ -50,7 +50,9 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
         this.decoLayer = this.map.createLayer('decoLayer', this.tiles, 0, 0);
-   
+        this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer',this.tiles, 0, 0); 
+        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
+
       // Collider
         this.collideLayer.setCollisionByExclusion(-1, true);
         
@@ -70,7 +72,7 @@ class Map extends Phaser.Scene {  // Copier Coller a modifier
         
         
     //--- Player : ----------------------------------------------------------
-        this.player = this.physics.add.sprite(700,1500, 'snail');
+        this.player = this.physics.add.sprite(664,1116, 'snail');
         this.player.setCollideWorldBounds(true);
       // Cameras
         this.cameras.main.setSize(cameX, cameY);
