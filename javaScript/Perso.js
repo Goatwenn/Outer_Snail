@@ -13,7 +13,8 @@ class Perso extends Phaser.GameObjects.Sprite{
          
          this.body.setSize(54,54);
          this.particule = new Particules();
-    
+
+         this.scene = scene;
          
          this.bouclier = this.scene.add.sprite(this.body.x  ,this.body.y,'bouclier').setDepth(2);
          
@@ -383,11 +384,9 @@ class Perso extends Phaser.GameObjects.Sprite{
     Pouvoir (){
         if (this.inventaire == 1){
             this.dashOn = true
-            console.log('Joueur Utilisation Dash')
         }
         else if (this.inventaire == 2){
             this.bouclierOn = true
-            console.log('Joueur Utilisation Dash')
         }
     }
     
@@ -412,7 +411,15 @@ class Perso extends Phaser.GameObjects.Sprite{
         }
         
         else if (this.dashOn) {
-            ennemi.Dead();
+            
+            if (ennemi == this.scene.boss.point_droit || ennemi == this.scene.boss.point_gauche){
+                console.log("point")
+            }
+            else{
+                ennemi.Dead();
+            }
+            
+           
             
         }
         

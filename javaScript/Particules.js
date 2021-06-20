@@ -49,8 +49,6 @@ class Particules {
     
    
     Flammes(scene, texture, target, foX, foY ){
-        
-        console.log ("FX Dash")
             
         this.nb =  Phaser.Math.Between(1,2)
 
@@ -74,7 +72,7 @@ class Particules {
             speedY: {min: -60, max: 60},
             speedX: {min: -60, max: 60},
 
-            maxParticles: 15,
+            maxParticles: 13,
 
             delay: 0,
 

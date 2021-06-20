@@ -28,14 +28,26 @@ Inportant : ///////////////////////////////////////
 	Fonction restart
 	Le but est de lui mettre 3 Dash dans la tete pour changer de phase
 
-	Phase 1 
-		Tape sur le sol avec ces pate et sa tete .
+	Phase 1 _ 2 point + tete
+		Tape sur le sol avec ces point de pierre .
+
+		sa tete . 2 point . annimation de start + un constente animation 
+
+		anime coup de point
 		
-	Phase 2
-		IL baleye le terrain avec c'est pate 
 		
-	Phase 3
+	Phase 2 _ 1 point + tete
+		IL baleye le terrain avecsont point et spawn des ennemit (1 a 3) 
+		
+		animation (les meme que au dessu delet) + baleyage
+
+		
+	Phase 3 _ tete
 		Il tourne sa tete pour tirer des Rayon vert le bas 
+
+		animation (les meme que au dessu delet) + tourne sa tete
+
+		+ une annimation de mort
 
 
 - Google Slide /!\ :

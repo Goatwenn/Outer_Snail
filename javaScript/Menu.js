@@ -245,7 +245,7 @@ class Menu extends Phaser.Scene {
         
         
         if (this.cursors.space.isDown || this.s ){
-            this.scene.start("Map");
+            this.scene.start("Niveaux1_boss");
         }
         
     }

@@ -94,13 +94,13 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         // this.ennemi_x = new Thrower(this, x, y, 'thrower').setDepth(1);
         // this.ennemi_x = new Runner(this, x, y, 'runner').setDepth(1);
         
-        this.ennemi_1= new Runner(this, 3000, 1800, 'runner').setDepth(1);
+        this.boss = new Boss(this, 2800, 1700, 'boss').setDepth(1);
 
         
         this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);
         
           //this.ennemiGroup.add(this.ennemi_X);
-            this.ennemiGroup.add(this.ennemi_1);
+            this.ennemiGroup.add(this.boss);
           
         
         
@@ -113,16 +113,16 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         
       // Dash   --  this.dash.create(x,y, 'dash').angle = x ; 
         this.dash.create(1972,1700, 'dash').angle = -7; 
-        this.dash.create(5420,1377, 'dash').angle = 164; 
+        //this.dash.create(5420,1377, 'dash').angle = 164; 
         
         
       // Shield   --   this.shield.create(x,y, 'shield').angle = x ; 
         
     
       // Fruit ---          X - Y            .setFlipY(true/false)
-        this.fruit.create(3000,1860, 'fruit');
-        this.fruit.create(4455,510, 'fruit');  
-        this.fruit.create(6340,1917, 'fruit').setFlipY(true);
+        //this.fruit.create(3000,1860, 'fruit');
+        //this.fruit.create(4455,510, 'fruit');  
+        //this.fruit.create(6340,1917, 'fruit').setFlipY(true);
     
       // Sortie
         this.spaceShip = this.physics.add.sprite(7100,1540, 'spaceship');
@@ -215,7 +215,7 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         if (debug){
             this.pXT.setText('X = ' + this.player.x);
             this.pYT.setText('Y = ' + this.player.y);
-            this.pTT.setText('Y = ' + this.Fruit);
+            this.pTT.setText('Y = ' + this.boss.actiontimer);
         }
         
         
