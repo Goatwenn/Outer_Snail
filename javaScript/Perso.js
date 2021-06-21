@@ -436,6 +436,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         console.log('Joueur Mort')
         
         this.hp = 3
+       
         this.body.x = 486 
         this.body.y = 1730
         

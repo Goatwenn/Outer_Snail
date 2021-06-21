@@ -45,8 +45,8 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
     //--- Paralaxe : ----------------------------------------------------------
         
         if (!debug){
-            this.add.image(4000, 1080, 'plan4').setScrollFactor(0.20,1);
-            this.add.image(4000, 1080, 'plan3').setScrollFactor(0.30,1);
+            this.add.image(4000, 1080, 'BG_DM').setScrollFactor(0.20,1);
+            this.add.image(4000, 1080, 'PX_M').setScrollFactor(0.30,1);
         }
         
 
@@ -55,9 +55,11 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         
         this.map = this.add.tilemap('Niveaux1_boss');
         this.tiles = this.map.addTilesetImage('OuterSnail_TileSet');
-         
-      // Layer 
-        this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0).setDepth(-2);
+       // Layer 
+        if (debug){
+            this.backgroundLayer = this.map.createLayer('backgroundLayer', this.tiles, 0, 0);
+        }
+        
         this.antiGraviteLayer = this.map.createLayer('antiGraviteLayer', this.tiles, 0, 0);
         this.graviteLayer = this.map.createLayer('graviteLayer', this.tiles, 0, 0);
         this.collideLayer = this.map.createLayer('collideLayer', this.tiles, 0, 0);
@@ -94,13 +96,13 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         // this.ennemi_x = new Thrower(this, x, y, 'thrower').setDepth(1);
         // this.ennemi_x = new Runner(this, x, y, 'runner').setDepth(1);
         
-        this.boss = new Boss(this, 2800, 1700, 'boss').setDepth(1);
+        this.ennemi_1 = new Boss(this, 2800, 1700, 'boss_tete').setDepth(1);
 
         
         this.ennemiGroup = this.add.group();  //this.ennemiGroup.add(this.ennemi_X);
         
           //this.ennemiGroup.add(this.ennemi_X);
-            this.ennemiGroup.add(this.boss);
+            this.ennemiGroup.add(this.ennemi_1);
           
         
         
@@ -112,12 +114,14 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         this.fruit = this.physics.add.staticGroup();
         
       // Dash   --  this.dash.create(x,y, 'dash').angle = x ; 
-        this.dash.create(1972,1700, 'dash').angle = -7; 
-        //this.dash.create(5420,1377, 'dash').angle = 164; 
-        
+        this.dash.create(3210,1860, 'dash').angle = -7;
+        this.dash.create(3756,1860, 'dash').angle = 7;
+        this.dash.create(4455,1860, 'dash').angle = 0;
+        this.dash.create(5210,1860, 'dash').angle = -8;
+        this.dash.create(5756,1860, 'dash').angle = 7;
         
       // Shield   --   this.shield.create(x,y, 'shield').angle = x ; 
-        
+         //this.shield.create(4455,1860, 'shield').angle = 3
     
       // Fruit ---          X - Y            .setFlipY(true/false)
         //this.fruit.create(3000,1860, 'fruit');
@@ -215,7 +219,6 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         if (debug){
             this.pXT.setText('X = ' + this.player.x);
             this.pYT.setText('Y = ' + this.player.y);
-            this.pTT.setText('Y = ' + this.boss.actiontimer);
         }
         
         
@@ -249,6 +252,11 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
         
         
         
+        
+        
+        
+        
+        
     }// fin de Update
 
     
@@ -257,6 +265,7 @@ class Niveaux1_boss extends Phaser.Scene {  // Copier Coller a modifier
     }
     
     
+ 
     
     Loot_Dash(){
         this.player.Loot('dash');

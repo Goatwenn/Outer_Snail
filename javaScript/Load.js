@@ -54,7 +54,9 @@ class Load extends Phaser.Scene {
         this.load.spritesheet("lazer_charge", 'assets/ennemis/lazer_charge.png',{frameWidth:5000, frameHeight:24});
         
         this.load.spritesheet("lazer_shoot", 'assets/ennemis/lazer_shoot.png',{frameWidth:5000, frameHeight:24});
-        this.load.image('boss', 'assets/ennemis/boss.png');
+        
+        this.load.image('boss_tete', 'assets/ennemis/boss_tete.png');
+        this.load.image('boss_point', 'assets/ennemis/boss_point.png');
         
     // Particules ---------------------------------
         
