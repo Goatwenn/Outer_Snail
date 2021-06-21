@@ -412,7 +412,7 @@ class Perso extends Phaser.GameObjects.Sprite{
         
         else if (this.dashOn) {
             
-            if (ennemi == this.scene.boss.point_droit || ennemi == this.scene.boss.point_gauche){
+            if (ennemi == this.scene.ennemi_1.point_droit || ennemi == this.scene.ennemi_1.point_gauche){
                 console.log("point")
             }
             else{
