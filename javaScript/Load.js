@@ -13,7 +13,6 @@ class Load extends Phaser.Scene {
     // BackGround ---------------------------------
         
         this.load.image('PX_M', 'assets/plan/Px_Montgne.png');
-        this.load.image('PX_A', 'assets/plan/Px_Asteroid.png');
         
         this.load.image('BG_DM', 'assets/plan/Bg_DoubleMonde.png');
         this.load.image('BG_S', 'assets/plan/Bg_Space.png');

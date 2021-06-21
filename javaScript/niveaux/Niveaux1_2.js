@@ -46,7 +46,6 @@ class Niveaux1_2 extends Phaser.Scene {  // Copier Coller a modifier
         
         if (!debug){
             this.add.image(4000, 1080, 'BG_S').setScrollFactor(0.75,1);
-            this.add.image(4000, 1080, 'PX_A').setScrollFactor(0.30,1);
         }
         
 
