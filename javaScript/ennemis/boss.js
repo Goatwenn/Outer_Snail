@@ -169,7 +169,7 @@ class Boss extends Phaser.GameObjects.Sprite{
     
         
         if(this.boss_pv == 0){
-            this.scene.cameras.main.startFollow(this.scene.player,true,0.08,0.08);
+            this.scene.cameras.main.startFollow(this.player,true,0.08,0.08);
             this.point_gauche.destroy(true, true);
             this.body.destroy(true, true);
             
